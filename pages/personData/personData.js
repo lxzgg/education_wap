@@ -6,8 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    role:'parent',
-    relationship:0,
+    role: 'parent',
+    relationshipIndex: 0,
+    hobbyIndex: 0,
+    workIndex: 0,
     date: '请选择出生日期',
     radioCheckVal: 'woman',
     sex_list: [{
@@ -20,68 +22,89 @@ Page({
         value: '男'
       },
     ],
-    Relationship:[
-        {
-          num: 0,
-          label:'爸爸'
-        },
-        {
-          num: 1,
-          label:'妈妈'
-        },
-        {
-          num: 2,
+    Relationship: [{
+        num: 0,
+        label: '爸爸'
+      },
+      {
+        num: 1,
+        label: '妈妈'
+      },
+      {
+        num: 2,
 
-          label:'爷爷'
-        },
-        {
-          num: 3,
-          label:'奶奶'
-        },
-        {
-          num: 4,
-          label:'外公'
-        },
-        {
-          num: 5,
-          label:'外婆'
-        },
-        {
-          num: 6,
-          label:'其他'
-        }
+        label: '爷爷'
+      },
+      {
+        num: 3,
+        label: '奶奶'
+      },
+      {
+        num: 4,
+        label: '外公'
+      },
+      {
+        num: 5,
+        label: '外婆'
+      },
+      {
+        num: 6,
+        label: '其他'
+      }
     ],
-    hobby:[
-        {
-          num: 0,
-          label:'游泳'
-        },
-        {
-          num: 1,
-          label:'妈妈'
-        },
-        {
-          num: 2,
+    hobby: [{
+        num: 0,
+        label: '游泳'
+      },
+      {
+        num: 1,
+        label: '跳舞'
+      },
+      {
+        num: 2,
 
-          label:'爷爷'
-        },
-        {
-          num: 3,
-          label:'奶奶'
-        },
-        {
-          num: 4,
-          label:'外公'
-        },
-        {
-          num: 5,
-          label:'外婆'
-        },
-        {
-          num: 6,
-          label:'其他'
-        }
-
+        label: '厨艺'
+      },
+      {
+        num: 3,
+        label: '钓鱼'
+      },
+      {
+        num: 4,
+        label: '跑步'
+      },
+      {
+        num: 5,
+        label: '电影'
+      },
+      {
+        num: 6,
+        label: '其他'
+      }
+    ],
+    workItem: [{
+        num: 0,
+        label: '英语'
+      },
+      {
+        num: 1,
+        label: '语文'
+      },
+      {
+        num: 2,
+        label: '数学'
+      },
+      {
+        num: 3,
+        label: '化学'
+      },
+      {
+        num: 4,
+        label: '物理'
+      }, {
+        num: 5,
+        label: '其他'
+      }
     ]
   },
   bindDateChange: function (e) {
@@ -90,9 +113,23 @@ Page({
       date: e.detail.value
     })
   },
-  switchShip(e){
+  switchShip(e) {
     let num = e.currentTarget.dataset.num
-    this.setData({relationship: num})
+    this.setData({
+      relationship: num
+    })
+  },
+  switchHobby(e) {
+    let num = e.currentTarget.dataset.num
+    this.setData({
+      hobbyIndex: num
+    })
+  },
+  switchWork(e) {
+    let num = e.currentTarget.dataset.num
+    this.setData({
+      workIndex: num
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -107,18 +144,37 @@ Page({
     utils.wxpromisify({
       url: url,
       data: params,
-      method:'post'
-    }).then((res)=>{
-        if(res && res.response === 'data'){
-            console.log(res)
-        }
-    }).catch((err)=>{
-        console.log(err)
+      method: 'post'
+    }).then((res) => {
+      if (res && res.response === 'data') {
+        console.log(res)
+      }
+    }).catch((err) => {
+      console.log(err)
     })
 
   },
-  getPhoneNumber(){
+  getPhoneNumber() {
 
+  },
+  formSubmit(e) {
+      console.log(e)
+      return 
+    let descript = e.detail.value.descript.trim()
+    let params = {
+      user_id: wx.getStorageSync('userInfo').user_id,
+      token: wx.getStorageSync('userInfo').token,
+      class_id: wx.getStorageSync('class_id')
+    }
+   
+    if (!descript) {
+      wx.showToast({
+        title: '请输入文字描述',
+        icon: 'none',
+        duration: 5000
+      })
+      return
+    }
   },
 
   /**

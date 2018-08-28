@@ -41,17 +41,11 @@
       <view class="item-name-name sp">亲属关系</view>
     </view>
     <view class="list">
-      <view class="list-item {{item.num == relationship ? 'ship_active' : ''}}" 
+      <view class="list-item {{item.num == relationshipIndex ? 'ship_active' : ''}}" 
         wx:for="{{Relationship}}" 
         wx:item="item" 
         wx:key="{{item.num}}" 
         data-num="{{item.num}}" bindtap="switchShip">{{item.label}}</view>
-      <!--<view class="list-item">妈妈</view>
-      <view class="list-item">爷爷</view>
-      <view class="list-item">奶奶</view>
-      <view class="list-item">外公</view>
-      <view class="list-item">外婆</view>
-      <view class="list-item sp">其他</view>-->
     </view>
   </view>
   <view class="item">
@@ -59,13 +53,11 @@
       <view class="item-name-name sp">兴趣爱好</view>
     </view>
     <view class="list">
-      <view class="list-item">游泳</view>
-      <view class="list-item">跳舞</view>
-      <view class="list-item">厨艺</view>
-      <view class="list-item">钓鱼</view>
-      <view class="list-item">跑步</view>
-      <view class="list-item">钓鱼</view>
-      <view class="list-item sp">其他</view>
+      <view class="list-item {{item.num == hobbyIndex ? 'ship_active' : ''}}" 
+        wx:for="{{hobby}}" 
+        wx:item="item" 
+        wx:key="{{item.num}}" 
+        data-num="{{item.num}}" bindtap="switchHobby">{{item.label}}</view>
     </view>
   </view>
   <!--<view class="item">
@@ -73,12 +65,11 @@
       <view class="item-name-name sp">所任课程</view>
     </view>
     <view class="list">
-      <view class="list-item">英语</view>
-      <view class="list-item">语文</view>
-      <view class="list-item">数学</view>
-      <view class="list-item">化学</view>
-      <view class="list-item">物理</view>
-      <view class="list-item sp">其他</view>
+      <view class="list-item {{item.num == workIndex ? 'ship_active' : ''}}" 
+        wx:for="{{workItem}}" 
+        wx:item="item" 
+        wx:key="{{item.num}}" 
+        data-num="{{item.num}}" bindtap="switchWork">{{item.label}}</view>
     </view>
   </view>-->
   <button class="subBtn" formType="submit">保 存</button>
