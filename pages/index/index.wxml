@@ -1,0 +1,108 @@
+<view class="banner">
+  <swiper indicator-dots="{{indicatorDots}}" circular="true"
+          autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{imgUrls}}" wx:key="banner">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" width="355" height="150"/>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="content">
+  <view class="nav-list">
+    <navigator class="item" open-type="navigate" url="/pages/inform/inform">
+      <image src="/image/a1.png"></image>
+      <text>通知</text>
+    </navigator>
+    <navigator class="item" open-type='navigate' url="/pages/homework/homework">
+      <image src="/image/a2.png"></image>
+      <text>作业</text>
+    </navigator>
+    <navigator class="item" open-type='navigate' url="/pages/inform/inform">
+      <image src="/image/a3.png"></image>
+      <text>相册</text>
+    </navigator>
+    <navigator class="item" open-type='navigate' url="/pages/inform/inform">
+      <image src="/image/a4.png"></image>
+      <text>光荣榜</text>
+    </navigator>
+    <navigator class="item" open-type='navigate' url="/pages/inform/inform">
+      <image src="/image/a5.png"></image>
+      <text>请假</text>
+    </navigator>
+    <navigator class="item" open-type='navigate' url="/pages/inform/inform">
+      <image src="/image/a6.png"></image>
+      <text>分类管理</text>
+    </navigator>
+  </view>
+  <view class="list" wx:if="{{isEmpty == false}}">
+    <view class="item">
+      <view class="top">
+        <view class="header-img">
+          <image src="/image/user.png"></image>
+        </view>
+        <view class="top-content">
+          <text class="content-top">天下为公、担当道义，是广大知识分子应有的情怀。家国情怀,烈的社会责任感。……</text>
+          <view class="content-bottom">
+            <view class="bottom1">相册</view>
+            <view class="bottom2">2018-08-01 14:25:41</view>
+          </view>
+        </view>
+      </view>
+      <view class="bottom">
+        <view class="bottom-item">
+          <text class="icon icon-dianzan"></text>
+          <text class="number">999</text>
+        </view>
+        <navigator class="bottom-item" open-type='navigate' url="/pages/comment/comment">
+          <view class="icon icon-iconfontpinglun"></view>
+          <view class="number">999</view>
+        </navigator>
+        <view class="bottom-item">
+          <view class="icon icon-tubiao_liulan"></view>
+          <view class="number">999</view>
+        </view>
+        <view class="bottom-item">
+          <view class="icon icon-fenxiang"></view>
+          <view class="number">999</view>
+        </view>
+      </view>
+    </view>
+    <view class="item">
+      <view class="top">
+        <view class="header-img">
+          <image src="/image/user.png"></image>
+        </view>
+        <view class="top-content">
+          <text class="content-top">天下为公、担当道义，是广大知识分子应有的情怀。家国情怀,烈的社会责任感。……</text>
+          <view class="content-bottom">
+            <view class="bottom1">相册</view>
+            <view class="bottom2">2018-08-01 14:25:41</view>
+          </view>
+        </view>
+      </view>
+      <view class="bottom">
+        <view class="bottom-item">
+          <text class="icon icon-dianzan"></text>
+          <text class="number">999</text>
+        </view>
+        <view class="bottom-item">
+          <view class="icon icon-iconfontpinglun"></view>
+          <view class="number">999</view>
+        </view>
+        <view class="bottom-item">
+          <view class="icon icon-tubiao_liulan"></view>
+          <view class="number">999</view>
+        </view>
+        <view class="bottom-item">
+          <view class="icon icon-fenxiang"></view>
+          <view class="number">999</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="empty" wx:if="{{isEmpty == true}}">
+  还没有内容
+</view>
+<!--<button wx:if="{{isLogin}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>-->

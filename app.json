@@ -1,0 +1,61 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/account/account",
+    "pages/forget_pass/forget_pass",
+    "pages/register/register",
+    "pages/comment/comment",
+    "pages/inform/inform",
+    "pages/homework/homework",
+    "pages/publish/publish",
+    "pages/my/my",
+    "pages/myself/publish_control/publish_control",
+    "pages/myself/class_infomation/class_infomation",
+    "pages/myself/class_contact/class_contact",
+    "pages/myself/switch_class/switch_class",
+    "pages/myself/add_class/add_class",
+    "pages/classify_maintain/classify_maintain",
+    "pages/add_classify/add_classify",
+    "pages/change_classify/change_classify",
+    "pages/personData/personData",
+    "pages/help_center/help_center",
+    "pages/banner_control/banner_control",
+    "pages/publish_index/publish_index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#7897f4",
+    "list": [
+      {
+        "selectedIconPath": "image/footer1.png",
+        "iconPath": "image/footer11.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "image/footer2.png",
+        "iconPath": "image/footer22.png",
+        "pagePath": "pages/publish/publish",
+        "text": "发布"
+      },
+      {
+        "selectedIconPath": "image/firend_circle.png",
+        "iconPath": "image/firend_circle1.png",
+        "pagePath": "pages/publish_index/publish_index",
+        "text": "朋友圈"
+      },
+      {
+        "selectedIconPath": "image/footer3.png",
+        "iconPath": "image/footer33.png",
+        "pagePath": "pages/my/my",
+        "text": "我的"
+      }
+    ]
+  }
+}

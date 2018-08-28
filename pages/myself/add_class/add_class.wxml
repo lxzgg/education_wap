@@ -1,0 +1,28 @@
+<view class="item">
+  <view class="name">班级名称</view>
+  <view class="name-content">1506</view>
+</view>
+<view class="item">
+  <view class="name">管理员身份</view>
+  <radio-group class="radio-group" bindchange="radioChange">
+    <label wx:for="{{position_list}}" wx:key="position_list" class="{{radioCheckVal==item.name?'active':''}}">
+      <radio value="{{item.name}}" checked="{{item.checked}}"></radio>
+      <text>{{item.value}}</text>
+    </label>
+  </radio-group>
+</view>
+<view class="item sp">
+  <view class="name">手机号码</view>
+  <input type="number"/>
+  <button>使用微信手机号</button>
+</view>
+<view class="item">
+  <view class="name">省 市 区</view>
+  <view class="section">
+    <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+      <view class="picker">
+        {{region[0]}}，{{region[1]}}，{{region[2]}}
+      </view>
+    </picker>
+  </view>
+</view>

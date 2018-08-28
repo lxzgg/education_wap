@@ -1,0 +1,143 @@
+{
+	"description": "项目配置文件。",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.2.2",
+	"appid": "wxde4f75e109bf61d4",
+	"projectname": "education_wap",
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 16,
+			"list": [
+				{
+					"id": -1,
+					"name": "评论",
+					"pathName": "pages/comment/comment",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "通知",
+					"pathName": "pages/inform/inform",
+					"query": ""
+				},
+				{
+					"id": 2,
+					"name": "发布",
+					"pathName": "pages/publish/publish",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "wd",
+					"pathName": "pages/my/my",
+					"query": ""
+				},
+				{
+					"id": 4,
+					"name": "发布管理",
+					"pathName": "pages/myself/publish_control/publish_control",
+					"query": ""
+				},
+				{
+					"id": 5,
+					"name": "班级信息",
+					"pathName": "pages/myself/class_infomation/class_infomation",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "班级信息",
+					"pathName": "pages/myself/class_contact/class_contact",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "班级信息",
+					"pathName": "pages/myself/switch_class/switch_class",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "班级信息",
+					"pathName": "pages/myself/add_class/add_class",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "班级信息",
+					"pathName": "pages/classify_maintain/classify_maintain",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "新增分类",
+					"pathName": "pages/add_classify/add_classify",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "编辑分类",
+					"pathName": "pages/change_classify/change_classify",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/personData/personData",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "班级信息123",
+					"pathName": "pages/personData/personData",
+					"query": ""
+				},
+				{
+					"id": 14,
+					"name": "帮助中心",
+					"pathName": "pages/help_center/help_center",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "首页图片",
+					"pathName": "pages/banner_control/banner_control",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "班级信息",
+					"pathName": "pages/publish_index/publish_index",
+					"query": ""
+				}
+			]
+		}
+	}
+}

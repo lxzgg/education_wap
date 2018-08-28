@@ -1,0 +1,144 @@
+/**app.wxss**/
+
+.item {
+  background-color: #f9f9f9;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 15rpx 38rpx;
+  margin-top: 20rpx;
+}
+
+.item .item-name {
+  display: flex;
+  min-width: 110rpx;
+}
+
+.item .item-name .item-name-name {
+  min-width: 120rpx;
+  line-height: 75rpx;
+  margin-right: 20rpx;
+}
+
+.item .item-name .item-name-name.sp {
+  margin-right: 0;
+}
+
+.item .item-name .item-name-content {
+  line-height: 75rpx;
+}
+
+.item .item-button {
+  background-color: #ffaa00;
+  color: #ffffff;
+  width: 185rpx;
+  height: 54rpx;
+  line-height: 54rpx;
+  font-size: 26rpx;
+  text-align: center;
+  border-radius: 15rpx;
+  padding: 5rpx 15rpx;
+}
+
+.item .list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 10rpx;
+}
+
+.item .list .list-item {
+  border: 1rpx solid #74b8fd;
+  font-size: 24rpx;
+  padding: 10rpx 20rpx;
+  border-radius: 10rpx;
+  margin: 10rpx;
+}
+
+.item .list .list-item.sp {
+  border: 1rpx solid #999999;
+  color: #999999;
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+}
+
+.item:first-child {
+  margin-top: 0;
+}
+
+.item.no-item {
+  justify-content: initial;
+}
+
+.item.no-item radio .wx-radio-input.wx-radio-input-checked::before {
+  border-radius: 50%;
+  width: 32rpx;
+  height: 32rpx;
+  text-align: center;
+  font-size: 0;
+  background-color: #5179f0;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}
+
+.item.no-item radio .wx-radio-input.wx-radio-input-checked {
+  border: none !important;
+}
+
+.item.no-item radio {
+  border-radius: 50%;
+  width: 30rpx;
+  height: 30rpx;
+  border: 2rpx solid #666;
+  font-size: 0;
+  margin-top: 20rpx;
+}
+
+.item.no-item radio .wx-radio-input {
+  border-radius: 50%;
+  width: 30rpx;
+  height: 30rpx;
+  border: none;
+}
+
+.item.no-item radio-group {
+  line-height: 10rpx;
+  display: flex;
+}
+
+.item.no-item radio-group label {
+  line-height: 10rpx;
+  display: flex;
+  width: 90rpx;
+}
+
+.item.no-item radio-group label text {
+  line-height: 70rpx;
+  font-size: 24rpx;
+  margin-left: 10rpx;
+  color: #999999;
+}
+
+.item.no-item radio-group label.active text {
+  color: #333333;
+}
+
+.item.date .item-name {
+  display: flex;
+  flex: 1;
+}
+
+.item.date .item-name picker {
+  flex: 1;
+}
+
+.item.date .item-name .picker {
+  flex: 1;
+  line-height: 73rpx;
+  height: 73rpx;
+  color: #999999;
+}
+
+.item.date .icon-you {
+  color: #999999;
+  line-height: 73rpx;
+}

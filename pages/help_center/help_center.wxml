@@ -1,0 +1,27 @@
+<view class="list">
+  <view class="item">
+    <view class="title">如何创建班级？</view>
+    <view class="icon icon-you"></view>
+  </view>
+  <view class="item">
+    <view class="title">如何创建班级？</view>
+    <view class="icon icon-you"></view>
+  </view>
+  <view class="item">
+    <view class="title">如何创建班级？</view>
+    <view class="icon icon-you"></view>
+  </view>
+  <view class="item">
+    <view class="title">如何创建班级？</view>
+    <view class="icon icon-you"></view>
+  </view>
+  <view class="item">
+    <view class="title">如何创建班级？</view>
+    <view class="icon icon-you"></view>
+  </view>
+  <view class="item">
+    <view class="title">如何创建班级？</view>
+    <view class="icon icon-you"></view>
+  </view>
+</view>
+

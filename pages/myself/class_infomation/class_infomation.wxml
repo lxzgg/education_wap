@@ -1,0 +1,64 @@
+<view class="list">
+  <view class="item">
+    <view class="name">
+      <view class="name-text">班级二维码</view>
+      <view class="img">
+        <image src="/image/user.png"></image>
+      </view>
+    </view>
+    <view class="icon icon-you"></view>
+  </view>
+  <view class="item">
+    <view class="name">
+      <view class="name-text">班级图片</view>
+      <view class="img">
+        <image src="/image/user.png"></image>
+      </view>
+    </view>
+    <view class="icon icon-you"></view>
+  </view>
+  <view class="item">
+    <view class="name">
+      <view class="name-text">班级名称</view>
+      <view class="name-text">1310</view>
+    </view>
+  </view>
+  <view class="item">
+    <view class="name">
+      <view class="name-text">班级人数</view>
+      <view class="name-input">
+        <input type="number" placeholder="请输入班级人数" placeholder-style="color:#999;"/>
+      </view>
+    </view>
+  </view>
+  <view class="item">
+    <view class="name">
+      <view class="name-text">实到名单</view>
+    </view>
+    <view class="icon icon-you"></view>
+  </view>
+  <view class="item">
+    <view class="name">
+      <view class="name-text">当前管理员</view>
+      <view class="name-text">beautifuido?</view>
+    </view>
+    <view class="sp-right">
+      <view class="text">更换管理员</view>
+      <view class="icon icon-you"></view>
+    </view>
+
+  </view>
+  <view class="item">
+    <view class="name">
+      <view class="name-text">主页图片</view>
+    </view>
+    <view class="icon icon-you"></view>
+  </view>
+  <view class="item">
+    <view class="name">
+      <view class="name-text">分类维护</view>
+    </view>
+    <view class="icon icon-you"></view>
+  </view>
+</view>
+<view class="post">保存设置</view>

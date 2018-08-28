@@ -1,0 +1,56 @@
+/**app.wxss**/
+.add {
+  display: flex;
+  justify-content: space-between;
+  padding: 35rpx 38rpx;
+  border-bottom: 1rpx solid #eeeeee; }
+  .add .name {
+    font-size: 32rpx;
+    line-height: 58rpx; }
+  .add .right .icon {
+    color: #ffaa00;
+    font-size: 32rpx;
+    line-height: 58rpx;
+    margin-right: 18rpx; }
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 40rpx;
+  border-bottom: 1rpx solid #eeeeee; }
+  .item .item-l .name {
+    font-size: 32rpx; }
+  .item .item-l .position {
+    font-size: 24rpx;
+    color: #999999; }
+  .item .item-r {
+    line-height: 70rpx; }
+    .item .item-r radio .wx-radio-input {
+      border-radius: 50%;
+      width: 40rpx;
+      height: 40rpx; }
+      .item .item-r radio .wx-radio-input .wx-radio-input-checked {
+        border: none;
+        background: red; }
+      .item .item-r radio .wx-radio-input .wx-radio-input-checked::before {
+        border-radius: 50%;
+        width: 40rpx;
+        height: 40rpx;
+        line-height: 40rpx;
+        text-align: center;
+        font-size: 30rpx;
+        color: #fff;
+        background: transparent;
+        transform: translate(-50%, -50%) scale(1);
+        -webkit-transform: translate(-50%, -50%) scale(1); }
+
+.post {
+  width: 630rpx;
+  height: 70rpx;
+  line-height: 75rpx;
+  text-align: center;
+  font-size: 28rpx;
+  border-radius: 60rpx;
+  background-color: #577ef1;
+  color: #ffffff;
+  margin: 100rpx auto; }

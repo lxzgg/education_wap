@@ -1,0 +1,129 @@
+@import "../../common/common";
+
+.item {
+  background-color: #f9f9f9;
+  font-size: rpx(28);
+  display: flex;
+  justify-content: space-between;
+  padding: rpx(15) rpx(38);
+  margin-top: rpx(20);
+  .item-name {
+    display: flex;
+    min-width: rpx(110);
+    .item-name-name {
+      min-width: rpx(100);
+      line-height: rpx(75);
+      margin-right: rpx(20);
+    }
+    .item-name-name.sp {
+      margin-right: 0;
+    }
+    .item-name-content {
+      line-height: rpx(75);
+    }
+  }
+  .item-button {
+    background-color: #ffaa00;
+    color: #ffffff;
+    width: rpx(185);
+    height: rpx(54);
+    line-height: rpx(54);
+    font-size: rpx(26);
+    text-align: center;
+    border-radius: rpx(15);
+    padding: rpx(5) rpx(15);
+  }
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: rpx(10);
+    .list-item {
+      border: rpx(1) solid #74b8fd;
+      font-size: rpx(24);
+      padding: rpx(10) rpx(20);
+      border-radius: rpx(10);
+      margin: rpx(10);
+    }
+    .list-item.sp {
+      border: rpx(1) solid #999999;
+      color: #999999;
+      padding-left: rpx(40);
+      padding-right: rpx(40);
+    }
+  }
+}
+
+.item:first-child {
+  margin-top: 0;
+}
+
+.item.no-item {
+  justify-content: initial;
+  radio .wx-radio-input.wx-radio-input-checked::before {
+    border-radius: 50%;
+    width: rpx(32);
+    height: rpx(32);
+    text-align: center;
+    font-size: 0;
+    background-color: #5179f0;
+    transform: translate(-50%, -50%) scale(1);
+    -webkit-transform: translate(-50%, -50%) scale(1);
+  }
+  radio .wx-radio-input.wx-radio-input-checked {
+    border: none !important;
+  }
+  radio {
+    border-radius: 50%;
+    width: rpx(30);
+    height: rpx(30);
+    border: rpx(2) solid #666;
+    font-size: 0;
+    margin-top: rpx(20);
+  }
+  radio .wx-radio-input {
+    border-radius: 50%;
+    width: rpx(30);
+    height: rpx(30);
+    border: none;
+  }
+  radio-group {
+    line-height: rpx(10);
+    display: flex;
+    label {
+      line-height: rpx(10);
+      display: flex;
+      width: rpx(90);
+      text {
+        line-height: rpx(70);
+        font-size: rpx(24);
+        margin-left: rpx(10);
+        color: #999999;
+      }
+    }
+    label.active {
+      text {
+        color: #333333;
+      }
+    }
+  }
+}
+
+.item.date {
+  .item-name {
+    display: flex;
+    flex: 1;
+    picker {
+      flex: 1;
+    }
+    .picker {
+      flex: 1;
+      line-height: rpx(73);
+      height: rpx(73);
+      color: #999999;
+    }
+  }
+  .icon-you {
+    color: #999999;
+    line-height: rpx(73);
+  }
+}

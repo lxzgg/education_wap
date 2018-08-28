@@ -1,0 +1,65 @@
+@import "../../../common/common";
+
+.list {
+  .item {
+    display: flex;
+    padding: rpx(20);
+    border-bottom: rpx(1) solid #eeeeee;
+    .tags {
+      .tag {
+        font-size: rpx(20);
+        width: rpx(57);
+        border: rpx(1) solid #ffaa00;
+        color: #ffaa00;
+        text-align: center;
+        border-radius: rpx(60);
+        padding: rpx(5) rpx(5);
+        margin-top: rpx(5);
+      }
+    }
+    .item-content {
+      margin-left: rpx(10);
+      .content-info {
+        font-size: rpx(30);
+        line-height: rpx(36);
+      }
+      .content-bottom {
+        display: flex;
+        justify-content: space-between;
+        margin-top: rpx(30);
+        .look {
+          font-size: rpx(24);
+          line-height: rpx(58);
+          color: #999999;
+        }
+        .bottom-btn {
+          display: flex;
+          .text {
+            font-size: rpx(24);
+            line-height: rpx(58);
+            color: #ffaa00;
+          }
+          .btn-l {
+            font-size: rpx(24);
+            padding: rpx(10) rpx(20);
+            border-radius: rpx(60);
+            border: rpx(1) solid #ffaa00;
+            color: #ffaa00;
+            margin-left: rpx(40);
+          }
+          .btn-r {
+            font-size: rpx(24);
+            padding: rpx(10) rpx(20);
+            border-radius: rpx(60);
+            border: rpx(1) solid #999999;
+            color: #999999;
+            margin-left: rpx(10);
+          }
+        }
+      }
+    }
+  }
+  .item:last-child {
+    //border: none;
+  }
+}

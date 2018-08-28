@@ -1,0 +1,17 @@
+<!--pages/forget_pass/forget_pass.wxml-->
+<view class="containor">
+  <form bindsubmit="formSubmit" bindreset="formReset" class="form">
+    <view class="section">
+      <input name="verify" type='text' placeholder="请输入验证码" class="tel"/>
+      <button class="pend-btn" type="default" hover-class="other-button-hover" style="color:#7796f4;background: #fff;">
+        验证码
+      </button>
+    </view>
+    <view class="section">
+      <input name="password" type='password' placeholder="重置密码"/>
+    </view>
+    <view class="btn-area">
+      <button formType="submit">确定</button>
+    </view>
+  </form>
+</view>

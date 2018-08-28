@@ -1,0 +1,63 @@
+@import "../../../common/common";
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  padding: rpx(12) rpx(26);
+  border-bottom: rpx(1) solid #eeeeee;
+  .title-name {
+    font-size: rpx(28);
+    color: #999999;
+    line-height: rpx(58);
+  }
+  .title-btn {
+    .button {
+      background-color: #ffaa00;
+      color: #ffffff;
+      font-size: rpx(28);
+      text-align: center;
+      width: rpx(185);
+      height: rpx(54);
+      line-height: rpx(54);
+      border-radius: rpx(10);
+    }
+  }
+}
+
+.box {
+  display: flex;
+  justify-content: space-between;
+  padding: rpx(10) rpx(20);
+  border-bottom: rpx(1) solid #eeeeee;
+  .box-l {
+    display: flex;
+    image {
+      width: rpx(88);
+      height: rpx(88);
+      border-radius: rpx(5);
+    }
+    .name {
+      font-size: rpx(32);
+      line-height: rpx(88);
+      margin-left: rpx(20);
+    }
+    .position {
+      font-size: rpx(24);
+      line-height: rpx(88);
+      color: #ffaa00;
+      margin-left: rpx(10);
+    }
+  }
+  .box-r {
+    display: flex;
+    line-height: rpx(88);
+    .icon {
+      margin-right: rpx(60);
+      font-size: rpx(50);
+      color: #999999;
+    }
+    .icon2 {
+      margin-right: rpx(25);
+    }
+  }
+}

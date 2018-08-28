@@ -1,0 +1,65 @@
+@import "../../common/common";
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  height: rpx(80);
+  line-height: rpx(80);
+  border-bottom: rpx(1) solid #eeeeee;
+  padding-left: rpx(40);
+  padding-right: rpx(40);
+  .title-l {
+    font-size: rpx(28);
+    color: #999999;
+  }
+  .title-r {
+    display: flex;
+    font-size: rpx(28);
+    color: #999999;
+    .icon {
+      font-size: rpx(42);
+      color: #999999;
+    }
+    .icon-paixu {
+      font-size: rpx(40);
+      margin-right: rpx(38);
+    }
+  }
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: rpx(20) 0;
+  padding-left: rpx(43);
+  border-bottom: rpx(1) solid #eeeeee;
+  .item-l {
+    display: flex;
+    flex: 1;
+    .type-img {
+      width: rpx(60);
+      height: rpx(60);
+      image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .name {
+      font-size: rpx(22);
+      line-height: rpx(60);
+      margin-left: rpx(20);
+    }
+  }
+  .item-r {
+    display: flex;
+    .icon {
+      font-size: rpx(47);
+      line-height: rpx(60);
+      color: #666666;
+    }
+    .icon-shang {
+      padding-left: rpx(20);
+      padding-right: rpx(40);
+    }
+  }
+}

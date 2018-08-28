@@ -1,0 +1,28 @@
+<!--pages/account/account.wxml-->
+<view class="containor">
+  <image src="/image/login_bg.png"/>
+  <view class="left-title">
+    <text>登录</text>
+    <image src="/image/scla.png"></image>
+  </view>
+  <view class="right-title" bindtap="goToRegister">
+    <text>注册</text>
+    <image src="/image/grey_scla.png"></image>
+  </view>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="section">
+      <view class="section__title"></view>
+      <input name="phone" type='number' placeholder="请输入你的手机号码"/>
+    </view>
+    <view class="section">
+      <view class="section__title"></view>
+      <input name="password" type='password' placeholder="请输入密码"/>
+      <text class="forget_pass" bindtap="goToForget">
+        忘记密码?
+      </text>
+    </view>
+    <view class="btn-area">
+      <button formType="submit">登 录</button>
+    </view>
+  </form>
+</view>

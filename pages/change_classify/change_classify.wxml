@@ -1,0 +1,38 @@
+<view class="input">
+  <view class="inner-input">
+    <view class="input-title">分类名称</view>
+    <view class="input-input">
+      <input type="text" placeholder="请选择分类名称"/>
+    </view>
+  </view>
+
+</view>
+<view class="input">
+  <view class="inner-input">
+    <view class="input-title">选择图标</view>
+  </view>
+</view>
+<view class="icon-list">
+  <view class="icon-item">
+    <image src="/image/a1.png"></image>
+  </view>
+  <view class="icon-item">
+    <image src="/image/a2.png"></image>
+  </view>
+  <view class="icon-item">
+    <image src="/image/a3.png"></image>
+  </view>
+  <view class="icon-item">
+    <image src="/image/a4.png"></image>
+  </view>
+  <view class="icon-item">
+    <image src="/image/a5.png"></image>
+  </view>
+  <view class="icon-item">
+    <image src="/image/a6.png"></image>
+  </view>
+  <view class="icon-item">
+    <image src="/image/a7.png"></image>
+  </view>
+</view>
+<view class="post">保存</view>

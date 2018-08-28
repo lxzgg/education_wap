@@ -1,0 +1,49 @@
+/**app.wxss**/
+.title {
+  display: flex;
+  justify-content: space-between;
+  padding: 12rpx 26rpx;
+  border-bottom: 1rpx solid #eeeeee; }
+  .title .title-name {
+    font-size: 28rpx;
+    color: #999999;
+    line-height: 58rpx; }
+  .title .title-btn .button {
+    background-color: #ffaa00;
+    color: #ffffff;
+    font-size: 28rpx;
+    text-align: center;
+    width: 185rpx;
+    height: 54rpx;
+    line-height: 54rpx;
+    border-radius: 10rpx; }
+
+.box {
+  display: flex;
+  justify-content: space-between;
+  padding: 10rpx 20rpx;
+  border-bottom: 1rpx solid #eeeeee; }
+  .box .box-l {
+    display: flex; }
+    .box .box-l image {
+      width: 88rpx;
+      height: 88rpx;
+      border-radius: 5rpx; }
+    .box .box-l .name {
+      font-size: 32rpx;
+      line-height: 88rpx;
+      margin-left: 20rpx; }
+    .box .box-l .position {
+      font-size: 24rpx;
+      line-height: 88rpx;
+      color: #ffaa00;
+      margin-left: 10rpx; }
+  .box .box-r {
+    display: flex;
+    line-height: 88rpx; }
+    .box .box-r .icon {
+      margin-right: 60rpx;
+      font-size: 50rpx;
+      color: #999999; }
+    .box .box-r .icon2 {
+      margin-right: 25rpx; }

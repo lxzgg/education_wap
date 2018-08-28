@@ -1,0 +1,51 @@
+/**app.wxss**/
+.title {
+  display: flex;
+  justify-content: space-between;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-bottom: 1rpx solid #eeeeee;
+  padding-left: 40rpx;
+  padding-right: 40rpx; }
+  .title .title-l {
+    font-size: 28rpx;
+    color: #999999; }
+  .title .title-r {
+    display: flex;
+    font-size: 28rpx;
+    color: #999999; }
+    .title .title-r .icon {
+      font-size: 42rpx;
+      color: #999999; }
+    .title .title-r .icon-paixu {
+      font-size: 40rpx;
+      margin-right: 38rpx; }
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  padding-left: 43rpx;
+  border-bottom: 1rpx solid #eeeeee; }
+  .item .item-l {
+    display: flex;
+    flex: 1; }
+    .item .item-l .type-img {
+      width: 60rpx;
+      height: 60rpx; }
+      .item .item-l .type-img image {
+        width: 100%;
+        height: 100%; }
+    .item .item-l .name {
+      font-size: 22rpx;
+      line-height: 60rpx;
+      margin-left: 20rpx; }
+  .item .item-r {
+    display: flex; }
+    .item .item-r .icon {
+      font-size: 47rpx;
+      line-height: 60rpx;
+      color: #666666; }
+    .item .item-r .icon-shang {
+      padding-left: 20rpx;
+      padding-right: 40rpx; }
