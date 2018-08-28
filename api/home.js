@@ -1,8 +1,17 @@
 import ajax from './ajax.js'
 
+//首页
 export default {
-    // 登录
-    login(param) {
-        return ajax.post('/mobile/user/login', param)
-    },
+  // 轮播
+  adList(param) {
+    return ajax.post('index/adList', param)
+  },
+  // 文章列表
+  article(param) {
+    return ajax.post('index/article', param)
+  },
+  // 分类列表
+  cateList(param) {
+    return ajax.post('class_info/cateList', param)
+  }
 }

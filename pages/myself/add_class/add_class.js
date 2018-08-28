@@ -1,35 +1,35 @@
-// pages/myself/add_class/add_class.js
 let utils = require('../../../utils/util')
+const app = getApp()
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     radioCheckVal: 1,
     position_list: [{
-        name: 1,
-        value: '教师',
-        checked: true
-      },
+      name: 1,
+      value: '教师',
+      checked: true
+    },
       {
         name: 2,
         value: '家长'
-      },
+      }
     ],
-    region: ['广东省', '广州市', '海珠区'],
-    //   customItem: '全部'
+    region: ['广东省', '广州市', '海珠区']
   },
+
   radioChange: function (e) {
     this.setData({
       radioCheckVal: e.detail.value
     })
   },
+
   bindRegionChange: function (e) {
     this.setData({
       region: e.detail.value
     })
   },
+
   formSubmit(e) {
     let class_name = e.detail.value.classname.trim()
     let tel = e.detail.value.tel.trim()
@@ -76,10 +76,10 @@ Page({
           title: '提示',
           content: '班级创建成功',
           showCancel: false,
-          success: function(e){
-              wx.switchTab({
-                  url:'../../index/index'
-              })
+          success: function (e) {
+            wx.switchTab({
+              url: '../../index/index'
+            })
           }
         })
         wx.setStorageSync('class_id', res.data.class_id)
@@ -91,81 +91,28 @@ Page({
         })
       }
     })
-
   },
-  getPhoneNumber() {
+
+  // 获取用户手机号码
+  getPhoneNumber(e) {
+    const {encryptedData, iv} = e.detail
     wx.login({
-      success: function (res) {
-        if (res.code) {
-          //发起网络请求  
-          console.log(res.code)
-        } else {
-          console.log('获取用户登录态失败！' + res.errMsg)
-        }
+      success: res => {
+        const code = res.code
+        app.api.getPhoneNumber({code, encryptedData, iv}).then(res => {
+          console.log(res)
+        })
       }
-    });
+    })
   },
+
   isPoneAvailable(str) {
-    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/
     if (!myreg.test(str)) {
-      return false;
+      return false
     } else {
-      return true;
+      return true
     }
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
+
 })

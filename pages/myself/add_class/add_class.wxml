@@ -15,7 +15,7 @@
 <view class="item sp">
     <view class="name">手机号码</view>
     <input type="number" name="tel"/>
-    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"> 使用微信手机号</button>
+    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">使用微信手机号</button>
 </view>
 <view class="item">
     <view class="name">省 市 区</view>

@@ -1,6 +1,14 @@
-import ajax from './ajax.js'
 import home from './home.js'
+import ajax from './ajax'
+
 export default {
-    ajax,
-    home
+  home,
+  // 登录
+  loginStatus(param) {
+    return ajax.post('user/loginStatus', param)
+  },
+  // 登录
+  getPhoneNumber(param) {
+    return ajax.post('user/login', param)
+  }
 }
