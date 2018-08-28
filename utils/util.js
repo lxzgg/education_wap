@@ -20,27 +20,27 @@ const formatNumber = n => {
  * @params fn {Function} 小程序原始API，如wx.login
  */
 
-var wxpromisify = function (params) {
-  // let uploadUrl = 'http://xiaoyuan.hngtsm.cn/'
+var wxpromisify = function(params){
+    // let uploadUrl = 'http://xiaoyuan.hngtsm.cn/'
   let baseurl = 'http://xiaoyuan.whwhjy.com/mobile/'
   let methods = params.method ? params.method : 'get'
 //   userId = get
 //    param.data.user_id = wx.getStorage('userInfo')
 
-  return new Promise(function (resolve, reject) {
-    wx.request({
-      url: baseurl + params.url,
-      data: params.data,
-      method: methods,
-      header: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-      success: function (res) {
-        resolve(res.data)
-      },
-      fail: function (res) {
-        reject(res)
-      }
+    return new Promise(function (resolve, reject) {
+        wx.request({
+            url: baseurl+params.url,
+            data: params.data,
+            method: methods ,
+            header: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            success: function (res) {
+                resolve(res.data)
+            },
+            fail: function (res) {
+                reject(res)
+            }
+        })
     })
-  })
 }
 module.exports = {
   formatTime: formatTime,

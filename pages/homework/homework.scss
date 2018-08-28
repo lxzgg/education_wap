@@ -1,37 +1,36 @@
 @import "../../common/common";
-
-.list {
-  .item {
-    box-shadow: rgba(130, 129, 129, .34) 0 0 rpx(14);
+.list{
+  .item{
+    box-shadow: rgba(130,129,129,.34) 0 0 rpx(14);
     padding: rpx(20);
     margin-top: rpx(30);
-    .top {
+    .top{
       display: flex;
       padding: rpx(0) rpx(0) rpx(20) rpx(0);
       border-bottom: 1px solid #eee;
-      .header-img {
+      .header-img{
         width: rpx(144);
         height: rpx(144);
         border-radius: rpx(5);
-        image {
+        image{
           width: 100%;
           height: 100%;
         }
       }
-      .top-content {
+      .top-content{
         flex: 1;
         margin-left: rpx(35);
-        .content-top {
+        .content-top{
           display: block;
           font-size: rpx(28);
           line-height: rpx(32);
           height: rpx(64);
           overflow: hidden;
         }
-        .content-bottom {
+        .content-bottom{
           display: flex;
           margin-top: rpx(40);
-          .bottom1 {
+          .bottom1{
             font-size: rpx(24);
             display: block;
             color: #ffaa00;
@@ -39,7 +38,7 @@
             border-radius: rpx(5);
             padding: rpx(2) rpx(15);
           }
-          .bottom2 {
+          .bottom2{
             margin-left: rpx(20);
             font-size: rpx(22);
             display: block;
@@ -49,18 +48,18 @@
         }
       }
     }
-    .bottom {
+    .bottom{
       display: flex;
       padding-top: rpx(20);
-      .bottom-item {
+      .bottom-item{
         flex: 1;
         text-align: center;
-        .icon {
+        .icon{
           font-size: rpx(40);
           display: inline-block;
           color: #999999;
         }
-        .number {
+        .number{
           display: inline-block;
           font-size: rpx(28);
           line-height: rpx(50);

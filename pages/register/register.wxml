@@ -1,46 +1,43 @@
 <!--pages/register/register.wxml-->
 <view class="containor">
-  <image src="/image/login_bg.png"/>
-  <view class="left-title" bindtap="goToAccount">
-    <text>登录</text>
-    <image src="/image/grey_scla.png"></image>
-  </view>
-  <view class="right-title">
-    <text>注册</text>
-    <image src="/image/scla.png"></image>
-  </view>
-  <form bindsubmit="formSubmit" bindreset="formReset">
-    <view class="section">
-      <input name="phone" type='number' placeholder="请输入你的手机号码"/>
+    <image src="/image/login_bg.png"/>
+    <view class="left-title" bindtap="goToAccount">  
+        <text>登录</text>
+        <image src="/image/grey_scla.png"></image>
     </view>
-    <view class="section">
-      <input name="password" type='text' placeholder="请输入邀请码"/>
+     <view class="right-title">  
+        <text>注册</text>
+        <image src="/image/scla.png"></image>
     </view>
-    <button class="pend-btn" type="default" hover-class="other-button-hover" style="color:#7796f4;background: #fff;">
-      获取邀请码
-    </button>
-    <view class="section">
-      <input name="password" type='password' placeholder="请输入密码"/>
-    </view>
-    <view class="section" style="display:flex;flex-direction:row-reverse;margin:0 110rpx 99rpx 0;">
-      <checkbox-group style="display:flex;flex-direction:column;">
-        <label
-          class="checkbox {{item.checks == true?'active':''}}"
-          wx:for="{{checkbox_list}}"
-          wx:item="{{item}}"
-          wx:key="{{item.index}}"
-          bindtap="changeBox"
-          data-index="{{item.index}}">
-          <checkbox value="{{item.index}}" color="#7796f4" checked="{{item.checks}}"/>
-          {{item.label}}
-        </label>
-        <!--<label class="checkbox">
-           <checkbox value="parent" color="#7796f4"/>家长
-       </label>-->
-      </checkbox-group>
-    </view>
-    <view class="btn-area">
-      <button formType="submit">注 册</button>
-    </view>
-  </form>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+        <view class="section">
+            <input name="phone" type='number' placeholder="请输入你的手机号码" />
+        </view>
+         <view class="section">
+            <input name="password" type='text' placeholder="请输入邀请码" />
+        </view>
+         <button class="pend-btn" type="default" hover-class="other-button-hover" style="color:#7796f4;background: #fff;"> 获取邀请码 </button>
+         <view class="section">
+            <input name="password" type='password' placeholder="请输入密码" />
+        </view>
+        <view class="section" style="display:flex;flex-direction:row-reverse;margin:0 110rpx 99rpx 0;">
+            <checkbox-group style="display:flex;flex-direction:column;">
+                <label 
+                    class="checkbox {{item.checks == true?'active':''}}" 
+                    wx:for="{{checkbox_list}}" 
+                    wx:item="{{item}}" 
+                    wx:key="{{item.index}}" 
+                    bindtap="changeBox"
+                    data-index="{{item.index}}">
+                    <checkbox value="{{item.index}}" color="#7796f4" checked="{{item.checks}}"/>{{item.label}}
+                </label>
+                 <!--<label class="checkbox">
+                    <checkbox value="parent" color="#7796f4"/>家长
+                </label>-->
+            </checkbox-group>
+        </view>
+        <view class="btn-area">
+            <button formType="submit">注 册</button>
+        </view>
+    </form>
 </view>

@@ -1,22 +1,22 @@
 <view class="title" wx:if="{{isSort==0}}">
-  <view class="title-l">当前图片</view>
-  <view class="title-r">
-    <view class="icon icon-paixu" bindtap="setSort" data-num="1"></view>
-    <view class="icon icon-jia"></view>
-  </view>
+    <view class="title-l">当前图片</view>
+    <view class="title-r">
+        <view class="icon icon-paixu" bindtap="setSort" data-num="1"></view>
+        <view class="icon icon-jia"></view>
+    </view>
 </view>
 <view class="title" wx:if="{{isSort==1}}">
-  <view class="title-l">点击箭头可进行上下移动</view>
-  <view class="title-r" bindtap="setSort" data-num="0">
-    完成
-  </view>
+    <view class="title-l">点击箭头可进行上下移动</view>
+    <view class="title-r" bindtap="setSort" data-num="0">
+        完成
+    </view>
 </view>
 <view class="banner-list">
-  <view class="item" wx:for="{{list}}" wx:key="bannerList">
-    <image src="{{item.src}}"></image>
-    <view class="item-r" wx:if="{{isSort==1}}">
-      <view class="icon icon-xia" data-index="{{index}}" catchtap="down"></view>
-      <view class="icon icon-shang" data-index="{{index}}" catchtap="up"></view>
+    <view class="item" wx:for="{{list}}" wx:key="bannerList">
+        <image src="{{item.src}}"></image>
+        <view class="item-r"  wx:if="{{isSort==1}}">
+            <view class="icon icon-xia" data-index="{{index}}" catchtap="down"></view>
+            <view class="icon icon-shang"data-index="{{index}}" catchtap="up"></view>
+        </view>
     </view>
-  </view>
 </view>

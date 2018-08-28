@@ -2,10 +2,8 @@
   <view class="type">
     <view class="text">请选择您要发布的分类</view>
     <view class="list">
-      <view class="list-item {{item.active?'active':''}}" wx:for="{{list}}" wx:item="item" wx:key="{{item.index}}"
-            data-index="{{item.index}}"
-            bindtap="changeActive">{{item.label}}
-      </view>
+      <view class="list-item {{item.active?'active':''}}" wx:for="{{list}}" wx:item="item" wx:key="{{item.index}}" data-index="{{item.index}}"
+        bindtap="changeActive">{{item.label}}</view>
     </view>
   </view>
   <view class="publish-content">
@@ -15,20 +13,20 @@
         <image src="{{vo}}"></image>
         <view class="icon icon-shanchu" data-index="{{index}}" bindtap="clearImg"></view>
       </view>
-      <view class="add-item item" bindtap="joinPicture">
+      <view class="add-item item" bindtap="joinPicture" wx:if="{{showPlusIcon}}">
         <view class="icon icon-jia"></view>
       </view>
     </view>
     <view class="button-list">
-      <view class="item" wx:for="{{handle}}" wx:for-item="arr" wx:key="{{arr.index}}">
+      <view class="item" wx:for="{{handle}}" wx:for-item="arr" wx:key="{{arr.index}}" >
         <view class="text">{{arr.type}}</view>
         <view>
           <!--{{arr.on == true ? 'on' : '' }}"-->
-          <switch checked bindchange="switch1Change" data-num="{{arr.index}}" color="#ffaa00"/>
+          <switch bindchange="switchChange" data-num="{{arr.index}}" color="#ffaa00" />
           <!--<view class="child-btn"></view>-->
         </view>
       </view>
     </view>
   </view>
-  <button class="post" formType="submit">发布</button>
+<button class="post" formType="submit">发布</button>
 </form>

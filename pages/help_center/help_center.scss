@@ -1,16 +1,15 @@
 @import "../../common/common";
-
-.list {
-  .item {
+.list{
+  .item{
     padding: rpx(24) rpx(38);
     display: flex;
     justify-content: space-between;
     border-bottom: rpx(1) solid #eeeeee;
-    .title {
+    .title{
       color: #999999;
       font-size: rpx(30);
     }
-    .icon-you {
+    .icon-you{
       color: #999999;
     }
   }

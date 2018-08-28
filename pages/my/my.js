@@ -6,8 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imageUrl: '',
-    nickname: ''
+    imageUrl:'',
+    nickname:''
   },
 
   /**
@@ -15,14 +15,14 @@ Page({
    */
   onLoad: function (options) {
     util.wxpromisify({
-      url: 'user/userInfo',
-      data: wx.getStorageSync('userInfo'),
-      method: 'post'
-    }).then((ret) => {
-      if (ret.response == 'data') {
-        this.setData({nickname: ret.data.nickname, imageUrl: ret.data.avatarUrl})
+      url:'user/userInfo',
+      data:wx.getStorageSync('userInfo'),
+      method:'post'
+    }).then((ret)=>{
+      if(ret.response == 'data'){
+        this.setData({nickname:ret.data.nickname,imageUrl:ret.data.avatarUrl})
       }
-    }).catch((err) => {
+    }).catch((err)=>{
     })
   },
 
@@ -30,69 +30,69 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+  
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+  
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+  
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+  
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+  
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+  
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+  
   },
-  goToPersonInfo() {
+  goToPersonInfo(){
     wx.navigateTo({
       url: '/pages/personData/personData',
-      success: function (res) {
+      success: function(res){
         // success
       },
-      fail: function () {
+      fail: function() {
         // fail
       },
-      complete: function () {
+      complete: function() {
         // complete
       }
     })
   },
-  popDialog() {
+  popDialog(){
     wx.showModal({
       title: '提示',
       content: `这是内容`,
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           console.log('用户点击确定')
         } else if (res.cancel) {

@@ -28,19 +28,19 @@ Page({
       //   label: '接龙'
     }],
     handle: [{
-      index: 0,
-      type: '顶置',
-      on: true
-    },
+        index: 0,
+        type: '顶置',
+        on: false
+      },
       {
         index: 1,
         type: '允许评论',
-        on: true
+        on: false
       },
       {
         index: 2,
         type: '公开',
-        on: true
+        on: false
       }
     ],
     evalList: [{
@@ -51,14 +51,17 @@ Page({
       article_type: 1,
       is_top: 0,
       can_comment: 0,
-      is_open: 0
-    }
+      is_open: 0,
+      article_accessory: []
+    },
+    showPlusIcon: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
 
   },
 
@@ -110,7 +113,7 @@ Page({
   onShareAppMessage: function () {
 
   },
-  switch1Change(e) {
+  switchChange(e) {
     let num = e.currentTarget.dataset.num
     let bool = e.detail.value ? 1 : 0
     let params = this.data.params
@@ -121,13 +124,9 @@ Page({
     } else {
       params.is_open = bool
     }
-    console.log(params)
-    // console.log(e)
-    // console.log('switch1 发生 change 事件，携带值为', e.detail.value)
   },
   changeActive(e) {
     let index = e.target.dataset.index
-
     let data_list = this.data.list.map((val, key, arr) => {
       val.active = val.index == index ? true : false
       return val
@@ -138,7 +137,6 @@ Page({
       params: params,
       list: data_list
     })
-    console.log(params)
   },
   // del(){},
   handleSwitch(event) {
@@ -152,210 +150,158 @@ Page({
   },
   //添加图片
   joinPicture: function (e) {
-    // var index = e.currentTarget.dataset.index;
-    var evalList = this.data.evalList
-    // console.log(evalList)
-    var that = this
-    // var imgNumber = evalList[index].tempFilePaths;
-    // if (imgNumber.length >= 3) {
-    //   wx.showModal({
-    //     title: '',
-    //     content: '最多上传三张图片',
-    //     showCancel: false,
-    //   })
-    //   return;
-    // }
+    var evalList = this.data.evalList;
+    var that = this;
+    var imgNumber = evalList[0].tempFilePaths.length
+    if (imgNumber >= 3) {
+      wx.showModal({
+        title: '',
+        content: '最多上传三张图片',
+        showCancel: false,
+      })
+      return;
+    }
     wx.showActionSheet({
-      itemList: ['从相册中选择', '拍照'],
-      itemColor: '#f7982a',
+      // itemList: ["从相册中选择", "拍照"],
+      itemList: ["从相册中选择"],
+      itemColor: "#f7982a",
       success: function (res) {
         if (!res.cancel) {
           if (res.tapIndex == 0) {
-            that.chooseWxImage('album')
+            that.chooseWxImage("album", imgNumber)
           } else if (res.tapIndex == 1) {
-            that.chooseWxImage('camera')
+            that.chooseWxImage("camera", imgNumber)
           }
         }
       }
     })
   },
-  chooseWxImage(type) {
+  chooseWxImage(type, num) {
     var evalList = this.data.evalList
-    var curImgLen = evalList[0].tempFilePaths.length
+    let showPlusIcon = true
+    let curImgLen = evalList[0].tempFilePaths.length
     var img = []
     if (curImgLen > 0) {
       img = evalList[0].tempFilePaths.map((val, key) => {
         return val
       })
     }
-    // var len = img.length;
-    var that = this
+    var that = this;
+    let maxCount = 3 - num
     wx.chooseImage({
-      count: 3,
-      sizeType: ['original', 'compressed'],
+      count: maxCount,
+      sizeType: ["original", "compressed"],
       sourceType: [type],
       success: function (res) {
-        // console.log(res)
         var addImg = res.tempFilePaths
-        // console.log('res:'+ res.tempFilePaths)
-        var addLen = addImg.length
-        // if (addLen > 3) {
+        var addLen = addImg.length;
         for (var i = 0; i < addLen; i++) {
-          // console.log(addImg[i])
           img.push(addImg[i])
         }
-        // } else {
-        //   for (var j = 0; j < addLen; j++) {
-        //     img.push(addImg[j]);
-        //   }
-        // // }
-        // console.log(img)
         evalList[0].tempFilePaths = img
+        if (img.length >= 3) {
+          showPlusIcon = false
+        }
         that.setData({
-          evalList: evalList
+          evalList: evalList,
+          showPlusIcon: showPlusIcon
         })
-        that.upLoadImg(img)
-      }
+      },
     })
   },
-  upLoadImg: function (list) {
-    var that = this
-    this.upload(that, list)
-  },
+
   //多张图片上传
-  upload: function (page, path) {
-    var that = this
+  upload: function (path) {
+    var that = this;
     var curImgList = [],
       reponseData = []
-    console.log(path)
-
     for (let i = 0; i < path.length; i++) {
       wx.showToast({
-        icon: 'loading',
-        title: '正在上传'
-      }),
-        console.log(0)
-      util.wxpromisify({
-        url: 'oss/getOssParam',
-        data: {
-          type: 'image'
-        },
-        method: 'post'
-      }).then((res) => {
-        console.log(res)
-        console.log('--------------------------------')
-        if (res && res.response == 'data') {
-          reponseData = res.data
-        } else {
-          console.log(res.response)
-        }
-      }).then(() => {
-
-        console.log(2)
-        wx.uploadFile({
-          url: 'https://oss.whwhjy.com',
-          filePath: path[i],
-          name: 'file',
-          // header: {
-          //   "Content-Type": "multipart/form-data"
-          // },
-          formData: {
-            name: path[i],
-            key: reponseData.dir + reponseData.expire + '${filename}',
-            policy: reponseData.policy,
-            OSSAccessKeyId: reponseData.accessid,
-            success_action_status: '200',
-            signature: reponseData.signature
+          icon: "loading",
+          title: "正在上传"
+        }),
+        util.wxpromisify({
+          url: 'oss/getOssParam',
+          data: {
+            type: 'image'
           },
-          success: function (res) {
-            wx.showModal({
-              title: '提示',
-              content: JSON.stringify(res),
-              showCancel: false
-            })
-
-            console.log(3)
-            console.log(res)
-            // curImgList.push(res.data);
-            // var evalList = that.data.evalList;
-            // evalList[0].imgList = curImgList;
-            // that.setData({
-            //   evalList: evalList
-            // })
-            // if (res.statusCode != 200) {
-            //   wx.showModal({
-            //     title: '提示',
-            //     content: '上传失败',
-            //     showCancel: false
-            //   })
-            //   return;
-            // } else {
-            wx.showModal({
-              title: '提示',
-              content: '上传成功',
-              showCancel: false
-            })
-            //   return;
-            // }
-            // // var data = res.data
-            // // page.setData({  //上传成功修改显示头像
-            // //   src: path[0]
-            // // })
-          },
-          fail: function (e) {
-            console.log(e)
-
-            wx.showModal({
-              title: '提示',
-              content: '上传失败',
-              showCancel: false
-            })
-          },
-          complete: function (e) {
-            wx.showModal({
-              title: '提示',
-              content: JSON.stringify(e),
-              showCancel: false
-            })
-            // wx.hideToast(); //隐藏Toast
-          }
+          method: 'post'
+        }).then((res) => {
+          if (res && res.response == 'data') {
+            reponseData = res.data
+          } else {}
+        }).then(() => {
+          wx.uploadFile({
+            url: 'https://oss.whwhjy.com',
+            filePath: path[i],
+            name: 'file',
+            // header: {
+            //   "Content-Type": "multipart/form-data"
+            // },
+            formData: {
+              name: path[i],
+              key: reponseData.dir + reponseData.expire + "${filename}",
+              policy: reponseData.policy,
+              OSSAccessKeyId: reponseData.accessid,
+              success_action_status: "200",
+              signature: reponseData.signature
+            },
+            success: function (res) {
+              console.log(4)
+              if (res && res.statusCode == 200) {}
+            },
+            fail: function (e) {
+              console.log('fail')
+              console.log(e)
+            },
+            complete: function (e) {
+              console.log(e)
+            }
+          })
         })
-
-      })
     }
-
-
-    return
 
 
   },
   //删除图片
   clearImg(e) {
     var index = e.currentTarget.dataset.index
-    // console.log(index)
     var evalList = this.data.evalList
+    var params = this.data.params
     var img = evalList[0].tempFilePaths
+    let showPlusIcon = this.data.showPlusIcon
+
+    // var img_path = params.article_accessory
     img.splice(index, 1)
+    if (img.length < 3) {
+      showPlusIcon = true
+    }
+    // img_path.splice(index, 1);
     this.setData({
-      evalList: evalList
+      evalList: evalList,
+      showPlusIcon: showPlusIcon
+      //  params: params
     })
     // this.upLoadImg(img);
   },
-  //提交发布
-  submitClick: function (e) {
-    var evalList = that.data.evalList
-    var imgList = evalList[0].imgList
-    var imgPort = '' //图片地址，多张以逗号分割
-    if (imgList.length != 0) {
-      for (var j = 0; j < imgList.length; j++) {
-        imgPort = imgList[j] + ',' + imgPort
-      }
-    } else {
-      imgPort = ''
-    }
-  },
   formSubmit(e) {
     let descript = e.detail.value.descript.trim()
+    let params = {
+      user_id: wx.getStorageSync('userInfo').user_id,
+      token: wx.getStorageSync('userInfo').token,
+      class_id: wx.getStorageSync('class_id'),
+      article_content: descript
+    }
+    let imgUrl = this.data.evalList,
+      data_params = this.data.params,
+      imgArray = []
+    imgUrl[0].tempFilePaths.forEach((val, key) => {
+      let obj = {
+        'image': val
+      }
+      imgArray.push(obj)
+    })
+    params.article_accessory = imgArray
     if (!descript) {
       wx.showToast({
         title: '请输入文字描述',
@@ -364,16 +310,42 @@ Page({
       })
       return
     }
-    let params = {
-      user_id: wx.getStorageInfoSync('userInfo').user_id,
-      token: wx.getStorageInfoSync('userInfo').user_id,
-      class_id: '',
-      article_content: '',
-      article_accessory: '',
-      article_type: '',
-      is_top: '',
-      can_comment: '',
-      is_open: ''
-    }
+
+    // 先上传图片
+    this.upload(imgUrl[0].tempFilePaths)
+
+    Object.assign(data_params, params);
+
+    //form submit
+    util.wxpromisify({
+      url: 'index/release',
+      data: data_params,
+      method: 'post'
+    }).then((res) => {
+      if (res && res.response === 'data') {
+        wx.showToast({
+          title: '发布成功',
+          icon: 'success',
+          duration: 2000,
+          success: function (res) {
+            wx.switchTab({
+              url: '../index/index',
+              success: function (res) {
+                // success
+              },
+              fail: function () {
+                // fail
+              },
+              complete: function () {
+                // complete
+              }
+            })
+
+          },
+        })
+      }
+    }).catch((err) => {
+
+    })
   }
 })

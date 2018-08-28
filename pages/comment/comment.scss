@@ -1,98 +1,94 @@
 @import "../../common/common";
-
-.user-header {
+.user-header{
   display: flex;
   justify-content: space-between;
   padding: rpx(40) rpx(20);
-  .header-l {
+  .header-l{
     display: flex;
-    .header {
+    .header{
       width: rpx(92);
       height: rpx(92);
       border-radius: 50%;
       overflow: hidden;
-      image {
+      image{
         width: 100%;
         height: 100%;
       }
     }
-    .header-c {
+    .header-c{
       margin-top: rpx(14);
       margin-left: rpx(20);
-      .user-name {
+      .user-name{
         font-size: rpx(30);
         color: #999999;
       }
-      .nike-name {
+      .nike-name{
         font-size: rpx(24);
         color: #eeeeee;
       }
     }
   }
-  .header-r {
-    color: #999999;
-    font-size: rpx(30);
-    display: flex;
-    line-height: rpx(90);
-    .icon {
-      margin-right: rpx(10);
-    }
+  .header-r{
+      color: #999999;
+      font-size: rpx(30);
+      display: flex;
+      line-height: rpx(90);
+      .icon{
+        margin-right: rpx(10);
+      }
   }
 }
-
-.content {
+.content{
   padding: 0 rpx(20);
-  image {
+  image{
     width: 100%;
   }
-  text, view, p, div, span, h1, h2, h3, h5 {
+  text,view,p,div,span,h1,h2,h3,h5{
     font-size: rpx(24);
   }
 }
-
-.comment-list {
-  .user-comment {
-    padding: rpx(20);
+.comment-list{
+  .user-comment{
+    padding:  rpx(20);
     border-bottom: rpx(1) solid #eeeeee;
-    .user-header2 {
-      .header-l {
+    .user-header2{
+      .header-l{
         display: flex;
-        .header {
+        .header{
           width: rpx(92);
           height: rpx(92);
           border-radius: 50%;
           overflow: hidden;
-          image {
+          image{
             width: 100%;
             height: 100%;
           }
         }
-        .header-c {
+        .header-c{
           margin-top: rpx(14);
           margin-left: rpx(20);
-          .user-name {
+          .user-name{
             font-size: rpx(30);
             color: #999999;
           }
-          .nike-name {
+          .nike-name{
             font-size: rpx(24);
             color: #eeeeee;
           }
         }
       }
     }
-    .user-comment2 {
+    .user-comment2{
       width: 100%;
       padding-left: rpx(140);
       font-size: rpx(30);
     }
   }
-  .user-comment:first-child {
+  .user-comment:first-child{
     border: none;
   }
 }
-
-.footer {
+.footer{
   height: rpx(100);
   background-color: #eeeeee;
   line-height: rpx(100);
@@ -102,42 +98,42 @@
   display: flex;
   padding: rpx(20) rpx(20);
   box-sizing: border-box;
-  .footer-l {
-    background-color: #ffffff;
-    height: rpx(60);
-    line-height: rpx(60);
-    font-size: rpx(24);
-    border-radius: rpx(5);
-    width: rpx(383);
-    input {
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      padding: 0 rpx(20);
-    }
+  .footer-l{
+      background-color: #ffffff;
+      height: rpx(60);
+      line-height: rpx(60);
+      font-size: rpx(24);
+      border-radius: rpx(5);
+      width: rpx(383);
+      input{
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 0 rpx(20);
+      }
   }
-  .footer-c {
+  .footer-c{
     text-align: center;
     line-height: rpx(38);
     margin-left: rpx(70);
-    .text {
+    .text{
       font-size: rpx(24);
       color: #999999;
     }
-    .icon {
+    .icon{
       font-size: rpx(45);
       color: #ffaa00;
     }
   }
-  .footer-r {
+  .footer-r{
     text-align: center;
     margin-left: rpx(80);
     line-height: rpx(38);
-    .text {
-      font-size: rpx(30);
-      color: #999999;
+    .text{
+        font-size: rpx(30);
+        color: #999999;
     }
-    .icon {
+    .icon{
       font-size: rpx(40);
     }
   }

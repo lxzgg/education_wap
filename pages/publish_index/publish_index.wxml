@@ -1,98 +1,97 @@
+
 <view class="banner-add">
-  <view class="banner-top">
-    <view class="date">2018-8-9</view>
-    <view class="icon icon-jia"></view>
-  </view>
-  <view class="jia-P ccc">
-    您想占据封面吗？
-  </view>
-  <view class="jia-P">
-    快点击右上角[+]发布动态占据封面吧！
-  </view>
-  <view class="jia-P">
-    收到的点赞越多越容易占据封面哦！
-  </view>
+    <view class="banner-top">
+        <view class="date">2018-8-9</view>
+        <view class="icon icon-jia"></view>
+    </view>
+    <view class="jia-P ccc">
+        您想占据封面吗？
+    </view>
+    <view class="jia-P">
+        快点击右上角[+]发布动态占据封面吧！
+    </view>
+    <view class="jia-P">
+        收到的点赞越多越容易占据封面哦！
+    </view>
 </view>
 <scroll-view scroll-x="true" class="nav" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}">
-  <block wx:for="{{navData}}" wx:for-index="idx" wx:for-item="navItem" wx:key="idx">
-    <view class="nav-item {{currentTab == idx ?'active':''}}" data-current="{{idx}}" data-id="{{navItem.id}}"
-          bindtap="switchNav">{{navItem.text}}
-    </view>
-  </block>
+    <block wx:for="{{navData}}" wx:for-index="idx" wx:for-item="navItem" wx:key="idx">
+        <view class="nav-item {{currentTab == idx ?'active':''}}"  data-current="{{idx}}" data-id="{{navItem.id}}" bindtap="switchNav">{{navItem.text}}</view>
+    </block>
 </scroll-view>
 <view class="talk-list">
-  <view class="talk-item">
-    <view class="user-header">
-      <view class="header-l">
-        <view class="header">
-          <image src="/image/user.png"></image>
+    <view class="talk-item">
+        <view class="user-header">
+            <view class="header-l">
+                <view class="header">
+                    <image src="/image/user.png"></image>
+                </view>
+                <view class="header-c">
+                    <view class="user-name">王逗逗</view>
+                    <view class="nike-name">学生-小豆豆</view>
+                </view>
+            </view>
         </view>
-        <view class="header-c">
-          <view class="user-name">王逗逗</view>
-          <view class="nike-name">学生-小豆豆</view>
+        <view class="content">
+            <view>欢迎来到朋友圈</view>
+            <image src="/image/ppp.jpg"></image>
         </view>
-      </view>
+        <view class="our-bottom">
+            <view class="bottom">
+                <view class="bottom-item">
+                    <text class="icon icon-dianzan"></text>
+                    <text class="number">999</text>
+                </view>
+                <view class="bottom-item">
+                    <view class="icon icon-iconfontpinglun"></view>
+                    <view class="number">999</view>
+                </view>
+                <view class="bottom-item">
+                    <view class="icon icon-dashang"></view>
+                    <view class="number">999</view>
+                </view>
+                <view class="bottom-item">
+                    <view class="icon icon-fenxiang"></view>
+                    <view class="number">999</view>
+                </view>
+            </view>
+        </view>
     </view>
-    <view class="content">
-      <view>欢迎来到朋友圈</view>
-      <image src="/image/ppp.jpg"></image>
+    <view class="talk-item">
+        <view class="user-header">
+            <view class="header-l">
+                <view class="header">
+                    <image src="/image/user.png"></image>
+                </view>
+                <view class="header-c">
+                    <view class="user-name">王逗逗</view>
+                    <view class="nike-name">学生-小豆豆</view>
+                </view>
+            </view>
+        </view>
+        <view class="content">
+            <view>欢迎来到朋友圈</view>
+            <image src="/image/ppp.jpg"></image>
+        </view>
+        <view class="our-bottom">
+            <view class="bottom">
+                <view class="bottom-item">
+                    <text class="icon icon-dianzan"></text>
+                    <text class="number">999</text>
+                </view>
+                <view class="bottom-item">
+                    <view class="icon icon-iconfontpinglun"></view>
+                    <view class="number">999</view>
+                </view>
+                <view class="bottom-item">
+                    <view class="icon icon-dashang"></view>
+                    <view class="number">999</view>
+                </view>
+                <view class="bottom-item">
+                    <view class="icon icon-fenxiang"></view>
+                    <view class="number">999</view>
+                </view>
+            </view>
+        </view>
     </view>
-    <view class="our-bottom">
-      <view class="bottom">
-        <view class="bottom-item">
-          <text class="icon icon-dianzan"></text>
-          <text class="number">999</text>
-        </view>
-        <view class="bottom-item">
-          <view class="icon icon-iconfontpinglun"></view>
-          <view class="number">999</view>
-        </view>
-        <view class="bottom-item">
-          <view class="icon icon-dashang"></view>
-          <view class="number">999</view>
-        </view>
-        <view class="bottom-item">
-          <view class="icon icon-fenxiang"></view>
-          <view class="number">999</view>
-        </view>
-      </view>
-    </view>
-  </view>
-  <view class="talk-item">
-    <view class="user-header">
-      <view class="header-l">
-        <view class="header">
-          <image src="/image/user.png"></image>
-        </view>
-        <view class="header-c">
-          <view class="user-name">王逗逗</view>
-          <view class="nike-name">学生-小豆豆</view>
-        </view>
-      </view>
-    </view>
-    <view class="content">
-      <view>欢迎来到朋友圈</view>
-      <image src="/image/ppp.jpg"></image>
-    </view>
-    <view class="our-bottom">
-      <view class="bottom">
-        <view class="bottom-item">
-          <text class="icon icon-dianzan"></text>
-          <text class="number">999</text>
-        </view>
-        <view class="bottom-item">
-          <view class="icon icon-iconfontpinglun"></view>
-          <view class="number">999</view>
-        </view>
-        <view class="bottom-item">
-          <view class="icon icon-dashang"></view>
-          <view class="number">999</view>
-        </view>
-        <view class="bottom-item">
-          <view class="icon icon-fenxiang"></view>
-          <view class="number">999</view>
-        </view>
-      </view>
-    </view>
-  </view>
 </view>

@@ -1,67 +1,64 @@
 @import "../../../common/common";
-
-.add {
+.add{
   display: flex;
   justify-content: space-between;
   padding: rpx(35) rpx(38);
   border-bottom: rpx(1) solid #eeeeee;
-  .name {
-    font-size: rpx(32);
-    line-height: rpx(58);
-  }
-  .right {
-    .icon {
-      color: #ffaa00;
+  .name{
       font-size: rpx(32);
       line-height: rpx(58);
-      margin-right: rpx(18);
+  }
+  .right{
+    .icon{
+        color: #ffaa00;
+        font-size: rpx(32);
+        line-height: rpx(58);
+        margin-right: rpx(18);
     }
   }
 }
-
-.item {
+.item{
   display: flex;
   justify-content: space-between;
   padding: rpx(20) rpx(40);
   border-bottom: rpx(1) solid #eeeeee;
-  .item-l {
-    .name {
-      font-size: rpx(32);
-    }
-    .position {
-      font-size: rpx(24);
-      color: #999999;
-    }
+  .item-l{
+      .name{
+        font-size: rpx(32);
+      }
+      .position{
+        font-size: rpx(24);
+        color: #999999;
+      }
   }
-  .item-r {
+  .item-r{
     line-height: rpx(70);
-    radio {
-      .wx-radio-input {
+    radio{
+      .wx-radio-input{
         border-radius: 50%;
         width: rpx(40);
         height: rpx(40);
-        .wx-radio-input-checked {
+        .wx-radio-input-checked{
           border: none;
           background: red;
         }
-        .wx-radio-input-checked::before {
+        .wx-radio-input-checked::before{
           border-radius: 50%;
           width: rpx(40);
           height: rpx(40);
           line-height: rpx(40);
           text-align: center;
-          font-size: rpx(30);
-          color: #fff;
+          font-size:rpx(30);
+          color:#fff;
           background: transparent;
-          transform: translate(-50%, -50%) scale(1);
-          -webkit-transform: translate(-50%, -50%) scale(1);
+          transform:translate(-50%, -50%) scale(1);
+          -webkit-transform:translate(-50%, -50%) scale(1);
         }
       }
     }
   }
 }
-
-.post {
+.post{
   width: rpx(630);
   height: rpx(70);
   line-height: rpx(75);

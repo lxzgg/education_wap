@@ -1,82 +1,82 @@
 <view class="title">
-  <view class="title-name">老师列表:(3)</view>
-  <view class="title-btn">
-    <view class="button">
-      邀请老师
+    <view class="title-name">老师列表:(3)</view>
+    <view class="title-btn">
+        <view class="button">
+            邀请老师
+        </view>
     </view>
-  </view>
 </view>
 <view class="box">
-  <view class="box-l">
-    <image src="/image/user.png"></image>
-    <view class="name">王逗逗</view>
-    <view class="position">数学老师</view>
-  </view>
-  <view class="box-r">
-    <view class="icon icon-phone"></view>
-    <view class="icon icon-shanchu1 icon2"></view>
-  </view>
+    <view class="box-l">
+        <image src="/image/user.png"></image>
+        <view class="name">王逗逗</view>
+        <view class="position">数学老师</view>
+    </view>
+    <view class="box-r">
+        <view class="icon icon-phone"></view>
+        <view class="icon icon-shanchu1 icon2"></view>
+    </view>
 </view>
 <view class="box">
-  <view class="box-l">
-    <image src="/image/user.png"></image>
-    <view class="name">王逗逗</view>
-    <view class="position">数学老师</view>
-  </view>
-  <view class="box-r">
-    <view class="icon icon-phone"></view>
-    <view class="icon icon-shanchu1 icon2"></view>
-  </view>
+    <view class="box-l">
+        <image src="/image/user.png"></image>
+        <view class="name">王逗逗</view>
+        <view class="position">数学老师</view>
+    </view>
+    <view class="box-r">
+        <view class="icon icon-phone"></view>
+        <view class="icon icon-shanchu1 icon2"></view>
+    </view>
 </view>
 <view class="box">
-  <view class="box-l">
-    <image src="/image/user.png"></image>
-    <view class="name">王逗逗</view>
-    <view class="position">数学老师</view>
-  </view>
-  <view class="box-r">
-    <view class="icon icon-phone"></view>
-    <view class="icon icon-shanchu1 icon2"></view>
-  </view>
+    <view class="box-l">
+        <image src="/image/user.png"></image>
+        <view class="name">王逗逗</view>
+        <view class="position">数学老师</view>
+    </view>
+    <view class="box-r">
+        <view class="icon icon-phone"></view>
+        <view class="icon icon-shanchu1 icon2"></view>
+    </view>
 </view>
 <view class="title">
-  <view class="title-name">家长列表:(3)</view>
-  <view class="title-btn">
-    <view class="button">
-      邀请家长
+    <view class="title-name">家长列表:(3)</view>
+    <view class="title-btn">
+        <view class="button">
+            邀请家长
+        </view>
     </view>
-  </view>
 </view>
 <view class="box">
-  <view class="box-l">
-    <image src="/image/user.png"></image>
-    <view class="name">王逗逗</view>
-    <view class="position">数学老师</view>
-  </view>
-  <view class="box-r">
-    <view class="icon icon-phone"></view>
-    <view class="icon icon-shanchu1 icon2"></view>
-  </view>
+    <view class="box-l">
+        <image src="/image/user.png"></image>
+        <view class="name">王逗逗</view>
+        <view class="position">数学老师</view>
+    </view>
+    <view class="box-r">
+        <view class="icon icon-phone"></view>
+        <view class="icon icon-shanchu1 icon2"></view>
+    </view>
 </view>
 <view class="box">
-  <view class="box-l">
-    <image src="/image/user.png"></image>
-    <view class="name">王逗逗</view>
-    <view class="position">数学老师</view>
-  </view>
-  <view class="box-r">
-    <view class="icon icon-phone"></view>
-    <view class="icon icon-shanchu1 icon2"></view>
-  </view>
+    <view class="box-l">
+        <image src="/image/user.png"></image>
+        <view class="name">王逗逗</view>
+        <view class="position">数学老师</view>
+    </view>
+    <view class="box-r">
+        <view class="icon icon-phone"></view>
+        <view class="icon icon-shanchu1 icon2"></view>
+    </view>
 </view>
 <view class="box">
-  <view class="box-l">
-    <image src="/image/user.png"></image>
-    <view class="name">王逗逗</view>
-    <view class="position">数学老师</view>
-  </view>
-  <view class="box-r">
-    <view class="icon icon-phone"></view>
-    <view class="icon icon-shanchu1 icon2"></view>
-  </view>
+    <view class="box-l">
+        <image src="/image/user.png"></image>
+        <view class="name">王逗逗</view>
+        <view class="position">数学老师</view>
+    </view>
+    <view class="box-r">
+        <view class="icon icon-phone"></view>
+        <view class="icon icon-shanchu1 icon2"></view>
+    </view>
 </view>

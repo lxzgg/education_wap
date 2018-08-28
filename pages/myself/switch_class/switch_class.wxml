@@ -1,19 +1,19 @@
 <view class="add">
-  <view class="name">我的班级</view>
-  <view class="right">
-    <view class="icon icon-jia"></view>
-  </view>
+    <view class="name">我的班级</view>
+    <view class="right">
+        <view class="icon icon-jia"></view>
+    </view>
 </view>
 <view class="item">
-  <view class="item-l">
-    <view class="name">1320班</view>
-    <view class="position">班主任</view>
-  </view>
-  <view class="item-r">
-    <label>
-      <radio value="0"></radio>
-      <!-- 其他布局代码 -->
-    </label>
-  </view>
+    <view class="item-l">
+        <view class="name">1320班</view>
+        <view class="position">班主任</view>
+    </view>
+    <view class="item-r">
+        <label>
+            <radio value="0"></radio>
+            <!-- 其他布局代码 -->
+        </label>
+    </view>
 </view>
 <button class="post">确定</button>

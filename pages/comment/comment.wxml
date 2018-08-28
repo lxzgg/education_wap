@@ -1,49 +1,49 @@
 <view class="user-header">
-  <view class="header-l">
-    <view class="header">
-      <image src="/image/user.png"></image>
-    </view>
-    <view class="header-c">
-      <view class="user-name">王逗逗</view>
-      <view class="nike-name">学生-小豆豆</view>
-    </view>
-  </view>
-  <view class="header-r">
-    <view class="icon icon-fenxiang"></view>
-    <view class="">分享</view>
-  </view>
-</view>
-<view class="content">
-  <image src="/image/ppp.jpg"></image>
-</view>
-<view class="comment-list">
-  <view class="user-comment">
-    <view class="user-header2">
-      <view class="header-l">
+    <view class="header-l">
         <view class="header">
-          <image src="/image/user.png"></image>
+            <image src="/image/user.png"></image>
         </view>
         <view class="header-c">
-          <view class="user-name">王逗逗</view>
-          <view class="nike-name">1分钟</view>
+            <view class="user-name">王逗逗</view>
+            <view class="nike-name">学生-小豆豆</view>
         </view>
-      </view>
     </view>
-    <view class="user-comment2">
-      老子天下第一
+    <view class="header-r">
+        <view class="icon icon-fenxiang"></view>
+        <view class="">分享</view>
     </view>
-  </view>
+</view>
+<view class="content">
+    <image src="/image/ppp.jpg"></image>
+</view>
+<view class="comment-list">
+    <view class="user-comment">
+        <view class="user-header2">
+            <view class="header-l">
+                <view class="header">
+                    <image src="/image/user.png"></image>
+                </view>
+                <view class="header-c">
+                    <view class="user-name">王逗逗</view>
+                    <view class="nike-name">1分钟</view>
+                </view>
+            </view>
+        </view>
+        <view class="user-comment2">
+            老子天下第一
+        </view>
+    </view>
 </view>
 <view class="footer">
-  <view class="footer-l">
-    <input type="text" placeholder-style="color:#eee" placeholder="留下您的精彩评论" confirm-type="send"/>
-  </view>
-  <view class="footer-c">
-    <text class="icon icon-dianzan"></text>
-    <view class="text">999+</view>
-  </view>
-  <view class="footer-r">
-    <text class="icon icon-pinglun"></text>
-    <view class="text">评论</view>
-  </view>
+    <view class="footer-l">
+        <input type="text" placeholder-style="color:#eee" placeholder="留下您的精彩评论" confirm-type="send"/>
+    </view>
+    <view class="footer-c">
+        <text class="icon icon-dianzan"></text>
+        <view class="text">999+</view>
+    </view>
+    <view class="footer-r">
+        <text class="icon icon-pinglun"></text>
+        <view class="text">评论</view>
+    </view>
 </view>

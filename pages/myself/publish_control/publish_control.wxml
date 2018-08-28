@@ -1,40 +1,40 @@
 <view class="list">
-  <view class="item">
-    <view class="tags">
-      <view class="tag">相册</view>
-    </view>
-    <view class="item-content">
-      <view class="content-info">
-        亲爱的家长，欢迎您来到1508班，在这里，您可以：更清楚
-        的看到班级通知；更方便的查
-      </view>
-      <view class="content-bottom">
-        <view class="look">浏览量：0</view>
-        <view class="bottom-btn">
-          <view class="text">阅读统计</view>
-          <view class="btn-l">评论已开</view>
-          <view class="btn-r">点击置顶</view>
+    <view class="item">
+        <view class="tags">
+            <view class="tag">相册</view>
         </view>
-      </view>
-    </view>
-  </view>
-  <view class="item">
-    <view class="tags">
-      <view class="tag">相册</view>
-    </view>
-    <view class="item-content">
-      <view class="content-info">
-        亲爱的家长，欢迎您来到1508班，在这里，您可以：更清楚
-        的看到班级通知；更方便的查
-      </view>
-      <view class="content-bottom">
-        <view class="look">浏览量：0</view>
-        <view class="bottom-btn">
-          <view class="text">阅读统计</view>
-          <view class="btn-l">评论已开</view>
-          <view class="btn-r">点击置顶</view>
+        <view class="item-content">
+            <view class="content-info">
+                亲爱的家长，欢迎您来到1508班，在这里，您可以：更清楚
+                的看到班级通知；更方便的查
+            </view>
+            <view class="content-bottom">
+                <view class="look">浏览量：0</view>
+                <view class="bottom-btn">
+                    <view class="text">阅读统计</view>
+                    <view class="btn-l">评论已开</view>
+                    <view class="btn-r">点击置顶</view>
+                </view>
+            </view>
         </view>
-      </view>
     </view>
-  </view>
+    <view class="item">
+        <view class="tags">
+            <view class="tag">相册</view>
+        </view>
+        <view class="item-content">
+            <view class="content-info">
+                亲爱的家长，欢迎您来到1508班，在这里，您可以：更清楚
+                的看到班级通知；更方便的查
+            </view>
+            <view class="content-bottom">
+                <view class="look">浏览量：0</view>
+                <view class="bottom-btn">
+                    <view class="text">阅读统计</view>
+                    <view class="btn-l">评论已开</view>
+                    <view class="btn-r">点击置顶</view>
+                </view>
+            </view>
+        </view>
+    </view>
 </view>

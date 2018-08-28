@@ -142,3 +142,21 @@
   color: #999999;
   line-height: 73rpx;
 }
+.subBtn{
+  width: 630rpx;
+	height: 70rpx;
+	background-image: linear-gradient(90deg, 
+		#7796f4 0%, 
+		#4e77f0 100%);
+	box-shadow: 0rpx 1rpx 7rpx 0rpx 
+		rgba(130, 129, 129, 0.34);
+	border-radius: 35rpx;
+  margin-top: 100rpx;
+  line-height: 70rpx;
+  color: #fff;
+}
+.ship_active{
+  border: 1rpx solid #ffaa00 !important;
+  color: #fff;
+  background: #ffaa00;
+}

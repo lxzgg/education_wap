@@ -1,78 +1,85 @@
-<view class="item">
-  <view class="item-name">
-    <view class="item-name-name">电话号码</view>
-    <view class="item-name-content">158-1614-2095</view>
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class="item">
+    <view class="item-name">
+      <view class="item-name-name">电话号码</view>
+      <view class="item-name-content"><input name="tel" placeholder="输入班级名称"/></view>
+    </view>
+    <!--<view class="item-button" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+      使用微信手机号
+    </view>-->
   </view>
-  <view class="item-button">
-    使用微信手机号
+  <view class="item">
+    <view class="item-name">
+      <view class="item-name-name">姓名</view>
+      <view class="item-name-content"><input name="username" placeholder="输入姓名"/></view>
+    </view>
   </view>
-</view>
-<view class="item">
-  <view class="item-name">
-    <view class="item-name-name">姓名</view>
-    <view class="item-name-content">王逗逗</view>
+  <view class="item no-item">
+    <view class="item-name">
+      <view class="item-name-name">性别</view>
+    </view>
+    <radio-group class="radio-group" bindchange="radioChange">
+      <label wx:for="{{sex_list}}" wx:key="sex_list" class="{{radioCheckVal==item.name?'active':''}}">
+            <radio value="{{item.name}}" checked="{{item.checked}}"></radio>
+            <text>{{item.value}}</text>
+        </label>
+    </radio-group>
   </view>
-</view>
-<view class="item no-item">
-  <view class="item-name">
-    <view class="item-name-name">性别</view>
+  <view class="item date">
+    <view class="item-name">
+      <view class="item-name-name">出生日期</view>
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="3000-01-01" bindchange="bindDateChange">
+        <view class="picker">
+          {{date}}
+        </view>
+      </picker>
+    </view>
+    <view class="icon icon-you"></view>
   </view>
-  <radio-group class="radio-group" bindchange="radioChange">
-    <label wx:for="{{sex_list}}" wx:key="sex_list" class="{{radioCheckVal==item.name?'active':''}}">
-      <radio value="{{item.name}}" checked="{{item.checked}}"></radio>
-      <text>{{item.value}}</text>
-    </label>
-  </radio-group>
-</view>
-<view class="item date">
-  <view class="item-name">
-    <view class="item-name-name">出生日期</view>
-    <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
-      <view class="picker">
-        {{date}}
-      </view>
-    </picker>
+  <view class="item">
+    <view class="item-name">
+      <view class="item-name-name sp">亲属关系</view>
+    </view>
+    <view class="list">
+      <view class="list-item {{item.num == relationship ? 'ship_active' : ''}}" 
+        wx:for="{{Relationship}}" 
+        wx:item="item" 
+        wx:key="{{item.num}}" 
+        data-num="{{item.num}}" bindtap="switchShip">{{item.label}}</view>
+      <!--<view class="list-item">妈妈</view>
+      <view class="list-item">爷爷</view>
+      <view class="list-item">奶奶</view>
+      <view class="list-item">外公</view>
+      <view class="list-item">外婆</view>
+      <view class="list-item sp">其他</view>-->
+    </view>
   </view>
-  <view class="icon icon-you"></view>
-</view>
-<view class="item">
-  <view class="item-name">
-    <view class="item-name-name sp">亲属关系</view>
+  <view class="item">
+    <view class="item-name">
+      <view class="item-name-name sp">兴趣爱好</view>
+    </view>
+    <view class="list">
+      <view class="list-item">游泳</view>
+      <view class="list-item">跳舞</view>
+      <view class="list-item">厨艺</view>
+      <view class="list-item">钓鱼</view>
+      <view class="list-item">跑步</view>
+      <view class="list-item">钓鱼</view>
+      <view class="list-item sp">其他</view>
+    </view>
   </view>
-  <view class="list">
-    <view class="list-item">爸爸</view>
-    <view class="list-item">妈妈</view>
-    <view class="list-item">爷爷</view>
-    <view class="list-item">奶奶</view>
-    <view class="list-item">外公</view>
-    <view class="list-item">外婆</view>
-    <view class="list-item sp">其他</view>
-  </view>
-</view>
-<view class="item">
-  <view class="item-name">
-    <view class="item-name-name sp">兴趣爱好</view>
-  </view>
-  <view class="list">
-    <view class="list-item">游泳</view>
-    <view class="list-item">跳舞</view>
-    <view class="list-item">厨艺</view>
-    <view class="list-item">钓鱼</view>
-    <view class="list-item">跑步</view>
-    <view class="list-item">钓鱼</view>
-    <view class="list-item sp">其他</view>
-  </view>
-</view>
-<view class="item">
-  <view class="item-name">
-    <view class="item-name-name sp">所任课程</view>
-  </view>
-  <view class="list">
-    <view class="list-item">英语</view>
-    <view class="list-item">语文</view>
-    <view class="list-item">数学</view>
-    <view class="list-item">化学</view>
-    <view class="list-item">物理</view>
-    <view class="list-item sp">其他</view>
-  </view>
-</view>
+  <!--<view class="item">
+    <view class="item-name">
+      <view class="item-name-name sp">所任课程</view>
+    </view>
+    <view class="list">
+      <view class="list-item">英语</view>
+      <view class="list-item">语文</view>
+      <view class="list-item">数学</view>
+      <view class="list-item">化学</view>
+      <view class="list-item">物理</view>
+      <view class="list-item sp">其他</view>
+    </view>
+  </view>-->
+  <button class="subBtn" formType="submit">保 存</button>
+</form>
