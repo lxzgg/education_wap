@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    class_list: []
+    class_list: [],
+    isEmpty: true
   },
 
   /**
@@ -26,6 +27,8 @@ Page({
         this.setData({
           class_list: res.list
         })
+      }else{
+
       }
     })
 
