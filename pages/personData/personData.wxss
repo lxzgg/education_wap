@@ -163,3 +163,9 @@
   color: #fff;
   background: #ffaa00;
 }
+.item .list .input-box{
+  padding:  0 15rpx;
+}
+.item .list .input-box input{
+  max-width:  150rpx;
+}
