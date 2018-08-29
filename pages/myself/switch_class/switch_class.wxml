@@ -1,13 +1,13 @@
 <view class="add">
     <view class="name">我的班级</view>
-    <view class="right">
+    <view class="right" bindtap="goToAddClass">
         <view class="icon icon-jia"></view>
     </view>
 </view>
-<view class="item">
+<view class="item" wx:for="{{list}}" wx:key="index" data-classid="{{item.class_id}}" bindtap="switchClass">
     <view class="item-l">
-        <view class="name">1320班</view>
-        <view class="position">班主任</view>
+        <view class="name">{{item.class_name}}</view>
+        <view class="position">{{item.role}}</view>
     </view>
     <view class="item-r">
         <label>
@@ -16,4 +16,5 @@
         </label>
     </view>
 </view>
-<button class="post">确定</button>
+<text style="text-align:center;line-height: 70rpx;color: #999;font-size: 26rpx;">暂无数据</text>
+<button class="post" wx:if="{{isEmpty === false}}">确定</button>

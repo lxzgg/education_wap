@@ -21,7 +21,8 @@
     "pages/personData/personData",
     "pages/help_center/help_center",
     "pages/banner_control/banner_control",
-    "pages/publish_index/publish_index"
+    "pages/publish_index/publish_index",
+    "pages/myself/invit_teacher/invit_teacher"
   ],
   "window": {
     "backgroundTextStyle": "light",

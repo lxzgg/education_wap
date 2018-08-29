@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    role: 'parent',
+    role: 'teacher',
     relationshipIndex: 1,
     hobbyIndex: 1,
     workIndex: 1,
@@ -174,18 +174,30 @@ Page({
       method: 'post'
     }).then((res) => {
       if (res && res.response === 'data') {
+        console.log(res)
+
+        //sex
         let sex_list = this.data.sex_list
-        if (res.data.gender === 2) {
-          sex_list[0].checked = true
-          sex_list[1].checked = false
-        } else {
+        if (res.data.gender === 2 || res.data.chil_sex === 2) {
           sex_list[0].checked = false
           sex_list[1].checked = true
+        } else {
+          sex_list[0].checked = true
+          sex_list[1].checked = false
         }
+        //hobby 
+        let hobbyIndex = (res.data.like_id && res.data.like_id.length > 0) ? res.data.like_id[0] : 1
+        //family_ship
+        let family_ship = res.data.family_role ? res.data.family_role : 1
+        //subject_type
+        let subject_type = res.data.subject_type ? res.data.subject_type : 1
         this.setData({
           content: res.data,
           sex_list: sex_list,
-          date: res.data.birthday
+          date: res.data.birthday,
+          relationshipIndex: family_ship,
+          hobbyIndex: hobbyIndex,
+          workIndex: subject_type,
         })
       }
     }).catch((err) => {})
@@ -230,86 +242,88 @@ Page({
         gender = key + 1
       }
     })
-  let selHobby = {},selShip={},selSubject={}
-  if(this.data.role === 'parent'){
- //爱好
-    let other_hobby = e.detail.value.other_like
-    let showhobbyInput = this.data.showhobbyInput
-    let hobbyItem = this.data.hobby
-    let hobbyIndex = this.data.hobbyIndex
-     selHobby = this.handlefn(showhobbyInput,other_hobby,'爱好','like_id','other_like',hobbyItem,hobbyIndex,9)
-    console.log(selHobby)
+    let selHobby = {},
+      selShip = {},
+      selSubject = {}
+    if (this.data.role === 'parent') {
+      //爱好
+      let other_hobby = e.detail.value.other_like
+      let showhobbyInput = this.data.showhobbyInput
+      let hobbyItem = this.data.hobby
+      let hobbyIndex = this.data.hobbyIndex
+      selHobby = this.handlefn(showhobbyInput, other_hobby, '爱好', 'like_id', 'other_like', hobbyItem, hobbyIndex, 9)
+      console.log(selHobby)
 
-    //亲属关系
-    let other_ship = e.detail.value.family_role_name
-    let showShipInput = this.data.showshipInput
-    let familyItem = this.data.Relationship
-    let familyIndex = this.data.relationshipIndex
-     selShip = this.handlefn(showShipInput,other_ship,'关系','family_role','family_role_name',familyItem,familyIndex,7)
-     console.log(selShip)
-  }else{
+      //亲属关系
+      let other_ship = e.detail.value.family_role_name
+      let showShipInput = this.data.showshipInput
+      let familyItem = this.data.Relationship
+      let familyIndex = this.data.relationshipIndex
+      selShip = this.handlefn(showShipInput, other_ship, '关系', 'family_role', 'family_role_name', familyItem, familyIndex, 7)
+      selShip.child_name = username
+      selShip.chil_sex = gender
+      selShip.child_birth = birthday
 
-  //课程
-    let other_class = e.detail.value.subject_name
-    let showObjInput = this.data.showObjInput
-    let subjectItem = this.data.workItem
-    let subjectIndex = this.data.workIndex
-     selSubject = this.handlefn(showObjInput,other_class,'课程','subject_type','subject_name',subjectItem,subjectIndex,6)
-     
-console.log(selSubject)
-  }
-   
+    } else {
 
- 
+      //课程
+      let other_class = e.detail.value.subject_name
+      let showObjInput = this.data.showObjInput
+      let subjectItem = this.data.workItem
+      let subjectIndex = this.data.workIndex
+      selSubject = this.handlefn(showObjInput, other_class, '课程', 'subject_type', 'subject_name', subjectItem, subjectIndex, 6)
+      selSubject.username = username
+      selSubject.birthday = birthday
+      selSubject.gender = gender
+    }
+
+
+
 
     let selVal = {
       ...app.user,
-      username: username,
-      gender: gender,
-      mobile: mobile,
-      birthday: birthday,
       ...selSubject,
       ...selShip,
       ...selHobby
     }
-    console.log(selVal)
-    // utils.wxpromisify({
-    //   url: 'user/submitTeacherInfo',
-    //   data: selVal,
-    //   method: 'post'
-    // }).then((res) => {
-    //   if (res && res.response === 'data') {
-    //     wx.showModal({
-    //       title: '提示',
-    //       content: '信息保存成功',
-    //       showCancel: false,
-    //       success: function () {
-    //         console.log(2322)
-    //         if (res.confirm) {
-    //           wx.switchTab({
-    //             url: '/pages/my/my'
-    //           })
-    //         }
-    //       }
-    //     })
-    //   }
-    // })
+    let url = this.data.role === 'teacher' ? 'user/submitTeacherInfo' : 'user/submitUserInfo'
+    utils.wxpromisify({
+      url: url,
+      data: selVal,
+      method: 'post'
+    }).then((res) => {
+      if (res && res.response === 'data') {
+        wx.showModal({
+          title: '提示',
+          content: '信息保存成功',
+          showCancel: false,
+          success: function () {
+            console.log(2322)
+            if (res.confirm) {
+              wx.switchTab({
+                url: '/pages/my/my'
+              })
+            }
+          }
+        })
+      }
+    })
   },
 
 
-  handlefn(boolean,elem,elem_name,index,name,selItem,selIndex,num) {
-    let obj ={}
+  handlefn(boolean, elem, elem_name, indexs, name, selItem, selIndex, num) {
+    let obj = {}
     if (boolean) { //其他
       if (!elem) {
         wx.showToast({
-          title: '请填写'+elem_name+'名称',
+          title: '请填写' + elem_name + '名称',
           icon: 'none',
           duration: 5000
         })
         return
       }
-      obj.index = num
-      obj.name = elem
+      obj[indexs] = num
+      obj[name] = elem
     } else {
       let index = 0
       selItem.forEach((val, key) => {

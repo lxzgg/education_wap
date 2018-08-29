@@ -3,7 +3,7 @@
         <view class="name">
             <view class="name-text">班级二维码</view>
             <view class="img">
-                <image src="/image/user.png"></image>
+                <image src="{{content.class_qrcode}}" alt="二维码"></image>
             </view>
         </view>
         <view class="icon icon-you"></view>
@@ -12,7 +12,7 @@
         <view class="name">
             <view class="name-text">班级图片</view>
             <view class="img">
-                <image src="/image/user.png"></image>
+                <image src="{{content.class_image}}" alt="图片"></image>
             </view>
         </view>
         <view class="icon icon-you"></view>
@@ -20,14 +20,14 @@
     <view class="item">
         <view class="name">
             <view class="name-text">班级名称</view>
-            <view class="name-text">1310</view>
+            <view class="name-text">{{content.class_name}}</view>
         </view>
     </view>
     <view class="item">
         <view class="name">
             <view class="name-text">班级人数</view>
             <view class="name-input">
-                <input type="number" placeholder="请输入班级人数" placeholder-style="color:#999;"/>
+                <input type="number" placeholder="请输入班级人数" value="{{content.member_num}}" readonly placeholder-style="color:#999;"/>
             </view>
         </view>
     </view>
@@ -40,7 +40,7 @@
     <view class="item">
         <view class="name">
             <view class="name-text">当前管理员</view>
-            <view class="name-text">beautifuido?</view>
+            <view class="name-text">{{content.username}}</view>
         </view>
         <view class="sp-right">
             <view class="text">更换管理员</view>
@@ -61,4 +61,13 @@
         <view class="icon icon-you"></view>
     </navigator>
 </view>
-<view class="post">保存设置</view>
+<!--<view class="post">保存设置</view>-->
+
+<!--屏幕背景变暗的背景 -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!--弹出框 -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+    <image src="/image/user.png"></image>
+    <button>保存二维码到相册</button>
+    <text>可以将小程序推荐给其他班主任和学生</text>
+</view>
