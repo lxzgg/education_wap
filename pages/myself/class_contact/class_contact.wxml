@@ -1,6 +1,6 @@
 <view class="title">
     <view class="title-name">老师列表:(3)</view>
-    <view class="title-btn">
+    <view class="title-btn" bindtap="invitTeacher">
         <view class="button">
             邀请老师
         </view>
@@ -41,7 +41,7 @@
 </view>
 <view class="title">
     <view class="title-name">家长列表:(3)</view>
-    <view class="title-btn">
+    <view class="title-btn" bindtap="invitParent">
         <view class="button">
             邀请家长
         </view>
