@@ -7,8 +7,8 @@ export default {
   loginStatus(param) {
     return ajax.post('user/loginStatus', param)
   },
-  // 登录
-  getPhoneNumber(param) {
-    return ajax.post('user/login', param)
+  // 获取手机号码
+  getUserMobile(param) {
+    return ajax.post('user/getUserMobile', param)
   }
 }

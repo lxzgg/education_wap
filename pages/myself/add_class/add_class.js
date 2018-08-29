@@ -1,95 +1,41 @@
-let utils = require('../../../utils/util')
 const app = getApp()
 
 Page({
 
   data: {
-    radioCheckVal: 1,
-    position_list: [{
-      name: 1,
-      value: '教师',
-      checked: true
-    },
-      {
-        name: 2,
-        value: '家长'
-      }
-    ],
-    region: ['广东省', '广州市', '海珠区']
+    // 默认教师
+    admin_type: 1,
+    city: ['广东省', '深圳市', '南山区']
   },
 
-  radioChange: function (e) {
-    this.setData({
-      radioCheckVal: e.detail.value
-    })
+  radioChange(e) {
+    this.setData({admin_type: e.detail.value})
   },
 
-  bindRegionChange: function (e) {
-    this.setData({
-      region: e.detail.value
-    })
+  bindRegionChange(e) {
+    this.setData({city: e.detail.value})
   },
 
-  formSubmit(e) {
-    let class_name = e.detail.value.classname.trim()
-    let tel = e.detail.value.tel.trim()
+  // 提交
+  submit() {
+    const {mobile, class_name, city, admin_type} = this.data
+    const reg = /^(0|86|17951)?(13[0-9]|14[579]|15[012356789]|16[56]|17[1235678]|18[0-9]|19[89])\s?[0-9]{4}\s?[0-9]{4}$/
     if (!class_name) {
-      wx.showToast({
-        title: '请输入班级名称',
-        icon: 'none',
-        duration: 5000
-      })
-      return
+      return wx.showToast({title: '请填写班级名称', icon: 'none'})
+    } else if (!reg.test(mobile)) {
+      return wx.showToast({title: '请填写正确的手机号码', icon: 'none'})
     }
-    if (!tel) {
-      wx.showToast({
-        title: '请输入手机号码',
-        icon: 'none',
-        duration: 5000
-      })
-      return
-    }
-    let isAble = this.isPoneAvailable(tel)
-    if (!isAble) {
-      wx.showToast({
-        title: '手机格式不正确',
-        icon: 'none',
-        duration: 5000
-      })
-      return
-    }
-    var params = {
-      user_id: wx.getStorageSync('userInfo').user_id,
-      token: wx.getStorageSync('userInfo').token,
-      class_name: class_name,
-      admin_type: this.data.radioCheckVal,
-      mobile: tel,
-      city: this.data.region.toString()
-    }
-    utils.wxpromisify({
-      url: 'class_info/addClass',
-      data: params,
-      method: 'post'
-    }).then((res) => {
-      if (res && res.response === 'data') {
-        wx.showModal({
-          title: '提示',
-          content: '班级创建成功',
-          showCancel: false,
-          success: function (e) {
-            wx.switchTab({
-              url: '../../index/index'
-            })
-          }
-        })
-        wx.setStorageSync('class_id', res.data.class_id)
-      } else {
-        wx.showModal({
-          title: '提示',
-          content: '班级创建失败',
-          showCancel: false
-        })
-      }
+    app.api.home.addClass({
+      user_id: app.user.user_id,
+      token: app.user.token,
+      mobile,
+      class_name,
+      city,
+      admin_type
+    }).then(res => {
+      Object.assign(app.user, res.data)
+      wx.switchTab({url: '/pages/index/index'})
+      wx.showToast({title: '班级创建成功'})
     })
   },
 
@@ -99,20 +45,24 @@ Page({
     wx.login({
       success: res => {
         const code = res.code
-        app.api.getPhoneNumber({code, encryptedData, iv}).then(res => {
-          console.log(res)
+        app.api.getUserMobile({code, encryptedData, iv}).then(res => {
+          const mobile = res.data.mobile
+          this.setData({mobile})
         })
       }
     })
   },
 
-  isPoneAvailable(str) {
-    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/
-    if (!myreg.test(str)) {
-      return false
-    } else {
-      return true
-    }
+  /**
+   * 表单数据绑定
+   */
+  getInput(e) {
+    const name = e.currentTarget.dataset.name
+    const val = e.detail.value
+
+    this.setData({
+      [name]: val
+    })
   }
 
 })
