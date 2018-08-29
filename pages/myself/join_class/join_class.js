@@ -5,43 +5,49 @@ Page({
    * 页面的初始数据
    */
   data: {
-    selSubIndex: 1,
-    showObjInput: false,
-    workItem: [{
-        subject_type: 1,
-        subject_name: '语文'
-      }, {
-        subject_type: 2,
-        subject_name: '英语'
+    selShipIndex: 1,
+    showShipInput: false,
+    Relationship: [{
+        family_role: 1,
+        family_role_name: '爸爸'
       },
       {
-        subject_type: 3,
-        subject_name: '数学'
+        family_role: 2,
+        family_role_name: '妈妈'
       },
       {
-        subject_type: 4,
-        subject_name: '化学'
+        family_role: 3,
+        family_role_name: '爷爷'
       },
       {
-        subject_type: 5,
-        subject_name: '物理'
-      }, {
-        subject_type: 6,
-        subject_name: '其他'
+        family_role: 4,
+        family_role_name: '奶奶'
+      },
+      {
+        family_role: 5,
+        family_role_name: '外公'
+      },
+      {
+        family_role: 6,
+        family_role_name: '外婆'
+      },
+      {
+        family_role: 7,
+        family_role_name: '其他'
       }
     ]
   },
-  switchSubject(e) {
+  switchFamilyShip(e) {
     let num = e.currentTarget.dataset.num
-    let showObjInput = this.data.showObjInput
+    let showShipInput = this.data.showShipInput
     if (num === 6) {
-      showObjInput = showObjInput ? false : true
+      showShipInput = showShipInput ? false : true
     } else {
-      showObjInput = false
+      showShipInput = false
     }
     this.setData({
-      selSubIndex: num,
-      showObjInput: showObjInput
+      selShipIndex: num,
+      showShipInput: showShipInput
     })
   },
 

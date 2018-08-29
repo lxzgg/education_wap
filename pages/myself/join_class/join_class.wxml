@@ -1,22 +1,5 @@
 <!--pages/myself/invit_teacher/invit_teacher.wxml-->
 <view class="containor">
-  <view class="sections">
-    <view class="header">
-      <view class="img">
-        <image src="/image/user.png"></image>
-      </view>
-      <view class="tips">
-        <text>王逗逗</text>
-        <text>邀请你参与班级管理</text>
-      </view>
-    </view>
-    <view class="step">
-      <view>
-        <image src="/image/user.png"></image>
-      </view>
-      <view class="class_name">班级名称</view>
-    </view>
-  </view>
   <view class="bottom">
     <form bindsubmit="formSubmit" bindreset="formReset">
       <view class="section">
@@ -28,8 +11,9 @@
           <button>邀请老师</button>
         </view>
       </view>
+      <view class="tips">手机号仅供老师联系家长时使用，不会用于其他商业用途</view>
       <view class="section">
-        <view class="section__title">姓 名</view>
+        <view class="section__title">孩子姓名</view>
         <view class="section-input">
           <input name="input" type="text" placeholder="输入姓名" />
         </view>
@@ -38,15 +22,15 @@
         </view>
       </view>
       <view class="section">
-        <view class="section__title">所任课程</view>
+        <view class="section__title">所属关系</view>
         <view class="section-input btn">
-          <view class="class_item {{item.subject_type == selSubIndex ?'item_active' :''}}" 
-          wx:for="{{workItem}}" 
+          <view class="class_item {{item.family_role == selShipIndex ?'item_active' :''}}" 
+          wx:for="{{Relationship}}" 
           wx:key="index" 
           wx:item="item" 
-          data-num="{{item.subject_type}}" bindtap="switchSubject">{{item.subject_name}}</view>
-          <view class="class_item other-input" wx:if="{{showObjInput}}">
-            <input type="text" name="other_like"/>
+          data-num="{{item.family_role}}" bindtap="switchFamilyShip">{{item.family_role_name}}</view>
+          <view class="class_item other-input" wx:if="{{showShipInput}}">
+            <input type="text" name="family_role_name"/>
           </view>
         </view>
       </view>

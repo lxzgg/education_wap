@@ -1,71 +1,8 @@
 /* pages/myself/invit_teacher/invit_teacher.wxss */
-
-.sections {
-  width: 710rpx;
-  height: 340rpx;
-  background-color: #fafbff;
-  box-shadow: 0rpx 0rpx 11rpx 0rpx rgba(192, 192, 192, 0.54);
-  border-radius: 10rpx;
-  margin: 20rpx;
-  text-align: center;
-}
-
-.sections .header .img image {
-  max-width: 106rpx;
-  max-height: 106rpx;
-  border-radius: 50%;
-  margin-top: 20rpx;
-}
-
-.sections .header .tips text {
-  display: block;
-}
-
-.sections .header .tips text:first-child {
-  font-size: 22rpx;
-}
-
-.sections .header .tips text:last-child {
-  font-size: 24rpx;
-}
-
-.sections .header .tips {
-  text-align: center;
-  padding-bottom: 10rpx;
-}
-
-.sections .step {
-  border-top: 1rpx solid #eeeeee;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.sections .step view image {
-  max-width: 86rpx;
-  max-height: 86rpx;
-  margin: 19rpx 0 0 0;
-  border-radius: 50%;
-}
-
-.sections .step .class_name {
-  font-size: 22rpx;
-  color: #333333;
-  line-height: 109rpx;
-  margin-left: 20rpx;
-}
-
-.bottom {
-  margin: 20rpx;
-  height: 320rpx;
-  background-color: #fafbff;
-  box-shadow: 0rpx 0rpx 11rpx 0rpx rgba(192, 192, 192, 0.54);
-  border-radius: 10rpx;
-}
-
 .section {
   display: flex;
   border-bottom: 1rpx solid #eee;
-  padding: 20rpx 12rpx;
+  padding:  20rpx 43rpx;
   text-align: center;
 }
 
@@ -76,7 +13,8 @@
   box-shadow: 0rpx 0rpx 9rpx 0rpx rgba(130, 129, 129, 0.34);
   border-radius: 14rpx 10rpx 10rpx 10rpx;
   color: #fff;
-  font-size: 22rpx;
+  font-size: 24rpx;
+  line-height: 54rpx;
 }
 
 .section__title {
@@ -88,15 +26,15 @@
 
 .section-input {
   width: 100%;
-  font-size: 20rpx;
-  color: #999999;
+  font-size: 24rpx;
+  color: #333;
   text-align: left;
   padding-left: 10rpx;
 }
 
 .class_item {
   text-align: center;
-  font-size: 22rpx;
+  font-size: 24rpx;
   line-height: 44rpx;
   /*color: #ffffff;*/
   width: 78rpx;
@@ -138,4 +76,12 @@
 .item_active{
     color: #fff;
     background-color: #74b8fd;
+}
+.tips{
+    width: 100%;
+    line-height: 50rpx;
+	background-color: #eeeeee;
+    font-size: 26rpx;
+    color: #999;
+    padding-left: 43rpx;
 }

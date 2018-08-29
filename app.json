@@ -22,7 +22,8 @@
     "pages/help_center/help_center",
     "pages/banner_control/banner_control",
     "pages/publish_index/publish_index",
-    "pages/myself/invit_teacher/invit_teacher"
+    "pages/myself/invit_teacher/invit_teacher",
+    "pages/myself/join_class/join_class"
   ],
   "window": {
     "backgroundTextStyle": "light",
