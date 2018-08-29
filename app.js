@@ -24,6 +24,8 @@ App({
       wx.setStorage({key: 'user', data: res.data})
       wx.switchTab({url: '/pages/index/index'})
       wx.hideLoading()
+    }).catch(() => {
+      wx.showToast({title: '初始化失败'})
     })
   }
 })
