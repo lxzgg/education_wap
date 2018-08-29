@@ -1,11 +1,13 @@
 // pages/publish/publish.js
 let util = require('../../utils/util')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    submitAuth: false,
     list: [{
       index: 1,
       active: true,
@@ -60,7 +62,28 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
+  onLoad: function (options) {
+    // let role = app.user.user_role
+    // if (role === 1) {
+    //   this.setData({
+    //     submitAuth: false
+    //   })
+    // } else {
+    //   wx.showModal({
+    //     title: '提示',
+    //     content: '您没有发布的权限',
+    //     showCancel: false,
+    //     success: function () {
+    //       wx.switchTab({
+    //         url: '/pages/index/index'
+    //       })
+    //     }
+    //   })
+    //    this.setData({
+    //         submitAuth: true
+    //       })
+    // }
+  },
   switchChange(e) {
     let num = e.currentTarget.dataset.num
     let bool = e.detail.value ? 1 : 0
@@ -195,7 +218,6 @@ Page({
               signature: reponseData.signature
             },
             success: function (res) {
-              console.log(4)
               if (res && res.statusCode == 200) {}
             },
             fail: function (e) {
@@ -208,8 +230,6 @@ Page({
           })
         })
     }
-
-
   },
   //删除图片
   clearImg(e) {
@@ -235,9 +255,9 @@ Page({
   formSubmit(e) {
     let descript = e.detail.value.descript.trim()
     let params = {
-      user_id: wx.getStorageSync('userInfo').user_id,
-      token: wx.getStorageSync('userInfo').token,
-      class_id: wx.getStorageSync('class_id'),
+      user_id: app.user.user_id,
+      token: app.user.token,
+      class_id: app.user.class_id,
       article_content: descript
     }
     let imgUrl = this.data.evalList,
@@ -261,35 +281,26 @@ Page({
 
     // 先上传图片
     this.upload(imgUrl[0].tempFilePaths)
-
     Object.assign(data_params, params);
-
     //form submit
     util.wxpromisify({
-      url: 'index/release',
+      url: 'article/release',
       data: data_params,
       method: 'post'
     }).then((res) => {
       if (res && res.response === 'data') {
+
         wx.showToast({
           title: '发布成功',
           icon: 'success',
-          duration: 2000,
+          duration: 5000,
           success: function (res) {
-            wx.switchTab({
-              url: '../index/index',
-              success: function (res) {
-                // success
-              },
-              fail: function () {
-                // fail
-              },
-              complete: function () {
-                // complete
-              }
-            })
-
-          },
+            setTimeout(() => {
+              wx.switchTab({
+                url: '../index/index'
+              })
+            }, 5000)
+          }
         })
       }
     }).catch((err) => {

@@ -6,7 +6,7 @@
   <view class="user-name" bindtap='goToPersonInfo'>{{nickname}}
     <text class="icon icon-you"></text>
   </view>
-  <view class="user-position">家长</view>
+  <view class="user-position">{{roleName}}</view>
 </view>
 <view class="list">
   <navigator class="item" open-type="navigate" url="/pages/myself/publish_control/publish_control">

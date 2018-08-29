@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    role: 'teacher',
+    role: 0,
     relationshipIndex: 1,
     hobbyIndex: 1,
     workIndex: 1,
@@ -157,7 +157,6 @@ Page({
     } else {
       showObjInput = false
     }
-
     this.setData({
       workIndex: num,
       showObjInput: showObjInput
@@ -167,7 +166,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let url = this.data.role === 'teacher' ? 'user/userInfoTea' : 'user/userInfo'
+    this.setData({
+      role: app.user.user_role
+    })
+    let url = this.data.role === 1 ? 'user/userInfoTea' : 'user/userInfo'
     utils.wxpromisify({
       url: url,
       data: app.user,
@@ -178,7 +180,7 @@ Page({
 
         //sex
         let sex_list = this.data.sex_list
-        if (res.data.gender === 2 || res.data.chil_sex === 2) {
+        if (res.data.gender === 2 || res.data.child_sex === 2) {
           sex_list[0].checked = false
           sex_list[1].checked = true
         } else {
@@ -194,10 +196,10 @@ Page({
         this.setData({
           content: res.data,
           sex_list: sex_list,
-          date: res.data.birthday,
+          date: res.data.birthday || res.data.child_birth,
           relationshipIndex: family_ship,
           hobbyIndex: hobbyIndex,
-          workIndex: subject_type,
+          workIndex: subject_type
         })
       }
     }).catch((err) => {})
@@ -245,7 +247,7 @@ Page({
     let selHobby = {},
       selShip = {},
       selSubject = {}
-    if (this.data.role === 'parent') {
+    if (this.data.role == '2') {
       //爱好
       let other_hobby = e.detail.value.other_like
       let showhobbyInput = this.data.showhobbyInput
@@ -253,7 +255,6 @@ Page({
       let hobbyIndex = this.data.hobbyIndex
       selHobby = this.handlefn(showhobbyInput, other_hobby, '爱好', 'like_id', 'other_like', hobbyItem, hobbyIndex, 9)
       console.log(selHobby)
-
       //亲属关系
       let other_ship = e.detail.value.family_role_name
       let showShipInput = this.data.showshipInput
@@ -261,10 +262,10 @@ Page({
       let familyIndex = this.data.relationshipIndex
       selShip = this.handlefn(showShipInput, other_ship, '关系', 'family_role', 'family_role_name', familyItem, familyIndex, 7)
       selShip.child_name = username
-      selShip.chil_sex = gender
+      selShip.child_sex = gender
       selShip.child_birth = birthday
 
-    } else {
+    } else if (this.data.role == '1') {
 
       //课程
       let other_class = e.detail.value.subject_name
@@ -277,35 +278,31 @@ Page({
       selSubject.gender = gender
     }
 
-
-
-
     let selVal = {
-      ...app.user,
+      user_id: app.user.user_id,
+      token: app.user.token,
+      mobile: mobile,
       ...selSubject,
       ...selShip,
       ...selHobby
     }
-    let url = this.data.role === 'teacher' ? 'user/submitTeacherInfo' : 'user/submitUserInfo'
+    let url = this.data.role === 1 ? 'user/submitTeacherInfo' : 'user/submitUserInfo'
     utils.wxpromisify({
       url: url,
       data: selVal,
       method: 'post'
     }).then((res) => {
       if (res && res.response === 'data') {
-        wx.showModal({
-          title: '提示',
-          content: '信息保存成功',
-          showCancel: false,
-          success: function () {
-            console.log(2322)
-            if (res.confirm) {
-              wx.switchTab({
-                url: '/pages/my/my'
-              })
-            }
-          }
+        wx.showToast({
+          title: '内容保存成功',
+          icon: 'success',
+          duration: 5000
         })
+        setTimeout(() => {
+          wx.switchTab({
+            url: '/pages/my/my'
+          })
+        }, 5000)
       }
     })
   },
@@ -327,7 +324,7 @@ Page({
     } else {
       let index = 0
       selItem.forEach((val, key) => {
-        if (val.index == selIndex) {
+        if (val[indexs] == selIndex) {
           index = key
         }
       })

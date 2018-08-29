@@ -4,17 +4,17 @@
         <view class="icon icon-jia"></view>
     </view>
 </view>
-<view class="item" wx:for="{{list}}" wx:key="index" data-classid="{{item.class_id}}" bindtap="switchClass">
+<view class="item" wx:for="{{class_list}}" wx:key="index" >
     <view class="item-l">
         <view class="name">{{item.class_name}}</view>
         <view class="position">{{item.role}}</view>
     </view>
-    <view class="item-r">
+    <view class="item-r" data-classid="{{item.class_id}}" bindtap="switchClass">
         <label>
-            <radio value="0"></radio>
+            <radio value="{{item.class_id}}" checked="{{ item.class_id === selIndex ? true : false}}"></radio>
             <!-- 其他布局代码 -->
         </label>
     </view>
 </view>
-<text style="text-align:center;line-height: 70rpx;color: #999;font-size: 26rpx;">暂无数据</text>
+<text wx:if="{{isEmpty === true}}" style="text-align:center;line-height: 70rpx;color: #999;font-size: 26rpx;">暂无数据</text>
 <button class="post" wx:if="{{isEmpty === false}}">确定</button>

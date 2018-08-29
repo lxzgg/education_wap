@@ -5,7 +5,8 @@ App({
 
   // 用户信息
   user: {},
-
+  admin_auth:['非管理员','管理员'],
+  user_role:['游客','教师','家长'],
   onLaunch() {
     // 登陆
     wx.showLoading({title: '加载中'})

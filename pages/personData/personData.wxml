@@ -36,7 +36,7 @@
     </view>
     <view class="icon icon-you"></view>
   </view>
-  <view class="item" wx:if="{{role === 'parent'}}">
+  <view class="item" wx:if="{{role == '2'}}">
     <view class="item-name">
       <view class="item-name-name sp">亲属关系</view>
     </view>
@@ -49,7 +49,7 @@
         <view class="list-item input-box" wx:if="{{showshipInput}}"><input type="text" name="family_role_name"/></view>
     </view>
   </view>
-  <view class="item" wx:if="{{role === 'parent'}}">
+  <view class="item" wx:if="{{role == '2'}}">
     <view class="item-name">
       <view class="item-name-name sp">兴趣爱好</view>
     </view>
@@ -62,7 +62,7 @@
         <view class="list-item input-box" wx:if="{{showhobbyInput}}"><input type="text" name="other_like"/></view>
     </view>
   </view>
-  <view class="item" wx:if="{{role === 'teacher'}}">
+  <view class="item" wx:if="{{role == '1'}}">
     <view class="item-name">
       <view class="item-name-name sp">所任课程</view>
     </view>

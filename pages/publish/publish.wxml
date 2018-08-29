@@ -28,5 +28,5 @@
       </view>
     </view>
   </view>
-<button class="post" formType="submit">发布</button>
+<button class="post" formType="submit" disabled="{{submitAuth}}">发布</button>
 </form>

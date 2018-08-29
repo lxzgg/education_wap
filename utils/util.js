@@ -22,7 +22,7 @@ const formatNumber = n => {
 
 var wxpromisify = function(params){
     // let uploadUrl = 'http://xiaoyuan.hngtsm.cn/'
-  let baseurl = 'http://xiaoyuan.whwhjy.com/mobile/'
+  let baseurl = 'https://xiaoyuan.whwhjy.com/mobile/'
   let methods = params.method ? params.method : 'get'
 //   userId = get
 //    param.data.user_id = wx.getStorage('userInfo')
@@ -31,8 +31,7 @@ var wxpromisify = function(params){
         wx.request({
             url: baseurl+params.url,
             data: params.data,
-            method: methods ,
-            header: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            method: methods , 
             success: function (res) {
                 resolve(res.data)
             },

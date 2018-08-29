@@ -5,7 +5,8 @@ Page({
 
   data: {
     class_list: [],
-    isEmpty: true
+    isEmpty: true,
+    selIndex:''
   },
 
   onLoad: function (options) {
@@ -19,14 +20,14 @@ Page({
     }).then((res) => {
       if (res && res.response === 'data') {
         this.setData({
-          class_list: res.list
+          class_list: res.list,
+          isEmpty: false
         })
       }else{
 
       }
     })
   },
-
   goToAddClass() {
     wx.navigateTo({
       url: '/pages/myself/add_class/add_class'
@@ -34,7 +35,7 @@ Page({
   },
 
   switchClass(e) {
-    let class_id = e.details.value.classid
-    console.log(class_id)
+    let class_id = e.currentTarget.dataset.classid
+   this.setData({selIndex: class_id})
   }
 })

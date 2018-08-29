@@ -1,5 +1,6 @@
 // pages/my/my.js
 let util = require('../../utils/util')
+const app = getApp()
 Page({
 
   /**
@@ -8,16 +9,20 @@ Page({
   data: {
     imageUrl: '',
     nickname: '',
-    showModalStatus: false
+    showModalStatus: false,
+    roleName:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let is_admin = app.admin_auth[app.user.is_admin] +'/'+app.user_role[app.user.user_role]
+    this.setData({roleName: is_admin})
+    
     util.wxpromisify({
       url: 'user/userInfo',
-      data: wx.getStorageSync('userInfo'),
+      data: app.user,
       method: 'post'
     }).then((ret) => {
       if (ret.response == 'data') {
@@ -31,16 +36,7 @@ Page({
 
   goToPersonInfo() {
     wx.navigateTo({
-      url: '/pages/personData/personData',
-      success: function (res) {
-        // success
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-      }
+      url: '/pages/personData/personData'
     })
   },
 
