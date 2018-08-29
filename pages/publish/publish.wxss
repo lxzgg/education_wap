@@ -51,7 +51,7 @@
 .publish-content .img-list {
   display: flex;
   flex-wrap: wrap;
-  padding-bottom: 84rpx;
+  padding-bottom: 50rpx;
 }
 
 .publish-content .img-list .item {

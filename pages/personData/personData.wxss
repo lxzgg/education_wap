@@ -27,6 +27,9 @@
 .item .item-name .item-name-content {
   line-height: 75rpx;
 }
+.item .item-name .item-name-content input {
+  margin-top: 10rpx;
+}
 
 .item .item-button {
   background-color: #ffaa00;

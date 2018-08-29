@@ -54,11 +54,11 @@
         </view>
         <view class="icon icon-you"></view>
     </view>
-    <view class="item">
+    <navigator class="item" open-type="navigate" url="/pages/classify_maintain/classify_maintain">
         <view class="name">
             <view class="name-text">分类维护</view>
         </view>
         <view class="icon icon-you"></view>
-    </view>
+    </navigator>
 </view>
 <view class="post">保存设置</view>

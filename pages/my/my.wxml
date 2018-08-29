@@ -1,59 +1,71 @@
 <view class="banner">
-    <view class="header-img">
-        <image wx:if="{{imageUrl}}" src="{{imageUrl}}"></image>
-        <image wx:else src="/image/user.png"></image>
-    </view>
-    <view class="user-name" bindtap='goToPersonInfo'>{{nickname}}<text class="icon icon-you"></text></view>
-    <view class="user-position">家长</view>
+  <view class="header-img">
+    <image wx:if="{{imageUrl}}" src="{{imageUrl}}"></image>
+    <image wx:else src="/image/user.png"></image>
+  </view>
+  <view class="user-name" bindtap='goToPersonInfo'>{{nickname}}
+    <text class="icon icon-you"></text>
+  </view>
+  <view class="user-position">家长</view>
 </view>
 <view class="list">
-    <navigator class="item" open-type="navigate" url="/pages/myself/publish_control/publish_control">
-        <view class="name">
-            <view class="btn-icon"></view>
-            <view class="name-text">发布管理</view>
-        </view>
-        <view class="icon icon-you"></view>
-    </navigator>
-    <navigator class="item item2" open-type="navigate" url="/pages/myself/class_infomation/class_infomation">
-        <view class="name">
-            <view class="btn-icon"></view>
-            <view class="name-text">班级信息</view>
-        </view>
-        <view class="icon icon-you"></view>
-    </navigator>
-      <navigator class="item item3" open-type="navigate" url="/pages/myself/class_contact/class_contact">
-        <view class="name">
-            <view class="btn-icon"></view>
-            <view class="name-text">班级通讯录</view>
-        </view>
-        <view class="icon icon-you"></view>
-    </navigator>
-     <navigator class="item item4" open-type="navigate" url="/pages/myself/add_class/add_class">
-        <view class="name">
-            <view class="btn-icon"></view>
-            <view class="name-text">创建班级</view>
-        </view>
-        <view class="icon icon-you"></view>
-    </navigator>
-    <view class="item item5" bindtap='popDialog'>
-        <view class="name">
-            <view class="btn-icon"></view>
-            <view class="name-text">推荐</view>
-        </view>
-        <view class="icon icon-you"></view>
+  <navigator class="item" open-type="navigate" url="/pages/myself/publish_control/publish_control">
+    <view class="name">
+      <view class="btn-icon"></view>
+      <view class="name-text">发布管理</view>
     </view>
-      <navigator class="item item6" open-type="navigate" url="/pages/myself/switch_class/switch_class">
-        <view class="name">
-            <view class="btn-icon"></view>
-            <view class="name-text">切换班级</view>
-        </view>
-        <view class="icon icon-you"></view>
-    </navigator>
-    <navigator class="item item7" open-type="navigate" url="/pages/help_center/help_center">
-        <view class="name">
-            <view class="btn-icon"></view>
-            <view class="name-text">帮助中心</view>
-        </view>
-        <view class="icon icon-you"></view>
-    </navigator>
+    <view class="icon icon-you"></view>
+  </navigator>
+  <navigator class="item item2" open-type="navigate" url="/pages/myself/class_infomation/class_infomation">
+    <view class="name">
+      <view class="btn-icon"></view>
+      <view class="name-text">班级信息</view>
+    </view>
+    <view class="icon icon-you"></view>
+  </navigator>
+  <navigator class="item item3" open-type="navigate" url="/pages/myself/class_contact/class_contact">
+    <view class="name">
+      <view class="btn-icon"></view>
+      <view class="name-text">班级通讯录</view>
+    </view>
+    <view class="icon icon-you"></view>
+  </navigator>
+  <navigator class="item item4" open-type="navigate" url="/pages/myself/add_class/add_class">
+    <view class="name">
+      <view class="btn-icon"></view>
+      <view class="name-text">创建班级</view>
+    </view>
+    <view class="icon icon-you"></view>
+  </navigator>
+  <view class="item item5" bindtap='showModal'>
+    <view class="name">
+      <view class="btn-icon"></view>
+      <view class="name-text">推荐</view>
+    </view>
+    <view class="icon icon-you"></view>
+  </view>
+  <navigator class="item item6" open-type="navigate" url="/pages/myself/switch_class/switch_class">
+    <view class="name">
+      <view class="btn-icon"></view>
+      <view class="name-text">切换班级</view>
+    </view>
+    <view class="icon icon-you"></view>
+  </navigator>
+  <navigator class="item item7" open-type="navigate" url="/pages/help_center/help_center">
+    <view class="name">
+      <view class="btn-icon"></view>
+      <view class="name-text">帮助中心</view>
+    </view>
+    <view class="icon icon-you"></view>
+  </navigator>
 </view>
+
+<!--屏幕背景变暗的背景 -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!--弹出框 -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+    <image src="/image/user.png"></image>
+    <button>保存二维码到相册</button>
+    <text>可以将小程序推荐给其他班主任和学生</text>
+</view>
+

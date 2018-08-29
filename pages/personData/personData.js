@@ -12,6 +12,7 @@ Page({
     workIndex: 0,
     date: '请选择出生日期',
     radioCheckVal: 'woman',
+    content:{},
     sex_list: [{
         name: 'woman',
         value: '女',
@@ -105,7 +106,8 @@ Page({
         num: 5,
         label: '其他'
       }
-    ]
+    ],
+    storage:{}
   },
   bindDateChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
@@ -140,6 +142,7 @@ Page({
       token: wx.getStorageSync('userInfo').token,
       class_id: wx.getStorageSync('class_id'),
     }
+    this.setData({storage: params})
     let url = this.data.role === 'teacher' ? 'user/userInfoTea' : 'user/userInfo'
     utils.wxpromisify({
       url: url,
@@ -147,7 +150,9 @@ Page({
       method: 'post'
     }).then((res) => {
       if (res && res.response === 'data') {
-        console.log(res)
+          let content = this.data.content
+          content.nickname = res.data.username
+          content.birth = res.data.birthday
       }
     }).catch((err) => {
       console.log(err)
@@ -158,23 +163,37 @@ Page({
 
   },
   formSubmit(e) {
-      console.log(e)
-      return 
-    let descript = e.detail.value.descript.trim()
-    let params = {
-      user_id: wx.getStorageSync('userInfo').user_id,
-      token: wx.getStorageSync('userInfo').token,
-      class_id: wx.getStorageSync('class_id')
-    }
-   
-    if (!descript) {
-      wx.showToast({
-        title: '请输入文字描述',
-        icon: 'none',
-        duration: 5000
-      })
-      return
-    }
+      let selPerVal = {
+          user_id:'',
+          token:'',
+          mobile:'',
+          child_name:'',
+          child_sex:'',
+          child_birth:'',
+          family_role:'',
+          family_role_name:'',
+          like_id:'',
+          other_like:''
+      }
+      let selTeaVal = {
+          user_id:'',
+          token:'',
+          username:'',
+          gender:'',
+          birthday:'',
+          subject_type:'',
+          subject_name:''
+      }
+    // let descript = e.detail.value.descript.trim()
+    
+    // if (!descript) {
+    //   wx.showToast({
+    //     title: '请输入文字描述',
+    //     icon: 'none',
+    //     duration: 5000
+    //   })
+    //   return
+    // }
   },
 
   /**

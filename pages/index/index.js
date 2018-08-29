@@ -1,7 +1,9 @@
 const app = getApp()
 
 Page({
-  data: {},
+  data: {
+    isEmpty: true
+  },
 
 
   onLoad() {

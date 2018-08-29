@@ -2,11 +2,11 @@
   <view class="item">
     <view class="item-name">
       <view class="item-name-name">电话号码</view>
-      <view class="item-name-content"><input name="tel" placeholder="输入班级名称"/></view>
+      <view class="item-name-content"><input name="tel" placeholder="输入手机号码"/></view>
     </view>
-    <!--<view class="item-button" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+    <view class="item-button" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
       使用微信手机号
-    </view>-->
+    </view>
   </view>
   <view class="item">
     <view class="item-name">
@@ -36,7 +36,7 @@
     </view>
     <view class="icon icon-you"></view>
   </view>
-  <view class="item">
+  <!--<view class="item">
     <view class="item-name">
       <view class="item-name-name sp">亲属关系</view>
     </view>
@@ -59,8 +59,8 @@
         wx:key="{{item.num}}" 
         data-num="{{item.num}}" bindtap="switchHobby">{{item.label}}</view>
     </view>
-  </view>
-  <!--<view class="item">
+  </view>-->
+  <view class="item">
     <view class="item-name">
       <view class="item-name-name sp">所任课程</view>
     </view>
@@ -71,6 +71,6 @@
         wx:key="{{item.num}}" 
         data-num="{{item.num}}" bindtap="switchWork">{{item.label}}</view>
     </view>
-  </view>-->
+  </view>
   <button class="subBtn" formType="submit">保 存</button>
 </form>
