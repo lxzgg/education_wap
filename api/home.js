@@ -13,5 +13,13 @@ export default {
   // 分类列表
   cateList(param) {
     return ajax.post('class_info/cateList', param)
+  },
+  // 班级列表
+  classList(param) {
+    return ajax.post('class_info/classList', param)
+  },
+  // 创建班级
+  addClass(param) {
+    return ajax.post('class_info/addClass', param)
   }
 }

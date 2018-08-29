@@ -11,7 +11,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.2.2",
+	"libVersion": "2.2.4",
 	"appid": "wxde4f75e109bf61d4",
 	"projectname": "education_wap",
 	"isGameTourist": false,
@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 16,
+			"current": 8,
 			"list": [
 				{
 					"id": -1,
@@ -84,8 +84,8 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "班级信息",
+					"id": 8,
+					"name": "创建班级",
 					"pathName": "pages/myself/add_class/add_class",
 					"query": ""
 				},

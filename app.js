@@ -21,6 +21,7 @@ App({
     }).then(res => {
       // 用户信息全局保存
       this.user = res.data
+      wx.setStorage({key: 'user', data: res.data})
       wx.switchTab({url: '/pages/index/index'})
       wx.hideLoading()
     })
