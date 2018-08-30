@@ -4,9 +4,9 @@
       <view class="item-name-name">电话号码</view>
       <view class="item-name-content"><input name="tel" placeholder="输入手机号码" value="{{content.mobile}}"/></view>
     </view>
-    <!--<view class="item-button" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+    <view class="item-button" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
       使用微信手机号
-    </view>-->
+    </view>
   </view>
   <view class="item">
     <view class="item-name">

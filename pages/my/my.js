@@ -17,7 +17,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('加载')
     let is_admin = app.admin_auth[app.user.is_admin] +'/'+app.user_role[app.user.user_role]
+    console.log(app.user.is_admin,app.user.user_role)
     this.setData({roleName: is_admin})
     
     util.wxpromisify({

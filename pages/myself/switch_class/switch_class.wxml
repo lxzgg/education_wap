@@ -1,20 +1,22 @@
-<view class="add">
+<form bindsubmit="formSubmit">
+  <view class="add">
     <view class="name">我的班级</view>
     <view class="right" bindtap="goToAddClass">
-        <view class="icon icon-jia"></view>
+      <view class="icon icon-jia"></view>
     </view>
-</view>
-<view class="item" wx:for="{{class_list}}" wx:key="index" >
+  </view>
+  <view class="item" wx:for="{{class_list}}" wx:key="index">
     <view class="item-l">
-        <view class="name">{{item.class_name}}</view>
-        <view class="position">{{item.role}}</view>
+      <view class="name">{{item.class_name}}</view>
+      <view class="position">{{item.role}}</view>
     </view>
     <view class="item-r" data-classid="{{item.class_id}}" bindtap="switchClass">
-        <label>
-            <radio value="{{item.class_id}}" checked="{{ item.class_id === selIndex ? true : false}}"></radio>
+      <label>
+            <radio value="" name="classid" checked="{{ item.class_id === selClassId ? true : false}}"></radio>
             <!-- 其他布局代码 -->
         </label>
     </view>
-</view>
-<text wx:if="{{isEmpty === true}}" style="text-align:center;line-height: 70rpx;color: #999;font-size: 26rpx;">暂无数据</text>
-<button class="post" wx:if="{{isEmpty === false}}">确定</button>
+  </view>
+  <text wx:if="{{isEmpty === true}}" style="text-align:center;line-height: 70rpx;color: #999;font-size: 26rpx;">暂无数据</text>
+  <button class="post" wx:if="{{isEmpty === false}}" formType="submit">确定</button>
+</form>

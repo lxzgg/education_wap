@@ -176,8 +176,6 @@ Page({
       method: 'post'
     }).then((res) => {
       if (res && res.response === 'data') {
-        console.log(res)
-
         //sex
         let sex_list = this.data.sex_list
         if (res.data.gender === 2 || res.data.child_sex === 2) {
@@ -205,8 +203,19 @@ Page({
     }).catch((err) => {})
 
   },
-  getPhoneNumber() {
-
+  // 获取用户手机号码
+  getPhoneNumber(e) {
+    console.log(e)
+    const {encryptedData, iv} = e.detail
+    wx.login({
+      success: res => {
+        const code = res.code,content = this.data.content
+        app.api.getUserMobile({code, encryptedData, iv}).then(res => {
+          content.mobile = res.data.mobile
+          this.setData({content})
+        })
+      }
+    })
   },
   formSubmit(e) {
     //role is teacher

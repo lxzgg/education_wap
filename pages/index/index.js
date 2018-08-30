@@ -28,10 +28,14 @@ Page({
 
   // 获取文章列表
   getArticle() {
-    app.api.home.article({...app.user}).then(res => {
+    app.api.home.article({ page:1,
+      token: app.user.token,
+      num: 10,
+      user_id: app.user.user_id,
+      class_id: app.user.class_id}).then(res => {
       if (res.response === 'data') {
         this.setData({
-          article: []
+          article: res.list
         })
       }
     })

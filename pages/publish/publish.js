@@ -8,6 +8,7 @@ Page({
    */
   data: {
     submitAuth: false,
+    info:'',
     list: [{
       index: 1,
       active: true,
@@ -278,7 +279,7 @@ Page({
       })
       return
     }
-
+    let that = this
     // 先上传图片
     this.upload(imgUrl[0].tempFilePaths)
     Object.assign(data_params, params);
@@ -299,12 +300,39 @@ Page({
               wx.switchTab({
                 url: '../index/index'
               })
+              that.init()
             }, 5000)
           }
         })
       }
     }).catch((err) => {
 
+    })
+  },
+  init() {
+   // this.onLoad()
+    this.setData({
+      evalList: [{
+        tempFilePaths: [],
+        imgList: []
+      }],
+      handle:[{
+        index: 0,
+        type: '顶置',
+        on: false
+      },
+      {
+        index: 1,
+        type: '允许评论',
+        on: false
+      },
+      {
+        index: 2,
+        type: '公开',
+        on: false
+      }
+    ],
+    info:''
     })
   }
 })

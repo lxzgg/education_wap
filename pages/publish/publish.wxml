@@ -7,7 +7,7 @@
     </view>
   </view>
   <view class="publish-content">
-    <textarea placeholder="输入您想要输入的文字" name="descript" placeholder-style="color:#999;"></textarea>
+    <textarea placeholder="输入您想要输入的文字" name="descript" placeholder-style="color:#999;" value="{{info}}"></textarea>
     <view class="img-list">
       <view class="item" wx:for="{{evalList[0].tempFilePaths}}" wx:for-item="vo" wx:key="index">
         <image src="{{vo}}"></image>
