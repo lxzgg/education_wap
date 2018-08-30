@@ -23,7 +23,8 @@
     "pages/banner_control/banner_control",
     "pages/publish_index/publish_index",
     "pages/myself/invit_teacher/invit_teacher",
-    "pages/myself/join_class/join_class"
+    "pages/myself/join_class/join_class",
+    "pages/public_circle/public_circle"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -51,7 +52,7 @@
         "selectedIconPath": "image/firend_circle.png",
         "iconPath": "image/firend_circle1.png",
         "pagePath": "pages/publish_index/publish_index",
-        "text": "朋友圈"
+        "text": "家长圈"
       },
       {
         "selectedIconPath": "image/footer3.png",

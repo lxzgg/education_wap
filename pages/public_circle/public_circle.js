@@ -8,53 +8,15 @@ Page({
    */
   data: {
     submitAuth: false,
+    navData: [],
+    current_id:2,
     info:'',
-    list: [{
-      index: 1,
-      active: true,
-      label: '通知'
-    }, {
-      index: 2,
-      active: false,
-      label: '作业'
-    }, {
-      index: 3,
-      active: false,
-      label: '相册'
-    }, {
-      index: 4,
-      active: false,
-      label: '光荣榜'
-      // }, {
-      //   index: 4,
-      //   active: false,
-      //   label: '接龙'
-    }],
-    handle: [{
-        index: 0,
-        type: '顶置',
-        on: false
-      },
-      {
-        index: 1,
-        type: '允许评论',
-        on: false
-      },
-      {
-        index: 2,
-        type: '公开',
-        on: false
-      }
-    ],
     evalList: [{
       tempFilePaths: [],
       imgList: []
     }],
     params: {
       article_type: 1,
-      is_top: 0,
-      can_comment: 0,
-      is_open: 0,
       article_accessory: []
     },
     showPlusIcon: true
@@ -64,26 +26,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // let role = app.user.user_role
-    // if (role === 1) {
-    //   this.setData({
-    //     submitAuth: false
-    //   })
-    // } else {
-    //   wx.showModal({
-    //     title: '提示',
-    //     content: '您没有发布的权限',
-    //     showCancel: false,
-    //     success: function () {
-    //       wx.switchTab({
-    //         url: '/pages/index/index'
-    //       })
-    //     }
-    //   })
-    //    this.setData({
-    //         submitAuth: true
-    //       })
-    // }
+      util.wxpromisify({
+      data: {},
+      url: 'friend/getCateList',
+      method: 'post'
+    }).then(res => {
+      const navData = res.list
+      this.setData({
+        navData
+      })
+    })
   },
   switchChange(e) {
     let num = e.currentTarget.dataset.num
@@ -98,28 +50,12 @@ Page({
     }
   },
   changeActive(e) {
-    let index = e.target.dataset.index
-    let data_list = this.data.list.map((val, key, arr) => {
-      val.active = val.index == index ? true : false
-      return val
-    })
-    let params = this.data.params
-    params.article_type = index
+    let current_id = e.target.dataset.index
     this.setData({
-      params: params,
-      list: data_list
+      current_id
     })
   },
-  // del(){},
-  handleSwitch(event) {
-    let index = event.currentTarget.dataset.num
-    let arr = this.data.handle
-    let curActive = arr[index]['on']
-    arr[index]['on'] = curActive ? false : true
-    this.setData({
-      handle: arr
-    })
-  },
+
   //添加图片
   joinPicture: function (e) {
     var evalList = this.data.evalList;

@@ -2,13 +2,11 @@ const app = getApp()
 let utils = require('../../../utils/util')
 
 Page({
-
   data: {
     class_list: [],
     isEmpty: true,
     selClassId: ''
   },
-
   onLoad: function (options) {
     utils.wxpromisify({
       url: 'class_info/classList',
@@ -23,9 +21,7 @@ Page({
           class_list: res.list,
           isEmpty: false
         })
-      } else {
-
-      }
+      } else {}
     })
   },
   goToAddClass() {
@@ -66,7 +62,6 @@ Page({
                 }
               })
             }).then(res => {
-              console.log(res)
               const code = res.code
               return app.api.loginStatus({
                 code
@@ -86,12 +81,11 @@ Page({
               wx.showToast({
                 title: '初始化失败'
               })
-            }).then(()=>{
+            }).then(() => {
               wx.switchTab({
                 url: '/pages/my/my'
               })
             })
-
           }
         })
       } else {

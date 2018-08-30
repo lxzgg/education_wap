@@ -1,0 +1,22 @@
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class="type">
+    <view class="text">请选择您要发布动态的标签(可多选)</view>
+    <view class="list">
+      <view class="list-item {{item.id === current_id ?'active':''}}" wx:for="{{navData}}" wx:item="item" wx:key="{{item.id}}" data-index="{{item.id}}"
+        bindtap="changeActive">{{item.cate_name}}</view>
+    </view>
+  </view>
+  <view class="publish-content">
+    <textarea placeholder="输入您想要输入的文字" name="descript" placeholder-style="color:#999;" value="{{info}}"></textarea>
+    <view class="img-list">
+      <view class="item" wx:for="{{evalList[0].tempFilePaths}}" wx:for-item="vo" wx:key="index">
+        <image src="{{vo}}"></image>
+        <view class="icon icon-shanchu" data-index="{{index}}" bindtap="clearImg"></view>
+      </view>
+      <view class="add-item item" bindtap="joinPicture" wx:if="{{showPlusIcon}}">
+        <view class="icon icon-jia"></view>
+      </view>
+    </view>
+  </view>
+<button class="post" formType="submit" disabled="{{submitAuth}}">发布</button>
+</form>

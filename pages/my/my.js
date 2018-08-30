@@ -41,5 +41,8 @@ Page({
       url: '/pages/personData/personData'
     })
   },
+  onShow(){
+    this.onLoad()
+  }
 
 })
