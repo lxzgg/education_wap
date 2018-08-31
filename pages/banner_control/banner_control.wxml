@@ -2,7 +2,7 @@
     <view class="title-l">当前图片</view>
     <view class="title-r">
         <view class="icon icon-paixu" bindtap="setSort" data-num="1"></view>
-        <view class="icon icon-jia"></view>
+        <view class="icon icon-jia" bindtap="plusImg"></view>
     </view>
 </view>
 <view class="title" wx:if="{{isSort==1}}">

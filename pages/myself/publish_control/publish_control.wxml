@@ -10,7 +10,7 @@
       <view class="content-bottom">
         <view class="look">浏览量：{{item.browser_num}}</view>
         <view class="bottom-btn">
-          <view class="text"  data-articleid="{{item.article_id}}" bindtap="goToCount">阅读统计</view>
+          <view class="text"  data-articleid="{{item.article_id}}" data-type="{{item.article_type}}" bindtap="goToCount">阅读统计</view>
           <view class="{{item.can_comment == '1' ? 'btn-l' :'btn-r'}}" data-articleid="{{item.article_id}}" data-index="{{index}}" bindtap="switchCommentAuth">{{item.can_comment == '1' ? '评论已开' :'评论已关'}}</view>
           <view class="{{item.is_top == '1' ? 'btn-l' :'btn-r'}}" bindtap="switchTopAuth" data-articleid="{{item.article_id}}" data-index="{{index}}">{{item.is_top == '1' ? '已置顶' :'未置顶'}}</view>
         </view>

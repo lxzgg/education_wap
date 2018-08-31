@@ -48,7 +48,7 @@
         </view>
 
     </view>
-    <view class="item">
+    <view class="item" bindtap="goToBannerContr">
         <view class="name">
             <view class="name-text">主页图片</view>
         </view>

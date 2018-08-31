@@ -8,7 +8,7 @@ Page({
    */
   data: {
     submitAuth: false,
-    info:'',
+    info: '',
     list: [{
       index: 1,
       active: true,
@@ -80,9 +80,9 @@ Page({
     //       })
     //     }
     //   })
-    //    this.setData({
-    //         submitAuth: true
-    //       })
+    //   this.setData({
+    //     submitAuth: true
+    //   })
     // }
   },
   switchChange(e) {
@@ -187,6 +187,7 @@ Page({
     var that = this;
     var curImgList = [],
       reponseData = []
+
     for (let i = 0; i < path.length; i++) {
       wx.showToast({
           icon: "loading",
@@ -254,6 +255,7 @@ Page({
     // this.upLoadImg(img);
   },
   formSubmit(e) {
+
     let descript = e.detail.value.descript.trim()
     let params = {
       user_id: app.user.user_id,
@@ -265,12 +267,14 @@ Page({
       data_params = this.data.params,
       imgArray = []
     imgUrl[0].tempFilePaths.forEach((val, key) => {
+      // let str_img 
       let obj = {
         'image': val
       }
       imgArray.push(obj)
     })
     params.article_accessory = imgArray
+    Object.assign(data_params, params);
     if (!descript) {
       wx.showToast({
         title: '请输入文字描述',
@@ -280,63 +284,70 @@ Page({
       return
     }
     let that = this
-    // 先上传图片
-    this.upload(imgUrl[0].tempFilePaths)
-    Object.assign(data_params, params);
-    //form submit
-    util.wxpromisify({
-      url: 'article/release',
-      data: data_params,
-      method: 'post'
-    }).then((res) => {
-      if (res && res.response === 'data') {
-        wx.showToast({
-          title: '发布成功',
-          icon: 'success',
-          duration: 2000,
-          success: function (res) {
-            setTimeout(() => {
-              wx.switchTab({
-                url: '../index/index'
-              })
-            }, 2000)
-          }
-        })
-      }else{
-         wx.showToast({
-          title: '发布失败',
-          icon: 'none',
-          duration: 5000
-        })
-      }
-    }).catch((err) => {
+    new Promise((resolve, reject) => {
+      resolve()
+    }).then(() => {
+      this.upload(imgUrl[0].tempFilePaths)
+    }).then(() => {
+      //form submit
+      util.wxpromisify({
+        url: 'article/release',
+        data: data_params,
+        method: 'post'
+      }).then((res) => {
+        if (res && res.response === 'data') {
+          wx.showToast({
+            title: '发布成功',
+            icon: 'success',
+            duration: 2000,
+            success: function (res) {
+              setTimeout(() => {
+                wx.switchTab({
+                  url: '../index/index'
+                })
+              }, 2000)
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '发布失败',
+            icon: 'none',
+            duration: 5000
+          })
+        }
+      }).catch((err) => {
 
+      })
     })
+
+
+
+
   },
   init() {
-   // this.onLoad()
+    // this.onLoad()
     this.setData({
       evalList: [{
         tempFilePaths: [],
         imgList: []
       }],
-      handle:[{
-        index: 0,
-        type: '顶置',
-        on: false
-      },
-      {
-        index: 1,
-        type: '允许评论',
-        on: false
-      },
-      {
-        index: 2,
-        type: '公开',
-        on: false
-      }
-    ],
-    info:''
+      handle: [{
+          index: 0,
+          type: '顶置',
+          on: false
+        },
+        {
+          index: 1,
+          type: '允许评论',
+          on: false
+        },
+        {
+          index: 2,
+          type: '公开',
+          on: false
+        }
+      ],
+      info: ''
     })
   }
 })

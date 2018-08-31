@@ -54,20 +54,21 @@ Page({
   },
   //切换标签
   switchNav(event) {
-    var cur = event.currentTarget.dataset.current;
+    var cur = event.currentTarget.dataset.id;
     //每个tab选项宽度占1/5
     var singleNavWidth = this.data.windowWidth / 5;
     //tab选项居中
     this.setData({
       navScrollLeft: (cur - 2) * singleNavWidth
     })
-    this.getFirendContent()
+
     if (this.data.currentTab == cur) {
       return false;
     } else {
       this.setData({
         currentTab: cur
       })
+      this.getFirendContent()
     }
   },
   //获取家长圈内容列表
@@ -83,9 +84,17 @@ Page({
       url: 'friend/contentList',
       method: 'post'
     }).then(res => {
-      this.setData({
-        content_list: res.list
-      })
+      if (res && res.response === 'data') {
+        this.setData({
+          content_list: res.list
+        })
+      } else {
+        wx.showToast({
+          title: res.error.message,
+          icon: 'none',
+          duration: 3000
+        })
+      }
     })
   },
   //点赞
@@ -121,4 +130,5 @@ Page({
       url: '/pages/comment/comment?articleid=' + id + '&type=firend'
     })
   }
+
 })

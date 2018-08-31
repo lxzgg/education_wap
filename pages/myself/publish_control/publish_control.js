@@ -77,8 +77,9 @@ Page({
  //跳转到文章统计页面
   goToCount(e){
   const articleid = e.currentTarget.dataset.articleid
+   const type = e.currentTarget.dataset.type
   wx.navigateTo({
-    url: '/pages/screen_count/screen_count?articleid='+articleid
+    url: '/pages/screen_count/screen_count?articleid='+articleid+'&type='+type
   })
   }
 })

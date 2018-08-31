@@ -1,1 +1,96 @@
 /* pages/screen_count/screen_count.wxss */
+
+.header {
+  padding: 28rpx 44rpx;
+  border-bottom: 4rpx solid #eee;
+}
+
+.header text:first-child {
+  border: 1rpx solid #ffaa00;
+  color: #ffaa00;
+  font-size: 20rpx;
+  margin-right: 25rpx;
+  padding: 8rpx 10rpx;
+}
+
+.header text:last-child {
+  font-size: 24rpx;
+  /*max-width: 540rpx;*/
+  color: #999999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /*white-space: nowrap;*/
+}
+
+.section .btn {
+  width: 190rpx;
+  height: 60rpx;
+  color: #ffaa00;
+  font-size: 20rpx;
+  line-height: 60rpx;
+  background: #fff;
+  border: 1rpx solid #ffaa00;
+}
+
+.section .btn:first-child {
+  border-top-left-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+}
+
+.section .btn:last-child {
+  border-top-right-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+}
+
+.section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 22rpx auto;
+  text-align: center;
+}
+
+.section .active {
+  background: #ffaa00;
+  color: #fff;
+}
+
+.content item .img {
+  height: 85rpx;
+  width: 85rpx;
+}
+
+.content .item .img image {
+  max-height: 85rpx;
+  max-width: 85rpx;
+  margin: 10rpx 20rpx 0 44rpx;
+}
+
+.content .item {
+  display: flex;
+  border-bottom: 1px solid #eee;
+}
+
+.content .item:first-child {
+  border-top: 1px solid #eee;
+}
+
+.content .item .nickname {
+  line-height: 80rpx;
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.content .item .nickname text {
+  font-size: 20rpx;
+  color: #ffaa00;
+  margin-left: 15rpx;
+  line-height: 100rpx;
+}
+
+.isEmpty {
+  text-align: center;
+  font-size: 24rpx;
+  color: #999;
+  padding-top: 20rpx;
+}

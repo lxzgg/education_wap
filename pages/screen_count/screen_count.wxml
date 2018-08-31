@@ -1,2 +1,24 @@
 <!--pages/screen_count/screen_count.wxml-->
-<text>pages/screen_count/screen_count.wxml</text>
+<view class="containor">
+    <view class="header">
+        <text>{{options.type}}</text>
+        <text>{{options.content}}</text>
+    </view>
+    <view class="section">
+        <view data-index="1" class="btn {{curIndex == 1 ? 'active' : 0}}" bindtap="switchReadStatus">未阅读人数0人</view>
+        <view data-index="2" class="btn  {{curIndex == 2 ? 'active' : 0}}" bindtap="switchReadStatus">已阅读人数0人</view>
+    </view>
+     <view class="isEmpty" wx:if="{{personlist.length <= 0}}">
+           {{message}}
+        </view>
+    <view class="content">
+        <view class="item" wx:for="{{personlist}}" wx:key="index">
+            <view class="img">
+                <image src="{{item.avatarUrl}}"></image>
+            </view>
+            <view class="nickname">
+                {{item.nickname}} <text>{{item.family_role}}</text>
+            </view>
+        </view>
+    </view>
+</view>
