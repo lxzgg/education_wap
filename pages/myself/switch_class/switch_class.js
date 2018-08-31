@@ -21,7 +21,8 @@ Page({
           class_list: res.list,
           isEmpty: false
         })
-      } else {}
+      } else {
+      }
     })
   },
   goToAddClass() {
@@ -68,11 +69,9 @@ Page({
               })
             }).then(res => {
               // 用户信息全局保存
-              app.user = res.data
-              wx.setStorage({
-                key: 'user',
-                data: res.data
-              })
+              Object.assign(app.user, res.data)
+              wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'), res.data))
+
               wx.switchTab({
                 url: '/pages/index/index'
               })
@@ -93,7 +92,8 @@ Page({
           title: res.msg,
           icon: 'fail',
           duration: 5000,
-          success: function (res) {}
+          success: function (res) {
+          }
         })
       }
     })
