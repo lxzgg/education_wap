@@ -69,8 +69,8 @@
           <view class="number">{{item.browser_num}}</view>
         </view>
         <view class="bottom-item">
-           <view class="icon icon-fenxiang"></view>
-          <!--<view class="icon"><button open-type="share"><text class="icon icon-fenxiang"></text></button></view>-->
+           <!--<view class="icon icon-fenxiang"></view>-->
+          <view class="icon"><button class="icon-btn" open-type="share"><text class="icon icon-fenxiang"></text></button></view>
           <view class="number"></view>
         </view>
       </view>

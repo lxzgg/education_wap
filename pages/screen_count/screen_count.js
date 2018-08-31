@@ -46,7 +46,8 @@ Page({
       } else {
         const message = res.error.message
         this.setData({
-          message
+          message,
+          personlist:[]
         })
       }
     })

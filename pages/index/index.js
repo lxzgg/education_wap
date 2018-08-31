@@ -48,7 +48,6 @@ Page({
       }
     })
   },
-
   // 首页分类列表
   cateList() {
     app.api.home.cateList({
@@ -97,6 +96,5 @@ Page({
       })
     })
   },
-  onShareAppMessage() {
-  }
+  onShareAppMessage() {}
 })

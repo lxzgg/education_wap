@@ -1,6 +1,6 @@
 <form bindsubmit="formSubmit" bindreset="formReset">
   <view class="type">
-    <view class="text">请选择您要发布动态的标签(可多选)</view>
+    <view class="text">请选择您要发布动态的标签</view>
     <view class="list">
       <view class="list-item {{item.id === current_id ?'active':''}}" wx:for="{{navData}}" wx:item="item" wx:key="{{item.id}}" data-index="{{item.id}}"
         bindtap="changeActive">{{item.cate_name}}</view>

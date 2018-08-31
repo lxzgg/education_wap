@@ -147,3 +147,10 @@
 .active{
   color: #ffaa00 !important;
 }
+.icon>button{
+  padding:0;
+  border-color:#fff;
+  line-height: normal;
+   /*position: static; */
+  background: #fff;
+}

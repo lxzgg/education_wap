@@ -46,6 +46,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getBannerImg()
+  },
+  getBannerImg() {
     utils.wxpromisify({
       url: 'class_info/userAd',
       data: {
@@ -56,130 +59,95 @@ Page({
       },
       method: 'post'
     }).then((res) => {
-      console.log(res)
       if (res && res.response === 'data') {
         this.setData({
-          //  content: res.data
+           list: res.list
         })
       }
     })
   },
   plusImg() {
     wx.showActionSheet({
-      // itemList: ["从相册中选择", "拍照"],
-      itemList: ["从相册中选择"],
+      itemList: ["从相册中选择", "拍照"],
       itemColor: "#f7982a",
-      success: function (res) {
+      success:  (res)=>{
         if (!res.cancel) {
           if (res.tapIndex == 0) {
-            that.chooseWxImage("album", imgNumber)
+            this.chooseWxImage("album")
           } else if (res.tapIndex == 1) {
-            that.chooseWxImage("camera", imgNumber)
+            this.chooseWxImage("camera")
           }
         }
       }
     })
   },
   chooseWxImage(type) {
-    var that = this;
     wx.chooseImage({
       count: 1,
       sizeType: ["original", "compressed"],
       sourceType: [type],
-      success: function (res) {
+      success: (res) => {
+        console.log(res)
         var addImg = res.tempFilePaths
         var addLen = addImg.length
-      },
+        wx.showToast({
+          icon: "loading",
+          title: "正在上传"
+        })
+        this.upload(addImg[0])
+      }
     })
   },
 
   //多张图片上传
   upload: function (path) {
     let reponseData = {}
-    wx.showToast({
-        icon: "loading",
-        title: "正在上传"
-      }),
-      util.wxpromisify({
-        url: 'oss/getOssParam',
+    utils.wxpromisify({
+      url: 'oss/getOssParam',
+      data: {
+        type: 'adImage'
+      },
+      method: 'post'
+    }).then((res) => {
+      if (res && res.response == 'data') {
+        reponseData = res.data
+      } else {}
+    }).then(() => {
+      wx.uploadFile({
+        url: 'https://oss.whwhjy.com',
+        filePath: path,
+        name: 'file',
+        formData: {
+          name: path,
+          key: reponseData.dir + reponseData.expire + "${filename}",
+          policy: reponseData.policy,
+          OSSAccessKeyId: reponseData.accessid,
+          success_action_status: "200",
+          signature: reponseData.signature
+        },
+        success: function (res) {
+          if (res && res.statusCode == 200) {}
+        },
+        fail: function (e) {},
+        complete: function (e) {}
+      })
+    }).then(() => {
+      //上传图片到后台
+         let keys = path.indexOf('tmp')
+       let filename = reponseData.expire+path.slice(keys)
+       console.log(filename)
+      utils.wxpromisify({
+        url: 'class_info/ad_upload',
         data: {
-          type: 'image'
+          user_id: app.user.user_id,
+          token: app.user.token,
+          filename: filename
         },
         method: 'post'
       }).then((res) => {
-        if (res && res.response == 'data') {
-          reponseData = res.data
-        } else {}
-      }).then(() => {
-        wx.uploadFile({
-          url: 'https://oss.whwhjy.com',
-          filePath: path,
-          name: 'file',
-          // header: {
-          //   "Content-Type": "multipart/form-data"
-          // },
-          formData: {
-            name: path,
-            key: reponseData.dir + reponseData.expire + "${filename}",
-            policy: reponseData.policy,
-            OSSAccessKeyId: reponseData.accessid,
-            success_action_status: "200",
-            signature: reponseData.signature
-          },
-          success: function (res) {
-            if (res && res.statusCode == 200) {}
-          },
-          fail: function (e) {},
-          complete: function (e) {}
-        })
+        console.log(res)
+        this.getBannerImg()
       })
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    })
   }
 })

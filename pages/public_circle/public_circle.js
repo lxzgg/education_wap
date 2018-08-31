@@ -19,7 +19,7 @@ Page({
     params: {
       article_type: 1,
       is_open: 0,
-      article_accessory: []
+      // article_accessory: []
     },
     showPlusIcon: true
   },
@@ -66,8 +66,7 @@ Page({
       return;
     }
     wx.showActionSheet({
-      // itemList: ["从相册中选择", "拍照"],
-      itemList: ["从相册中选择"],
+      itemList: ["从相册中选择", "拍照"],
       itemColor: "#f7982a",
       success: function (res) {
         if (!res.cancel) {
@@ -96,7 +95,7 @@ Page({
       count: maxCount,
       sizeType: ["original", "compressed"],
       sourceType: [type],
-      success: function (res) {
+      success: (res) => {
         var addImg = res.tempFilePaths
         var addLen = addImg.length;
         for (var i = 0; i < addLen; i++) {
@@ -110,59 +109,11 @@ Page({
           evalList: evalList,
           showPlusIcon: showPlusIcon
         })
-      },
+         for (let i = 0; i < img.length; i++) {
+        this.getOssParams(img[i])
+      }
+      }
     })
-  },
-
-  //多张图片上传
-  upload: function (path) {
-    var that = this;
-    var curImgList = [],
-      reponseData = []
-    for (let i = 0; i < path.length; i++) {
-      wx.showToast({
-          icon: "loading",
-          title: "正在上传"
-        }),
-        util.wxpromisify({
-          url: 'oss/getOssParam',
-          data: {
-            type: 'image'
-          },
-          method: 'post'
-        }).then((res) => {
-          if (res && res.response == 'data') {
-            reponseData = res.data
-          } else {}
-        }).then(() => {
-          wx.uploadFile({
-            url: 'https://oss.whwhjy.com',
-            filePath: path[i],
-            name: 'file',
-            // header: {
-            //   "Content-Type": "multipart/form-data"
-            // },
-            formData: {
-              name: path[i],
-              key: reponseData.dir + reponseData.expire + "${filename}",
-              policy: reponseData.policy,
-              OSSAccessKeyId: reponseData.accessid,
-              success_action_status: "200",
-              signature: reponseData.signature
-            },
-            success: function (res) {
-              if (res && res.statusCode == 200) {}
-            },
-            fail: function (e) {
-              console.log('fail')
-              console.log(e)
-            },
-            complete: function (e) {
-              console.log(e)
-            }
-          })
-        })
-    }
   },
   //删除图片
   clearImg(e) {
@@ -171,23 +122,67 @@ Page({
     var params = this.data.params
     var img = evalList[0].tempFilePaths
     let showPlusIcon = this.data.showPlusIcon
-
-    // var img_path = params.article_accessory
     img.splice(index, 1)
     if (img.length < 3) {
       showPlusIcon = true
     }
-    // img_path.splice(index, 1);
     this.setData({
       evalList: evalList,
       showPlusIcon: showPlusIcon
-      //  params: params
     })
-    // this.upLoadImg(img);
   },
+  
+  getOssParams(path) {
+    return Promise.resolve().then(res => {
+      return util.wxpromisify({
+        url: 'oss/getOssParam',
+        data: {
+          type: 'image'
+        },
+        method: 'post'
+      })
+    }).then((res) => {
+      if (res && res.response == 'data') {
+        let reponseData = res.data
+        let evalList = this.data.evalList
+        let obj = {}
+        obj.expire = reponseData.expire
+        obj.path = path
+        evalList[0].imgList.push(obj)
+        this.setData({
+          evalList
+        })
+        return this.uploadImage(reponseData, path)
+      }
+    })
+  },
+
+  uploadImage(reponseData, path) {
+    return new Promise(resolve => {
+      wx.uploadFile({
+        url: 'https://oss.whwhjy.com',
+        filePath: path,
+        name: 'file',
+        formData: {
+          name: path,
+          key: reponseData.dir + reponseData.expire + "${filename}",
+          policy: reponseData.policy,
+          OSSAccessKeyId: reponseData.accessid,
+          success_action_status: "200",
+          signature: reponseData.signature
+        },
+        success: (res) => {
+          resolve()
+        },
+        fail: function (e) {},
+        complete: function (e) {}
+      })
+    })
+  },
+
   formSubmit(e) {
     let content = e.detail.value.descript.trim()
-    let is_open = this.data.switch ? 1 : 0
+     let is_open = this.data.switch ? 1 : 0
     let params = {
       user_id: app.user.user_id,
       token: app.user.token,
@@ -195,15 +190,6 @@ Page({
       content,
       cate_ids: this.data.current_id
     }
-    let imgUrl = this.data.evalList,
-      imgArray = []
-    imgUrl[0].tempFilePaths.forEach((val, key) => {
-      let obj = {
-        'image': val
-      }
-      imgArray.push(obj)
-    })
-    params.accessory = imgArray
     if (!content) {
       wx.showToast({
         title: '请输入文字描述',
@@ -212,35 +198,48 @@ Page({
       })
       return
     }
-    console.log(JSON.stringify(params))
-    // 先上传图片
-    this.upload(imgUrl[0].tempFilePaths)
-    //form submit
-    util.wxpromisify({
-      url: 'friend/addContent',
-      data: params,
-      method: 'post'
-    }).then((res) => {
-      if (res && res.response === 'data') {
-        wx.showToast({
-          title: '发布成功',
-          icon: 'success',
-          duration: 3000,
-        })
-        setTimeout(() => {
-          wx.switchTab({
-            url: '/pages/publish_index/publish_index'
-          })
-        }, 3000)
-      } else {
-        wx.showToast({
-          title: '发布失败',
-          icon: 'fail',
-          duration: 5000
-        })
-      }
-    }).catch((err) => {
-
+    wx.showToast({
+      icon: "loading",
+      title: "正在提交"
     })
-  }
+      let imgList = this.data.evalList[0]['imgList']
+      let data_params = this.data.params,
+        imgArray = []
+      imgList.forEach((val, key) => {
+         let keys = val.path.indexOf('tmp')
+        let str = val.path.slice(keys)
+        let obj = {
+          'image': val.expire+str
+        }
+        imgArray.push(obj)
+      })
+      params.accessory = imgArray
+      Object.assign(data_params, params)
+      util.wxpromisify({
+        url: 'friend/addContent',
+        data: data_params,
+        method: 'post'
+      }).then((res) => {
+        if (res && res.response === 'data') {
+          wx.showToast({
+            title: '发布成功',
+            icon: 'success',
+            duration: 2000,
+            success: function (res) {
+              setTimeout(() => {
+                wx.switchTab({
+                  url: '/pages/publish_index/publish_index'
+                })
+              }, 2000)
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '发布失败',
+            icon: 'none',
+            duration: 5000
+          })
+        }
+      })
+  },
 })
