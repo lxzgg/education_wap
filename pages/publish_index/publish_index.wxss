@@ -167,5 +167,5 @@
   margin-top: 0;
 }
 .active{
-  color:#ffaa00;
+  color: #ffaa00 !important;
 }

@@ -28,7 +28,7 @@
                 </view>
                 <view class="header-c">
                     <view class="user-name">{{item.add_user}}</view>
-                    <view class="nike-name">学生-小豆豆</view>
+                    <!--<view class="nike-name">学生-小豆豆</view>-->
                 </view>
             </view>
         </view>
@@ -39,7 +39,7 @@
         <view class="our-bottom">
             <view class="bottom">
                 <view class="bottom-item">
-                    <text class="icon icon-dianzan {{ item.is_zan ? active : ''}} "  data-id="{{item.id}}" data-index="{{item.index}}" bindtap="bindZan"></text>
+                    <text class="icon icon-dianzan {{ item.is_remard ? 'active' : ''}} " data-id="{{item.id}}" data-index="{{index}}" bindtap="bindZan"></text>
                     <text class="number">{{item.like_num}}</text>
                 </view>
                 <view class="bottom-item">

@@ -9,24 +9,6 @@ Page({
   data: {
      article:[]
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
     util.wxpromisify({
       url:'article/articleList',
@@ -44,41 +26,59 @@ Page({
         })
       }
     })
-  
+  },
+  //开启/禁止评论
+  switchCommentAuth(e){
+    const key = e.currentTarget.dataset.index
+    const articleid = e.currentTarget.dataset.articleid
+    let article = this.data.article
+    let can_comment = article[key].can_comment //当前评论权限
+    article[key].can_comment = article[key].can_comment == '1' ? 0 : 1 //修改后的评论权限
+    util.wxpromisify({
+      url:'article/evalStatus',
+      data: {
+        user_id: app.user.user_id,
+        token: app.user.token,
+        article_id: articleid
+      },
+      method: 'post'
+    }).then(res=>{
+      if(res && res.response === 'data'){
+        this.setData({
+          article
+        })
+      }
+    })
+  },
+   //是否置顶
+  switchTopAuth(e){
+    const key = e.currentTarget.dataset.index
+    const articleid = e.currentTarget.dataset.articleid
+    let article = this.data.article
+    let is_top = article[key].is_top //当前评论权限
+    article[key].is_top = parseInt(article[key].is_top) === 1 ? 0 : 1 //修改后的评论权限
+    util.wxpromisify({
+      url:'article/topStatus',
+      data: {
+        user_id: app.user.user_id,
+        token: app.user.token,
+        article_id: articleid
+      },
+      method: 'post'
+    }).then(res=>{
+      if(res && res.response === 'data'){
+        this.setData({
+          article
+        })
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+ //跳转到文章统计页面
+  goToCount(e){
+  const articleid = e.currentTarget.dataset.articleid
+  wx.navigateTo({
+    url: '/pages/screen_count/screen_count?articleid='+articleid
+  })
   }
 })

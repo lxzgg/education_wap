@@ -64,5 +64,5 @@
   border-radius: 60rpx;
   border: 1rpx solid #999999;
   color: #999999;
-  margin-left: 10rpx;
+  margin-left: 40rpx;
 }

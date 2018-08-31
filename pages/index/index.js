@@ -71,7 +71,7 @@ Page({
       url: '/pages/comment/comment?articleid=' + article_id + '&type=index'
     })
   },
-  
+
   //点赞
   clickZan(e) {
     const key = e.currentTarget.dataset.index
@@ -96,5 +96,7 @@ Page({
         article
       })
     })
+  },
+  onShareAppMessage() {
   }
 })

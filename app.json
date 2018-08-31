@@ -24,7 +24,8 @@
     "pages/publish_index/publish_index",
     "pages/myself/invit_teacher/invit_teacher",
     "pages/myself/join_class/join_class",
-    "pages/public_circle/public_circle"
+    "pages/public_circle/public_circle",
+    "pages/screen_count/screen_count"
   ],
   "window": {
     "backgroundTextStyle": "light",

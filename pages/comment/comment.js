@@ -58,13 +58,13 @@ Page({
         content_details.create_time = data.create_time
         // content_details.add_user = data.add_user
         eval_list = res.list
-        if (res.list.length > 0) {
-          //  eval_list = res.list.map((val,key)=>{
-          //    let obj = {}
-          //    obj.
+        // if (res.list.length > 0) {
+        //   //  eval_list = res.list.map((val,key)=>{
+        //   //    let obj = {}
+        //   //    obj.
 
-          //   })
-        }
+        //   //   })
+        // }
       } else {
         content_details = res.data
         eval_list = res.list
@@ -95,13 +95,20 @@ Page({
     } else {
       params.content_id = articleid
     }
-    console.log(params)
     util.wxpromisify({
       url: url,
       data: params,
       method: 'post'
     }).then(res => {
-      this.getContent()
+      if (res && res.response === 'data') {
+        this.getContent()
+      } else {
+        wx.showToast({
+          title: '评论失败',
+          icon: 'none',
+          duration: 3000
+        })
+      }
     })
   },
   //获取评论id ，显示回复框
@@ -119,21 +126,31 @@ Page({
     let type = this.data.options.type
     const params = {
       token: app.user.token,
-      user_id: app.user.user_id,
-      reply: repy
+      user_id: app.user.user_id
     }
-    let url = type === 'index' ? 'article/eval_reply' : 'friend/eval_content'
+    let url = type === 'index' ? 'article/eval_reply' : 'friend/eval_reply'
     if (type === 'index') {
       params.eval_id = curInput
+      params.reply = repy
     } else {
       params.eval_id = curInput
+      params.eval_reply = repy
     }
     util.wxpromisify({
       url: url,
       data: params,
       method: 'post'
     }).then(res => {
-      this.getContent()
+      if (res && res.response === 'data') {
+        this.getContent()
+      } else {
+        wx.showToast({
+          title: '回复失败',
+          icon: 'none',
+          duration: 3000
+        })
+      }
+
     })
   }
 })
