@@ -17,6 +17,15 @@
         <view class="icon icon-jia"></view>
       </view>
     </view>
+    <div style="height: 10rpx;width:100%;background: #fff;" ></div>
+    <view class="button-list">
+      <view class="item">
+        <view class="text">公开</view>
+        <view>
+          <switch bindchange="switchChange" checked="{{switch}}" color="#ffaa00" />
+        </view>
+      </view>
+    </view>
   </view>
 <button class="post" formType="submit" disabled="{{submitAuth}}">发布</button>
 </form>

@@ -9,14 +9,16 @@ Page({
   data: {
     submitAuth: false,
     navData: [],
-    current_id:2,
-    info:'',
+    switch: true,
+    current_id: 2,
+    info: '',
     evalList: [{
       tempFilePaths: [],
       imgList: []
     }],
     params: {
       article_type: 1,
+      is_open: 0,
       article_accessory: []
     },
     showPlusIcon: true
@@ -26,7 +28,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      util.wxpromisify({
+    util.wxpromisify({
       data: {},
       url: 'friend/getCateList',
       method: 'post'
@@ -38,16 +40,10 @@ Page({
     })
   },
   switchChange(e) {
-    let num = e.currentTarget.dataset.num
-    let bool = e.detail.value ? 1 : 0
-    let params = this.data.params
-    if (num == 0) {
-      params.is_top = bool
-    } else if (num == 1) {
-      params.can_comment = bool
-    } else {
-      params.is_open = bool
-    }
+    let switchs = e.detail.value
+    this.setData({
+      switch: switchs
+    })
   },
   changeActive(e) {
     let current_id = e.target.dataset.index
@@ -190,15 +186,16 @@ Page({
     // this.upLoadImg(img);
   },
   formSubmit(e) {
-    let descript = e.detail.value.descript.trim()
+    let content = e.detail.value.descript.trim()
+    let is_open = this.data.switch ? 1 : 0
     let params = {
       user_id: app.user.user_id,
       token: app.user.token,
-      class_id: app.user.class_id,
-      article_content: descript
+      is_open,
+      content,
+      cate_ids: this.data.current_id
     }
     let imgUrl = this.data.evalList,
-      data_params = this.data.params,
       imgArray = []
     imgUrl[0].tempFilePaths.forEach((val, key) => {
       let obj = {
@@ -206,8 +203,8 @@ Page({
       }
       imgArray.push(obj)
     })
-    params.article_accessory = imgArray
-    if (!descript) {
+    params.accessory = imgArray
+    if (!content) {
       wx.showToast({
         title: '请输入文字描述',
         icon: 'none',
@@ -215,59 +212,35 @@ Page({
       })
       return
     }
-    let that = this
+    console.log(JSON.stringify(params))
     // 先上传图片
     this.upload(imgUrl[0].tempFilePaths)
-    Object.assign(data_params, params);
     //form submit
     util.wxpromisify({
-      url: 'article/release',
-      data: data_params,
+      url: 'friend/addContent',
+      data: params,
       method: 'post'
     }).then((res) => {
       if (res && res.response === 'data') {
         wx.showToast({
           title: '发布成功',
           icon: 'success',
-          duration: 5000,
-          success: function (res) {
-            setTimeout(() => {
-              wx.switchTab({
-                url: '../index/index'
-              })
-              that.init()
-            }, 5000)
-          }
+          duration: 3000,
+        })
+        setTimeout(() => {
+          wx.switchTab({
+            url: '/pages/publish_index/publish_index'
+          })
+        }, 3000)
+      } else {
+        wx.showToast({
+          title: '发布失败',
+          icon: 'fail',
+          duration: 5000
         })
       }
     }).catch((err) => {
 
-    })
-  },
-  init() {
-   // this.onLoad()
-    this.setData({
-      evalList: [{
-        tempFilePaths: [],
-        imgList: []
-      }],
-      handle:[{
-        index: 0,
-        type: '顶置',
-        on: false
-      },
-      {
-        index: 1,
-        type: '允许评论',
-        on: false
-      },
-      {
-        index: 2,
-        type: '公开',
-        on: false
-      }
-    ],
-    info:''
     })
   }
 })

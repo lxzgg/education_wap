@@ -1,11 +1,13 @@
 // pages/add_classify/add_classify.js
+const app = getApp()
+const util = require('../../utils/util')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+   list: []
   },
 
   /**
@@ -26,7 +28,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+   util.wxpromisify({
+      url: 'class_info/getIcon',
+      data: {
+        // user_id: app.user.user_id,
+        // token: app.user.token,
+        // class_id: app.user.class_id
+      },
+      method: 'post'
+    }).then(res => {
+      if (res && res.response === 'data') {
+        let list = res.list
+        this.setData({
+          list
+        })
+      }
+    })
   },
 
   /**

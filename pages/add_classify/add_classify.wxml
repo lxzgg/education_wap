@@ -13,26 +13,8 @@
     </view>
 </view>
 <view class="icon-list">
-    <view class="icon-item">
-        <image src="/image/a1.png"></image>
-    </view>
-    <view class="icon-item">
-        <image src="/image/a2.png"></image>
-    </view>
-    <view class="icon-item">
-        <image src="/image/a3.png"></image>
-    </view>
-    <view class="icon-item">
-        <image src="/image/a4.png"></image>
-    </view>
-    <view class="icon-item">
-        <image src="/image/a5.png"></image>
-    </view>
-    <view class="icon-item">
-        <image src="/image/a6.png"></image>
-    </view>
-    <view class="icon-item">
-        <image src="/image/a7.png"></image>
+    <view class="icon-item" wx:for="{{list}}" wx:key="{{index}}" data-id="{{item.icon_id}}">
+        <image src="{{item.iconSrc}}"></image>
     </view>
 </view>
 <view class="post">保存</view>

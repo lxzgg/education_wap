@@ -293,15 +293,20 @@ Page({
         wx.showToast({
           title: '发布成功',
           icon: 'success',
-          duration: 5000,
+          duration: 2000,
           success: function (res) {
             setTimeout(() => {
               wx.switchTab({
                 url: '../index/index'
               })
-              that.init()
-            }, 5000)
+            }, 2000)
           }
+        })
+      }else{
+         wx.showToast({
+          title: '发布失败',
+          icon: 'none',
+          duration: 5000
         })
       }
     }).catch((err) => {

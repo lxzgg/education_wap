@@ -1,21 +1,31 @@
 /**app.wxss**/
+
 .banner-add {
   background-color: #333333;
   color: #ffffff;
   padding: 20rpx 35rpx;
-  padding-bottom: 80rpx; }
-  .banner-add .ccc {
-    margin-top: 60rpx; }
-  .banner-add .banner-top {
-    display: flex;
-    font-size: 24rpx;
-    justify-content: space-between; }
-    .banner-add .banner-top .icon-jia {
-      font-size: 40rpx; }
-  .banner-add .jia-P {
-    text-align: center;
-    font-size: 28rpx;
-    font-weight: 400; }
+  padding-bottom: 80rpx;
+}
+
+.banner-add .ccc {
+  margin-top: 60rpx;
+}
+
+.banner-add .banner-top {
+  display: flex;
+  font-size: 24rpx;
+  justify-content: space-between;
+}
+
+.banner-add .banner-top .icon-jia {
+  font-size: 40rpx;
+}
+
+.banner-add .jia-P {
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 400;
+}
 
 .nav {
   height: 80rpx;
@@ -24,83 +34,138 @@
   overflow: hidden;
   line-height: 70rpx;
   border-bottom: 4rpx solid #f7f7f7;
-  white-space: nowrap; }
-  .nav .nav-item {
-    display: inline-block;
-    text-align: center;
-    font-size: 24rpx;
-    padding: 0 20rpx;
-    color: #999999; }
-  .nav .nav-item.active {
-    color: #ffaa00; }
+  white-space: nowrap;
+}
+
+.nav .nav-item {
+  display: inline-block;
+  text-align: center;
+  font-size: 24rpx;
+  padding: 0 20rpx;
+  color: #999999;
+}
+
+.nav .nav-item .active {
+  color: #ffaa00;
+}
 
 .talk-list {
-  padding-bottom: 40rpx; }
-  .talk-list .talk-item {
-    margin-top: 20rpx; }
-    .talk-list .talk-item .user-header {
-      display: flex;
-      justify-content: space-between;
-      padding: 20rpx 20rpx;
-      padding-bottom: 0;
-      margin-bottom: 20rpx; }
-      .talk-list .talk-item .user-header .header-l {
-        display: flex; }
-        .talk-list .talk-item .user-header .header-l .header {
-          width: 92rpx;
-          height: 92rpx;
-          border-radius: 50%;
-          overflow: hidden; }
-          .talk-list .talk-item .user-header .header-l .header image {
-            width: 100%;
-            height: 100%; }
-        .talk-list .talk-item .user-header .header-l .header-c {
-          margin-top: 14rpx;
-          margin-left: 20rpx; }
-          .talk-list .talk-item .user-header .header-l .header-c .user-name {
-            font-size: 30rpx;
-            color: #999999; }
-          .talk-list .talk-item .user-header .header-l .header-c .nike-name {
-            font-size: 24rpx;
-            color: #eeeeee; }
-      .talk-list .talk-item .user-header .header-r {
-        color: #999999;
-        font-size: 30rpx;
-        display: flex;
-        line-height: 108rpx; }
-        .talk-list .talk-item .user-header .header-r .icon {
-          margin-right: 10rpx; }
-    .talk-list .talk-item .content {
-      padding: 0 20rpx; }
-      .talk-list .talk-item .content image {
-        width: 100%;
-        border-radius: 10rpx 10rpx 0 0; }
-      .talk-list .talk-item .content text, .talk-list .talk-item .content view, .talk-list .talk-item .content p, .talk-list .talk-item .content div, .talk-list .talk-item .content span, .talk-list .talk-item .content h1, .talk-list .talk-item .content h2, .talk-list .talk-item .content h3, .talk-list .talk-item .content h5 {
-        font-size: 30rpx;
-        color: #999999;
-        margin: 20rpx 0; }
-    .talk-list .talk-item .our-bottom {
-      padding: 0 20rpx;
-      margin-top: -20rpx; }
-      .talk-list .talk-item .our-bottom .bottom {
-        display: flex;
-        padding-top: 30rpx;
-        border: 1rpx solid #eeeeee;
-        border-top: none;
-        padding-bottom: 20rpx;
-        border-radius: 0 0 10rpx 10rpx; }
-        .talk-list .talk-item .our-bottom .bottom .bottom-item {
-          flex: 1;
-          text-align: center; }
-          .talk-list .talk-item .our-bottom .bottom .bottom-item .icon {
-            font-size: 40rpx;
-            display: inline-block;
-            color: #999999; }
-          .talk-list .talk-item .our-bottom .bottom .bottom-item .number {
-            display: inline-block;
-            font-size: 28rpx;
-            line-height: 50rpx;
-            margin-left: 10rpx;
-            color: #999999; }
-  .talk-list .talk-item:first-child {
-    margin-top: 0; }
+  padding-bottom: 40rpx;
+}
+
+.talk-list .talk-item {
+  margin-top: 20rpx;
+}
+
+.talk-list .talk-item .user-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 20rpx;
+  padding-bottom: 0;
+  margin-bottom: 20rpx;
+}
+
+.talk-list .talk-item .user-header .header-l {
+  display: flex;
+}
+
+.talk-list .talk-item .user-header .header-l .header {
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.talk-list .talk-item .user-header .header-l .header image {
+  width: 100%;
+  height: 100%;
+}
+
+.talk-list .talk-item .user-header .header-l .header-c {
+  margin-top: 14rpx;
+  margin-left: 20rpx;
+}
+
+.talk-list .talk-item .user-header .header-l .header-c .user-name {
+  font-size: 30rpx;
+  color: #999999;
+}
+
+.talk-list .talk-item .user-header .header-l .header-c .nike-name {
+  font-size: 24rpx;
+  color: #eeeeee;
+}
+
+.talk-list .talk-item .user-header .header-r {
+  color: #999999;
+  font-size: 30rpx;
+  display: flex;
+  line-height: 108rpx;
+}
+
+.talk-list .talk-item .user-header .header-r .icon {
+  margin-right: 10rpx;
+}
+
+.talk-list .talk-item .content {
+  padding: 0 20rpx;
+}
+
+.talk-list .talk-item .content image {
+  width: 100%;
+  border-radius: 10rpx 10rpx 0 0;
+}
+
+.talk-list .talk-item .content text,
+.talk-list .talk-item .content view,
+.talk-list .talk-item .content p,
+.talk-list .talk-item .content div,
+.talk-list .talk-item .content span,
+.talk-list .talk-item .content h1,
+.talk-list .talk-item .content h2,
+.talk-list .talk-item .content h3,
+.talk-list .talk-item .content h5 {
+  font-size: 30rpx;
+  color: #999999;
+  margin: 20rpx 0;
+}
+
+.talk-list .talk-item .our-bottom {
+  padding: 0 20rpx;
+  margin-top: -20rpx;
+}
+
+.talk-list .talk-item .our-bottom .bottom {
+  display: flex;
+  padding-top: 30rpx;
+  border: 1rpx solid #eeeeee;
+  border-top: none;
+  padding-bottom: 20rpx;
+  border-radius: 0 0 10rpx 10rpx;
+}
+
+.talk-list .talk-item .our-bottom .bottom .bottom-item {
+  flex: 1;
+  text-align: center;
+}
+
+.talk-list .talk-item .our-bottom .bottom .bottom-item .icon {
+  font-size: 40rpx;
+  display: inline-block;
+  color: #999999;
+}
+
+.talk-list .talk-item .our-bottom .bottom .bottom-item .number {
+  display: inline-block;
+  font-size: 28rpx;
+  line-height: 50rpx;
+  margin-left: 10rpx;
+  color: #999999;
+}
+
+.talk-list .talk-item:first-child {
+  margin-top: 0;
+}
+.active{
+  color:#ffaa00;
+}

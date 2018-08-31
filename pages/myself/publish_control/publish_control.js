@@ -1,11 +1,13 @@
 // pages/myself/publish_control/publish_control.js
+const app = getApp()
+const util = require('../../../utils/util')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+     article:[]
   },
 
   /**
@@ -26,6 +28,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    util.wxpromisify({
+      url:'article/articleList',
+      data: {
+        user_id: app.user.user_id,
+        token: app.user.token,
+        page:1,
+        num: 20
+      },
+      method: 'post'
+    }).then(res=>{
+      if(res && res.response === 'data'){
+        this.setData({
+          article: res.list
+        })
+      }
+    })
   
   },
 

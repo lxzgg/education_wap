@@ -1,66 +1,36 @@
 <view class="list">
-    <view class="item">
-        <view class="top">
-            <view class="header-img">
-                <image src="/image/user.png"></image>
-            </view>
-            <view class="top-content">
-                <text class="content-top">天下为公、担当道义，是广大知识分子应有的情怀。家国情怀,烈的社会责任感。……</text>
-                <view class="content-bottom">
-                    <view class="bottom1">相册</view>
-                    <view class="bottom2">2018-08-01 14:25:41</view>
-                </view>
-            </view>
+  <view class="item" wx:for="{{inform_list}}" wx:key="index">
+    <view class="top">
+      <view class="header-img">
+        <image wx:if="{{item.article_accessory[0].image}}" src="{{item.article_accessory[0].image}}"></image>
+        <image wx:else src="../../image/user.png"></image>
+      </view>
+      <view class="top-content">
+        <text class="content-top">{{item.article_content}}</text>
+        <view class="content-bottom">
+         <view class="bottom1">{{item.article_type}}</view>
+            <view class="bottom2">{{item.create_time}}</view>
         </view>
-        <view class="bottom">
-            <view class="bottom-item">
-                <text class="icon icon-dianzan"></text>
-                <text class="number">999</text>
-            </view>
-            <view class="bottom-item">
-                <view class="icon icon-iconfontpinglun"></view>
-                <view class="number">999</view>
-            </view>
-            <view class="bottom-item">
-                <view class="icon icon-tubiao_liulan"></view>
-                <view class="number">999</view>
-            </view>
-            <view class="bottom-item">
-                <view class="icon icon-fenxiang"></view>
-                <view class="number">999</view>
-            </view>
-        </view>
+      </view>
     </view>
-    <view class="item">
-        <view class="top">
-            <view class="header-img">
-                <image src="/image/user.png"></image>
-            </view>
-            <view class="top-content">
-                <text class="content-top">天下为公、担当道义，是广大知识分子应有的情怀。家国情怀,烈的社会责任感。……</text>
-                <view class="content-bottom">
-                    <view class="bottom1">相册</view>
-                    <view class="bottom2">2018-08-01 14:25:41</view>
-                </view>
-            </view>
+      <view class="bottom">
+        <view class="bottom-item">
+          <text class="icon icon-dianzan {{item.is_remard == '1' ? 'active' : ''}}" bindtap="clickZan" data-index="{{index}}" data-articleid="{{item.article_id}}"></text>
+          <text class="number">{{item.like_num}}</text>
         </view>
-        <view class="bottom">
-            <view class="bottom-item">
-                <text class="icon icon-dianzan"></text>
-                <text class="number">999</text>
-            </view>
-            <view class="bottom-item">
-                <view class="icon icon-iconfontpinglun"></view>
-                <view class="number">999</view>
-            </view>
-            <view class="bottom-item">
-                <view class="icon icon-tubiao_liulan"></view>
-                <view class="number">999</view>
-            </view>
-            <view class="bottom-item">
-                <view class="icon icon-fenxiang"></view>
-                <view class="number">999</view>
-            </view>
+        <view class="bottom-item" data-articleid="{{item.article_id}}" bindtap="goToComment">
+          <view class="icon icon-iconfontpinglun"></view>
+          <view class="number">{{item.eval_num}}</view>
         </view>
-    </view>
+        <view class="bottom-item">
+          <view class="icon icon-tubiao_liulan"></view>
+          <view class="number">{{item.browser_num}}</view>
+        </view>
+        <view class="bottom-item">
+          <view class="icon icon-fenxiang"></view>
+          <view class="number"></view>
+        </view>
+      </view>
+  </view>
+  <view wx:if="{{isEmpty == true}}" style="text-align: center;font-size: 22rpx;color: #999;padding-top: 20rpx;">暂无数据</view>
 </view>

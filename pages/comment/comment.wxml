@@ -1,49 +1,64 @@
 <view class="user-header">
-    <view class="header-l">
-        <view class="header">
-            <image src="/image/user.png"></image>
-        </view>
-        <view class="header-c">
-            <view class="user-name">王逗逗</view>
-            <view class="nike-name">学生-小豆豆</view>
-        </view>
+  <view class="header-l">
+    <view class="header-item">
+      <view class="header">
+        <image src="{{content_details.avatarUrl}}"></image>
+      </view>
+      <view class="header-c">
+        <view class="user-name">{{content_details.nickname}}</view>
+        <view class="nike-name">学生-小豆豆</view>
+      </view>
     </view>
-    <view class="header-r">
-        <view class="icon icon-fenxiang"></view>
-        <view class="">分享</view>
-    </view>
+  </view>
+  <view class="header-r">
+    <view class="icon icon-fenxiang"></view>
+    <view class="">分享</view>
+  </view>
 </view>
 <view class="content">
-    <image src="/image/ppp.jpg"></image>
+  <div>{{content_details.article_content}}</div>
+  <image src="/image/ppp.jpg"></image>
 </view>
 <view class="comment-list">
-    <view class="user-comment">
-        <view class="user-header2">
-            <view class="header-l">
-                <view class="header">
-                    <image src="/image/user.png"></image>
-                </view>
-                <view class="header-c">
-                    <view class="user-name">王逗逗</view>
-                    <view class="nike-name">1分钟</view>
-                </view>
-            </view>
+  <view class="user-comment" wx:for="{{eval_list}}" wx:key="{{index}}">
+    <view class="user-header2">
+      <view class="header-l">
+        <view class="header-item">
+          <view class="header">
+            <image src="{{item.avatarUrl}}"></image>
+          </view>
+          <view class="header-c">
+            <view class="user-name">{{item.nickname}}</view>
+            <view class="nike-name">{{item.eval_time}}</view>
+          </view>
         </view>
-        <view class="user-comment2">
-            老子天下第一
-        </view>
+        <view class="header-d" bindtap="repyBtn" data-id="{{item.eval_id}}" wx:if="{{item.eval_reply == ''}}">回复</view>
+      </view>
     </view>
+    <view class="user-comment2">
+      {{item.eval_info}}
+      <view class="repy" wx:if="{{item.eval_id == curInput}}">
+        <text  class="input">回复</text><!--{{item.nickname}}:-->
+        <input type="text" placeholder-style="color:#999" placeholder="回复{{item.nickname}}:" value="{{info}}" name="repy" focus="{{item.eval_id == curInput}}"
+          bindconfirm="repyContent" confirm-type="done" />
+      </view>
+      <view class="repy" wx:if="{{item.eval_reply != ''}}">
+        <text class="input"><text style="margin-right: 10rpx;color: #999;">回复{{item.nickname}}:</text>{{item.eval_reply}}</text>
+      </view>
+    </view>
+  </view>
 </view>
 <view class="footer">
-    <view class="footer-l">
-        <input type="text" placeholder-style="color:#eee" placeholder="留下您的精彩评论" confirm-type="send"/>
-    </view>
-    <view class="footer-c">
-        <text class="icon icon-dianzan"></text>
-        <view class="text">999+</view>
-    </view>
-    <view class="footer-r">
-        <text class="icon icon-pinglun"></text>
-        <view class="text">评论</view>
-    </view>
+  <view class="footer-l">
+    <input type="text" placeholder-style="color:#666" placeholder="留下您的精彩评论" value="{{info}}" name="comment" bindconfirm="formSubmit"
+      confirm-type="done" />
+  </view>
+  <view class="footer-c">
+    <text class="icon icon-dianzan"></text>
+    <view class="text">{{content_details.like_num}}</view>
+  </view>
+  <view class="footer-r">
+    <text class="icon icon-pinglun"></text>
+    <view class="text">评论</view>
+  </view>
 </view>

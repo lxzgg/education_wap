@@ -4,23 +4,27 @@
         <view class="icon icon-you"></view>
     </view>
     <view class="item">
-        <view class="title">如何创建班级？</view>
+        <view class="title">如何发布信息？</view>
         <view class="icon icon-you"></view>
     </view>
     <view class="item">
-        <view class="title">如何创建班级？</view>
+        <view class="title">如何删除发布消息？</view>
         <view class="icon icon-you"></view>
     </view>
     <view class="item">
-        <view class="title">如何创建班级？</view>
+        <view class="title">我想让家长接龙怎么办？</view>
         <view class="icon icon-you"></view>
     </view>
     <view class="item">
-        <view class="title">如何创建班级？</view>
+        <view class="title">首页的大图可以修改吗？</view>
         <view class="icon icon-you"></view>
     </view>
     <view class="item">
-        <view class="title">如何创建班级？</view>
+        <view class="title">如何邀请老师加入班级？</view>
+        <view class="icon icon-you"></view>
+    </view>
+    <view class="item">
+        <view class="title">如何修改老师/孩子相关信息</view>
         <view class="icon icon-you"></view>
     </view>
 </view>

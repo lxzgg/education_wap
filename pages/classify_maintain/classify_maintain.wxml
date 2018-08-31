@@ -2,7 +2,7 @@
     <view class="title-l">当前分类</view>
     <view class="title-r">
         <view class="icon icon-paixu" bindtap="setSort" data-num="1"></view>
-        <view class="icon icon-jia"></view>
+        <view class="icon icon-jia" bindtap="addClassIcon"></view>
     </view>
 </view>
 <view class="title" wx:if="{{isSort==1}}">
@@ -12,11 +12,11 @@
     </view>
 </view>
 <view class="item" wx:for="{{list}}" wx:key="typeList">
-    <view class="item-l" catchtap="openDo" data-index="{{index}}">
+    <view class="item-l" catchtap="openDo" data-index="{{index}}" data-id="{{item.cate_id}}">
         <view class="type-img">
-            <image src="{{item.src}}"></image>
+            <image src="{{item.cate_icon}}"></image>
         </view>
-        <view class="name">{{item.name}}</view>
+        <view class="name">{{item.cate_name}}</view>
     </view>
    <view class="item-r"  wx:if="{{isSort==1}}">
         <view class="icon icon-xia" data-index="{{index}}" catchtap="down"></view>

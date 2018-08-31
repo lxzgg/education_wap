@@ -20,76 +20,39 @@
     </block>
 </scroll-view>
 <view class="talk-list">
-    <view class="talk-item">
+    <view class="talk-item" wx:for="{{content_list}}" wx:key="{{item.id}}">
         <view class="user-header">
             <view class="header-l">
                 <view class="header">
-                    <image src="/image/user.png"></image>
+                    <image src="{{item.head_img}}"></image>
                 </view>
                 <view class="header-c">
-                    <view class="user-name">王逗逗</view>
+                    <view class="user-name">{{item.add_user}}</view>
                     <view class="nike-name">学生-小豆豆</view>
                 </view>
             </view>
         </view>
         <view class="content">
-            <view>欢迎来到朋友圈</view>
+            <view>{{item.content}}</view>
             <image src="/image/ppp.jpg"></image>
         </view>
         <view class="our-bottom">
             <view class="bottom">
                 <view class="bottom-item">
-                    <text class="icon icon-dianzan"></text>
-                    <text class="number">999</text>
+                    <text class="icon icon-dianzan {{ item.is_zan ? active : ''}} "  data-id="{{item.id}}" data-index="{{item.index}}" bindtap="bindZan"></text>
+                    <text class="number">{{item.like_num}}</text>
                 </view>
                 <view class="bottom-item">
-                    <view class="icon icon-iconfontpinglun"></view>
-                    <view class="number">999</view>
+                    <view class="icon icon-iconfontpinglun" data-id="{{item.id}}" bindtap="bindComment"></view>
+                    <view class="number">{{item.eval_num}}</view>
                 </view>
                 <view class="bottom-item">
-                    <view class="icon icon-dashang"></view>
-                    <view class="number">999</view>
+                    <view class="icon icon-tubiao_liulan" data-id="{{item.id}}" bindtap="bindZan"></view>
+                    <view class="number">{{item.browser_num}}</view>
                 </view>
                 <view class="bottom-item">
-                    <view class="icon icon-fenxiang"></view>
-                    <view class="number">999</view>
-                </view>
-            </view>
-        </view>
-    </view>
-    <view class="talk-item">
-        <view class="user-header">
-            <view class="header-l">
-                <view class="header">
-                    <image src="/image/user.png"></image>
-                </view>
-                <view class="header-c">
-                    <view class="user-name">王逗逗</view>
-                    <view class="nike-name">学生-小豆豆</view>
-                </view>
-            </view>
-        </view>
-        <view class="content">
-            <view>欢迎来到朋友圈</view>
-            <image src="/image/ppp.jpg"></image>
-        </view>
-        <view class="our-bottom">
-            <view class="bottom">
-                <view class="bottom-item">
-                    <text class="icon icon-dianzan"></text>
-                    <text class="number">999</text>
-                </view>
-                <view class="bottom-item">
-                    <view class="icon icon-iconfontpinglun"></view>
-                    <view class="number">999</view>
-                </view>
-                <view class="bottom-item">
-                    <view class="icon icon-dashang"></view>
-                    <view class="number">999</view>
-                </view>
-                <view class="bottom-item">
-                    <view class="icon icon-fenxiang"></view>
-                    <view class="number">999</view>
+                    <view class="icon icon-fenxiang" data-id="{{item.id}}"></view>
+                    <view class="number">0</view>
                 </view>
             </view>
         </view>
