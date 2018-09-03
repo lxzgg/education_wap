@@ -34,6 +34,11 @@
         </view>
         <view class="content">
             <view>{{item.content}}</view>
+            <!--<view class="img_arr_display">
+                <view> <image src="/image/ppp.jpg"></image></view>
+                <view> <image src="/image/ppp.jpg"></image></view>
+                <view> <image src="/image/ppp.jpg"></image></view>
+            </view>-->
             <image src="/image/ppp.jpg"></image>
         </view>
         <view class="our-bottom">
@@ -51,7 +56,7 @@
                     <view class="number">{{item.browser_num}}</view>
                 </view>
                 <view class="bottom-item">
-                    <view class="icon icon-fenxiang" data-id="{{item.id}}"></view>
+                    <view class="icon" data-id="{{item.id}}"><button plain="true" open-type="share"><text class="icon icon-fenxiang"></text></button></view>
                     <view class="number">0</view>
                 </view>
             </view>

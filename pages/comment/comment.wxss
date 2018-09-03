@@ -209,3 +209,10 @@ font-size: 24rpx;
 .user-comment2 .repy input {
   padding-left: 10rpx;
 }
+.icon>button{
+  padding:0;
+  border-color:#fff;
+  line-height: normal;
+  background: #fff;
+  margin-top: 22rpx;
+}

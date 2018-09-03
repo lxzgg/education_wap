@@ -27,7 +27,7 @@
           <view class="number">{{item.browser_num}}</view>
         </view>
         <view class="bottom-item">
-          <view class="icon icon-fenxiang"></view>
+          <view class="icon"><button plain="true" open-type="share"><text class="icon icon-fenxiang"></text></button></view>
           <view class="number"></view>
         </view>
       </view>

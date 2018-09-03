@@ -89,6 +89,9 @@ Page({
           content_list: res.list
         })
       } else {
+         this.setData({
+          content_list: []
+        })
         wx.showToast({
           title: res.error.message,
           icon: 'none',

@@ -11,8 +11,8 @@
     </view>
   </view>
   <view class="header-r">
-    <view class="icon icon-fenxiang"></view>
-    <view class="">分享</view>
+    <view class="icon"><button plain="true" open-type="share"><text class="icon icon-fenxiang">分享</text></button></view>
+    <!--<view class=""></view>-->
   </view>
 </view>
 <view class="content">

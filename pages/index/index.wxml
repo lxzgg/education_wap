@@ -2,7 +2,7 @@
   <swiper indicator-dots autoplay circular>
     <block wx:for="{{adList}}" wx:key="{{item.id}}">
       <swiper-item>
-        <image class="slide-image" src="{{item.ad_image}}"></image>
+        <image wx:if="{{adList}}"class="slide-image" src="{{item.ad_image}}"></image>
       </swiper-item>
     </block>
   </swiper>
@@ -70,7 +70,7 @@
         </view>
         <view class="bottom-item">
            <!--<view class="icon icon-fenxiang"></view>-->
-          <view class="icon"><button class="icon-btn" open-type="share"><text class="icon icon-fenxiang"></text></button></view>
+          <view class="icon"><button plain="true" open-type="share"><text class="icon icon-fenxiang"></text></button></view>
           <view class="number"></view>
         </view>
       </view>

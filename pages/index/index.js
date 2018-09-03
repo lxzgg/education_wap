@@ -3,7 +3,8 @@ const util = require('../../utils/util')
 
 Page({
   data: {
-    isEmpty: true
+    isEmpty: true,
+    adList:[{ad_image:'../../image/banner1.jpg'}]
   },
 
 
@@ -24,9 +25,15 @@ Page({
   getBanner() {
     app.api.home.adList({ ...app.user
     }).then(res => {
-      this.setData({
+      if(res && res.response === 'data'){
+        this.setData({
+          adList:[]
+        })
+ this.setData({
         adList: res.list
       })
+      }
+     
     })
   },
 

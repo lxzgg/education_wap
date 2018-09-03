@@ -16,11 +16,6 @@ Page({
       tempFilePaths: [],
       imgList: []
     }],
-    params: {
-      article_type: 1,
-      is_open: 0,
-      // article_accessory: []
-    },
     showPlusIcon: true
   },
 
@@ -203,8 +198,7 @@ Page({
       title: "正在提交"
     })
       let imgList = this.data.evalList[0]['imgList']
-      let data_params = this.data.params,
-        imgArray = []
+      let imgArray = []
       imgList.forEach((val, key) => {
          let keys = val.path.indexOf('tmp')
         let str = val.path.slice(keys)
@@ -214,10 +208,9 @@ Page({
         imgArray.push(obj)
       })
       params.accessory = imgArray
-      Object.assign(data_params, params)
       util.wxpromisify({
         url: 'friend/addContent',
-        data: data_params,
+        data: params,
         method: 'post'
       }).then((res) => {
         if (res && res.response === 'data') {

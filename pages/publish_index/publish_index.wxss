@@ -169,3 +169,16 @@
 .active{
   color: #ffaa00 !important;
 }
+.icon>button{
+  padding:0;
+  border-color:#fff;
+  line-height: normal;
+  background: #fff;
+}
+.img_arr_display{
+  display: flex;
+}
+.img_arr_display image{
+  /*max-height: 80rpx;
+  max-width: 80rpx;*/
+}
