@@ -7,7 +7,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+      teacherList:[],
+      parentList:[],
+      tearchTotal: 0,
+      parentTotal: 0
   },
 
   /**
@@ -24,7 +27,15 @@ Page({
       },
       method:'post'
     }).then((res)=>{
-      console.log(res)
+       if(res && res.response === 'data'){
+         this.setData({
+           parentList: res.list
+         })
+       }else{
+          this.setData({
+           parentList: []
+         })
+       }
     })
 
     //教师
@@ -37,7 +48,36 @@ Page({
       },
       method:'post'
     }).then((res)=>{
-      console.log(res)
+      if(res && res.response === 'data'){
+         this.setData({
+           teacherList: res.list
+         })
+       }else{
+          this.setData({
+           teacherList: []
+         })
+       }
+    })
+  },
+  delete(e){
+    let del_user_id = e.currrentTarget.dataset.id
+     utils.wxpromisify({
+      url:'user/delTel',
+      data:{
+        token: app.user.token,
+        user_id: app.user.user_id,
+        class_id: app.user.class_id,
+        del_user_id,
+      },
+      method:'post'
+    }).then((res)=>{
+      if(res && res.response === 'data'){
+        wx.showToast({
+          title:'删除成功',
+          icon:'success'
+        })
+        this.onLoad()
+      }
     })
 
   },

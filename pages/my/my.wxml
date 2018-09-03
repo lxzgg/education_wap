@@ -7,6 +7,7 @@
     <text class="icon icon-you"></text>
   </view>
   <view class="user-position">{{roleName}}</view>
+   <button class="login_auth" open-type="getUserInfo" bindgetuserinfo="getUserInfo" wx:if="{{loginAuth == '0'}}">授权登录</button>
 </view>
 <view class="list">
   <navigator class="item" open-type="navigate" url="/pages/myself/publish_control/publish_control">

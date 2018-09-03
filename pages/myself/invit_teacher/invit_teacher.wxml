@@ -3,18 +3,20 @@
   <view class="sections">
     <view class="header">
       <view class="img">
-        <image src="/image/user.png"></image>
+        <!--<image src="/image/user.png"></image>-->
+        <image src="/image/xiaohaoge.png"></image>
       </view>
       <view class="tips">
-        <text>王逗逗</text>
+        <text>{{classInfo.nickname}}</text>
         <text>邀请你参与班级管理</text>
       </view>
     </view>
     <view class="step">
       <view>
-        <image src="/image/user.png"></image>
+        <image  wx:if="{{classInfo.class_image}}" src="{{classInfo.class_image}}"></image>
+         <image wx:else src="/image/xiaohaoge.png"></image>
       </view>
-      <view class="class_name">班级名称</view>
+      <view class="class_name">{{classInfo.class_name || '无'}}</view>
     </view>
   </view>
   <view class="bottom">
@@ -22,16 +24,16 @@
       <view class="section">
         <view class="section__title">手机号码</view>
         <view class="section-input">
-          <input name="input" type="text" placeholder="输入手机号" />
+          <input name="mobile" type="number" placeholder="输入手机号" />
         </view>
         <view class="section-btn">
-          <button>邀请老师</button>
+          <button open-type="share">邀请老师</button>
         </view>
       </view>
       <view class="section">
         <view class="section__title">姓 名</view>
         <view class="section-input">
-          <input name="input" type="text" placeholder="输入姓名" />
+          <input name="username" type="text" placeholder="输入姓名" />
         </view>
         <view class="section-btn">
 
@@ -46,7 +48,7 @@
           wx:item="item" 
           data-num="{{item.subject_type}}" bindtap="switchSubject">{{item.subject_name}}</view>
           <view class="class_item other-input" wx:if="{{showObjInput}}">
-            <input type="text" name="other_like"/>
+            <input type="text" name="subject_name"/>
           </view>
         </view>
       </view>

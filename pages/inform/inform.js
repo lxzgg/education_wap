@@ -8,7 +8,10 @@ Page({
    */
   data: {
     inform_list: [],
-    isEmpty: true
+    isEmpty: true,
+    totalPage: 0,
+    pageSize: 10,
+    currentPage: 1
   },
 
   /**
@@ -18,12 +21,17 @@ Page({
     wx.setNavigationBarTitle({
       title: options.name
     })
+    this.getArticle()
+
+  },
+  //获取文章列表
+  getArticle() {
     utils.wxpromisify({
       url: 'index/article',
       data: {
-        page: 1,
+        page: this.data.currentPage,
         token: app.user.token,
-        num: 50,
+        num: this.data.pageSize,
         user_id: app.user.user_id,
         class_id: app.user.class_id,
         article_type: options.type
@@ -31,7 +39,8 @@ Page({
       method: 'post'
     }).then(res => {
       if (res && res.response === 'data') {
-        const inform_list = res.list
+        const inform_list = inform_list
+        inform_list.push.apply(inform_list,res.list)
         this.setData({
           inform_list,
           isEmpty: false
@@ -109,6 +118,24 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+      wx.showLoading({
+      title: '加载中...'
+    })
+    let page = this.data.currentPage
+    let totalPage = this.data.totalPage
+    wx.hideLoading()
+    if (page >= totalPage) {
+      wx.showToast({
+        title: '没有更多数据了',
+        duration: 3000,
+        icon: 'none'
+      })
+    } else {
+      this.setData({
+        currentPage : page+1
+      })
+      this.getArticle()
+    }
 
   },
 

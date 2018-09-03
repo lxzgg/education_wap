@@ -10,14 +10,15 @@ Page({
     imageUrl: '',
     nickname: '',
     showModalStatus: false,
-    roleName:''
+    roleName: '',
+    loginAuth: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   goToPersonInfo() {
@@ -25,11 +26,49 @@ Page({
       url: '/pages/personData/personData'
     })
   },
-  onShow(){
-   // console.log('加载')
-    let is_admin = app.admin_auth[app.user.is_admin] +'/'+app.user_role[app.user.user_role]
+  getUserInfo() {
+    wx.login({
+      success: (res) => {
+        if (res.code) {
+          wx.getUserInfo({
+            withCredentials: false,
+            success: (data) => {
+              const userInfo_string = data.rawData
+              const userInfo = JSON.parse(userInfo_string)
+              util.wxpromisify({
+                url: "user/updateUserInfo",
+                data: {
+                  user_id: app.user.user_id,
+                  token: app.user.token,
+                  city: userInfo.province,
+                  nickname: userInfo.nickName,
+                  gender: userInfo.gender,
+                  language: userInfo.language,
+                  avatarUrl: userInfo.avatarUrl
+                },
+                method: 'post'
+              }).then((res) => {
+                if (res && res.response === 'data') {
+                  // Object.assign(app.user, {islogin:1})
+                  // wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'), {islogin:1}))
+                  this.onShow()
+                }
+
+              })
+            },
+            fail: (err) => {}
+          })
+        }
+      }
+    })
+  },
+  onShow() {
+    // console.log('加载')
+    let is_admin = app.admin_auth[app.user.is_admin] + '/' + app.user_role[app.user.user_role]
     // console.log(app.user.is_admin,app.user.user_role)
-    this.setData({roleName: is_admin})
+    this.setData({
+      roleName: is_admin
+    })
     util.wxpromisify({
       url: 'user/userInfo',
       data: app.user,
@@ -38,16 +77,33 @@ Page({
       if (ret.response == 'data') {
         this.setData({
           nickname: ret.data.nickname,
-          imageUrl: ret.data.avatarUrl
+          imageUrl: ret.data.avatarUrl,
+          // loginAuth: app.user.islogin
         })
       }
     }).catch((err) => {})
   },
-   //显示对话框
+  //显示对话框
   showModal: function () {
     // wx.showToast({
 
     // })
+    util.wxpromisify({
+      url: 'index/qrcode',
+      data: {
+        scene: '', //参数
+        pages: 'pages/index/index', //string 
+        width: '', //二维码宽度
+        auto_color: '', //自动配置线条颜色 bool
+        line_color: '', //{r:'',g:'',b:''}
+        is_hyaline: '' //是否需要透明色 bool
+      },
+      method: 'post'
+    }).then(res => {
+      console.log(res)
+    })
+
+
     // 显示遮罩层
     var animation = wx.createAnimation({
       duration: 200,

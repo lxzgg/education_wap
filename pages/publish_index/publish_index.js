@@ -11,6 +11,9 @@ Page({
     content_list: [],
     navScrollLeft: 0,
     is_zan: false,
+    totalPage: 0,
+    pageSize: 10,
+    currentPage: 1,
     today: '2018-08-30'
   },
   //事件处理函数
@@ -76,8 +79,8 @@ Page({
     util.wxpromisify({
       data: {
         cate_id: this.data.currentTab,
-        page: 1,
-        num: 20,
+        page: this.data.currentPage,
+        num: this.data.pageSize,
         user_id: app.user.user_id,
         token: app.user.token
       },
@@ -85,11 +88,13 @@ Page({
       method: 'post'
     }).then(res => {
       if (res && res.response === 'data') {
+        let content_list = this.data.content_list
+        content_list.push.apply(content_list, res.list)
         this.setData({
-          content_list: res.list
+          content_list
         })
       } else {
-         this.setData({
+        this.setData({
           content_list: []
         })
         wx.showToast({
@@ -132,6 +137,27 @@ Page({
     wx.navigateTo({
       url: '/pages/comment/comment?articleid=' + id + '&type=firend'
     })
-  }
+  },
 
+  //上拉加载
+  onReachBottom: function (e) {
+    wx.showLoading({
+      title: '加载中...'
+    })
+    let page = this.data.currentPage
+    let totalPage = this.data.totalPage
+    wx.hideLoading()
+    if (page >= totalPage) {
+      wx.showToast({
+        title: '没有更多数据了',
+        duration: 3000,
+        icon: 'none'
+      })
+    } else {
+      this.setData({
+        currentPage: page + 1
+      })
+      this.getFirendContent()
+    }
+  }
 })

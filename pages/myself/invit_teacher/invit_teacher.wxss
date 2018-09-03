@@ -22,11 +22,11 @@
 }
 
 .sections .header .tips text:first-child {
-  font-size: 22rpx;
+  font-size: 26rpx;
 }
 
 .sections .header .tips text:last-child {
-  font-size: 24rpx;
+  font-size: 26rpx;
 }
 
 .sections .header .tips {
@@ -48,7 +48,7 @@
 }
 
 .sections .step .class_name {
-  font-size: 22rpx;
+  font-size: 26rpx;
   color: #333333;
   line-height: 109rpx;
   margin-left: 20rpx;
@@ -88,7 +88,7 @@
 
 .section-input {
   width: 100%;
-  font-size: 20rpx;
+  font-size: 26rpx;
   color: #999999;
   text-align: left;
   padding-left: 10rpx;
@@ -96,7 +96,7 @@
 
 .class_item {
   text-align: center;
-  font-size: 22rpx;
+  font-size: 26rpx;
   line-height: 44rpx;
   /*color: #ffffff;*/
   width: 78rpx;
