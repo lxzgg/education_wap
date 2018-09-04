@@ -67,7 +67,7 @@
   border-bottom: 1px solid #eee;
 }
 
-.content .list .item .top .header-img {
+.content .list .item .top .header-img,.header-img video {
   width: 144rpx;
   height: 144rpx;
   border-radius: 5rpx;

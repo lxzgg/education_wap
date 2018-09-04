@@ -45,7 +45,8 @@
       <view class="top">
         <view class="header-img">
           <image wx:if="{{item.article_accessory[0].image}}" src="{{item.article_accessory[0].image}}"></image>
-          <image wx:else src="../../image/user.png"></image>
+          <video wx:elif="{{item.article_accessory[0].video}}" src="{{item.article_accessory[0].video}}"></video>
+          <image wx:else src="../../image/xiaohaoge.png"></image>
         </view>
         <view class="top-content">
           <text class="content-top">{{item.article_content}}</text>

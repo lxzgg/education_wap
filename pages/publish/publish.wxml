@@ -9,24 +9,30 @@
   <view class="publish-content">
     <textarea placeholder="输入您想要输入的文字" name="descript" placeholder-style="color:#999;" value="{{info}}"></textarea>
     <view class="img-list">
-      <view class="item" wx:for="{{evalList[0].tempFilePaths}}" wx:for-item="vo" wx:key="index">
-        <image src="{{vo}}"></image>
+      <view class="item" wx:for="{{evalList[0].tempFilePaths}}" wx:for-item="arr" wx:key="index">
+        <image wx:if="{{arr.type == 'image'}}" src="{{arr.path}}"></image>
+        <video wx:if="{{arr.type == 'video'}}" src="{{arr.path}}"></video>
         <view class="icon icon-shanchu" data-index="{{index}}" bindtap="clearImg"></view>
       </view>
-      <view class="add-item item" bindtap="joinPicture" wx:if="{{showPlusIcon}}">
+      <view class="add-item item" bindtap="openModal" wx:if="{{showPlusIcon}}">
         <view class="icon icon-jia"></view>
       </view>
     </view>
     <view class="button-list">
-      <view class="item" wx:for="{{handle}}" wx:for-item="arr" wx:key="{{arr.index}}" >
+      <view class="item" wx:for="{{handle}}" wx:for-item="arr" wx:key="{{arr.index}}">
         <view class="text">{{arr.type}}</view>
         <view>
-          <!--{{arr.on == true ? 'on' : '' }}"-->
           <switch bindchange="switchChange" data-num="{{arr.index}}" color="#ffaa00" />
-          <!--<view class="child-btn"></view>-->
         </view>
       </view>
     </view>
   </view>
-<button class="post" formType="submit" disabled="{{submitAuth}}">发布</button>
+  <button class="post" formType="submit" disabled="{{submitAuth}}">发布</button>
 </form>
+<!--屏幕背景变暗的背景 -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!--弹出框 -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view bindtap="chooseType" data-type="camera">相册</view>
+  <view bindtap="chooseType" data-type="video">视频</view>
+</view>

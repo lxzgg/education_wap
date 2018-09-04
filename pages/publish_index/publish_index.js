@@ -33,6 +33,7 @@ Page({
         })
       }
     })
+     this.getFirendContent()
   },
   //获取分类内容
   getContent() {
@@ -45,8 +46,6 @@ Page({
       this.setData({
         navData
       })
-    }).then(() => {
-      this.getFirendContent()
     })
   },
   //跳转到发布页面

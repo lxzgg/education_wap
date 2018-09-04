@@ -56,7 +56,8 @@
 }
 
 .content image {
-  width: 100%;
+ max-width: 710rpx;
+	max-height: 564rpx;
 }
 
 .content text,
@@ -155,15 +156,15 @@
   margin-left: 70rpx;
 }
 
-.footer .footer-c .text {
+.footer .footer-c .text .icon{
   font-size: 24rpx;
   color: #999999;
 }
-
-.footer .footer-c .icon {
+.footer .footer-c .active {
   font-size: 45rpx;
   color: #ffaa00;
 }
+
 
 .footer .footer-r {
   text-align: center;
@@ -181,7 +182,6 @@
 }
 
 /**/
-
 .header-item {
   display: flex;
   justify-content: flex-start;

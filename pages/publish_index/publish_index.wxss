@@ -111,7 +111,7 @@
   padding: 0 20rpx;
 }
 
-.talk-list .talk-item .content image {
+.talk-list .talk-item .content image,.talk-list .talk-item .content video {
   width: 100%;
   border-radius: 10rpx 10rpx 0 0;
 }
@@ -177,8 +177,16 @@
 }
 .img_arr_display{
   display: flex;
+  justify-content:flex-start;
 }
-.img_arr_display image{
-  /*max-height: 80rpx;
-  max-width: 80rpx;*/
+.img_arr_display image, .img_arr_display video{
+  max-height: 210rpx;
+  max-width: 210rpx;
+  margin-left: 30rpx;
+}
+.img_arr_display image:first-child{
+   margin-left: 10rpx;
+}
+.img_arr_display image:last-child{
+   margin-right: 10rpx;
 }

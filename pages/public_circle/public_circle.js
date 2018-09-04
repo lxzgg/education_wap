@@ -16,7 +16,8 @@ Page({
       tempFilePaths: [],
       imgList: []
     }],
-    showPlusIcon: true
+    showPlusIcon: true,
+    showModalStatus: false
   },
 
   /**
@@ -94,7 +95,7 @@ Page({
         var addImg = res.tempFilePaths
         var addLen = addImg.length;
         for (var i = 0; i < addLen; i++) {
-          img.push(addImg[i])
+           img.push({type: 'image',path: addImg[i]})
         }
         evalList[0].tempFilePaths = img
         if (img.length >= 3) {
@@ -104,8 +105,8 @@ Page({
           evalList: evalList,
           showPlusIcon: showPlusIcon
         })
-         for (let i = 0; i < img.length; i++) {
-        this.getOssParams(img[i])
+         for (let i = 0; i < addImg.length; i++) {
+        this.getOssParams(addImg[i],'image')
       }
       }
     })
@@ -127,12 +128,12 @@ Page({
     })
   },
   
-  getOssParams(path) {
+  getOssParams(path,type) {
     return Promise.resolve().then(res => {
       return util.wxpromisify({
         url: 'oss/getOssParam',
         data: {
-          type: 'image'
+          type:type
         },
         method: 'post'
       })
@@ -141,6 +142,7 @@ Page({
         let reponseData = res.data
         let evalList = this.data.evalList
         let obj = {}
+        obj.type = type
         obj.expire = reponseData.expire
         obj.path = path
         evalList[0].imgList.push(obj)
@@ -203,7 +205,7 @@ Page({
          let keys = val.path.indexOf('tmp')
         let str = val.path.slice(keys)
         let obj = {
-          'image': val.expire+str
+          [val.type]: val.expire+str
         }
         imgArray.push(obj)
       })
@@ -235,4 +237,97 @@ Page({
         }
       })
   },
+    //显示对话框
+  showModal: function () {
+    // 显示遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).top()
+    this.setData({
+      animationData: animation.export(),
+      showModalStatus: true
+    })
+    setTimeout(function () {
+      // animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 200)
+  },
+  //隐藏对话框
+  hideModal: function () {
+    // 隐藏遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    // animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+    })
+    setTimeout(function () {
+      // animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export(),
+        showModalStatus: false
+      })
+    }.bind(this), 200)
+  },
+    openModal() {
+    this.setData({
+      showModalStatus: true
+    })
+  },
+  chooseType(e) {
+    const type = e.currentTarget.dataset.type
+    this.setData({
+      showModalStatus: false
+    })
+    if (type === 'camera') {
+      this.joinPicture()
+    } else {
+      this.joinVideo()
+    }
+  },
+  joinVideo(e) {
+    wx.showActionSheet({
+      itemList: ["从相册中选择", "拍照"],
+      itemColor: "#f7982a",
+      success:  (res) => {
+        if (!res.cancel) {
+          if (res.tapIndex == 0) {
+            this.chooseVideo("album")
+          } else if (res.tapIndex == 1) {
+            this.chooseVideo("camera")
+          }
+        }
+      }
+    })
+  },
+  chooseVideo(type){
+    var evalList = this.data.evalList
+    wx.chooseVideo({
+      sourceType: [type],
+      compressed: true,
+      maxDuration: 60,
+      success: (res) => {
+        let evalList = this.data.evalList
+        evalList[0].tempFilePaths.push({type:'video',path: res.tempFilePath})
+       let showPlusIcon = evalList[0].tempFilePaths.length >= 3 ? false : true
+        this.setData({
+          evalList,
+          showPlusIcon
+        })
+          this.getOssParams(res.tempFilePath,'video')
+      },
+      fail: (res) => {
+      }
+    })
+  }
 })

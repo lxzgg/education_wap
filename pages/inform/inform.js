@@ -11,7 +11,8 @@ Page({
     isEmpty: true,
     totalPage: 0,
     pageSize: 10,
-    currentPage: 1
+    currentPage: 1,
+    options:{}
   },
 
   /**
@@ -20,6 +21,9 @@ Page({
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: options.name
+    })
+    this.setData({
+      options
     })
     this.getArticle()
 
@@ -34,12 +38,12 @@ Page({
         num: this.data.pageSize,
         user_id: app.user.user_id,
         class_id: app.user.class_id,
-        article_type: options.type
+        article_type: this.data.options.type
       },
       method: 'post'
     }).then(res => {
       if (res && res.response === 'data') {
-        const inform_list = inform_list
+        const inform_list = this.data.inform_list
         inform_list.push.apply(inform_list,res.list)
         this.setData({
           inform_list,
@@ -78,42 +82,6 @@ Page({
       url: '/pages/comment/comment?articleid=' + article_id + '&type=index'
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
   /**
    * 页面上拉触底事件的处理函数
    */

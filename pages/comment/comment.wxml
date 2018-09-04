@@ -6,7 +6,7 @@
       </view>
       <view class="header-c">
         <view class="user-name">{{content_details.nickname}}</view>
-        <view class="nike-name">学生-小豆豆</view>
+        <!--<view class="nike-name">学生-小豆豆</view>-->
       </view>
     </view>
   </view>
@@ -16,8 +16,16 @@
   </view>
 </view>
 <view class="content">
-  <div>{{content_details.article_content}}</div>
-  <image src="/image/ppp.jpg"></image>
+  <view>{{content_details.article_content}}</view>
+  <view wx:for="{{content_details.article_accessory}}" wx:key="key">
+      <image src="{{item.image}}" wx:if="{{item.image}}"></image>
+      <video src="{{item.video}}" wx:if="{{item.video}}"></video>
+  </view>
+ <!--<view>
+  <video src="/image/ppp.jpg"></video>
+  </view>-->
+ 
+ 
 </view>
 <view class="comment-list">
   <view class="user-comment" wx:for="{{eval_list}}" wx:key="{{index}}">
@@ -54,7 +62,7 @@
       confirm-type="done" />
   </view>
   <view class="footer-c">
-    <text class="icon icon-dianzan"></text>
+    <text class="icon icon-dianzan {{content_details.is_remard == '1' ? 'active' :''}}"></text>
     <view class="text">{{content_details.like_num}}</view>
   </view>
   <view class="footer-r">

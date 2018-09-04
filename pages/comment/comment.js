@@ -27,7 +27,6 @@ Page({
   getContent() {
     let articleid = this.data.options.articleid
     let type = this.data.options.type
-    console.log(type)
     const params = {
       token: app.user.token,
       user_id: app.user.user_id,
@@ -44,7 +43,6 @@ Page({
       data: params,
       method: 'post'
     }).then(res => {
-      console.log(res)
       let content_details = {},
         eval_list = []
       if (type === 'firend') {
@@ -55,20 +53,15 @@ Page({
         content_details.avatarUrl = data.head_img
         content_details.nickname = data.add_user
         content_details.like_num = data.like_num
+        content_details.is_remard = data.is_remard
         content_details.create_time = data.create_time
         // content_details.add_user = data.add_user
         eval_list = res.list
-        // if (res.list.length > 0) {
-        //   //  eval_list = res.list.map((val,key)=>{
-        //   //    let obj = {}
-        //   //    obj.
-
-        //   //   })
-        // }
       } else {
         content_details = res.data
         eval_list = res.list
       }
+      console.log(content_details)
 
       this.setData({
         eval_list,
