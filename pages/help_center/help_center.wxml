@@ -1,8 +1,8 @@
 <view class="list">
-    <view class="item">
+     <navigator open-type="navigate" url="/pages/help/create_class/create_class"  class="item">
         <view class="title">如何创建班级？</view>
         <view class="icon icon-you"></view>
-    </view>
+    </navigator>
     <view class="item">
         <view class="title">如何发布信息？</view>
         <view class="icon icon-you"></view>

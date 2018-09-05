@@ -25,6 +25,11 @@
 .list .item .item-content .content-info {
   font-size: 30rpx;
   line-height: 36rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .list .item .item-content .content-bottom {

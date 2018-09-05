@@ -10,7 +10,7 @@ Page({
     submitAuth: false,
     navData: [],
     switch: true,
-    current_id: 2,
+    current_id: 1,
     info: '',
     evalList: [{
       tempFilePaths: [],
@@ -30,6 +30,7 @@ Page({
       method: 'post'
     }).then(res => {
       const navData = res.list
+      navData.splice(0, 1)
       this.setData({
         navData
       })
@@ -95,7 +96,10 @@ Page({
         var addImg = res.tempFilePaths
         var addLen = addImg.length;
         for (var i = 0; i < addLen; i++) {
-           img.push({type: 'image',path: addImg[i]})
+          img.push({
+            type: 'image',
+            path: addImg[i]
+          })
         }
         evalList[0].tempFilePaths = img
         if (img.length >= 3) {
@@ -105,9 +109,9 @@ Page({
           evalList: evalList,
           showPlusIcon: showPlusIcon
         })
-         for (let i = 0; i < addImg.length; i++) {
-        this.getOssParams(addImg[i],'image')
-      }
+        for (let i = 0; i < addImg.length; i++) {
+          this.getOssParams(addImg[i], 'image')
+        }
       }
     })
   },
@@ -127,13 +131,13 @@ Page({
       showPlusIcon: showPlusIcon
     })
   },
-  
-  getOssParams(path,type) {
+
+  getOssParams(path, type) {
     return Promise.resolve().then(res => {
       return util.wxpromisify({
         url: 'oss/getOssParam',
         data: {
-          type:type
+          type: type
         },
         method: 'post'
       })
@@ -179,7 +183,7 @@ Page({
 
   formSubmit(e) {
     let content = e.detail.value.descript.trim()
-     let is_open = this.data.switch ? 1 : 0
+    let is_open = this.data.switch ? 1 : 0
     let params = {
       user_id: app.user.user_id,
       token: app.user.token,
@@ -199,45 +203,50 @@ Page({
       icon: "loading",
       title: "正在提交"
     })
-      let imgList = this.data.evalList[0]['imgList']
-      let imgArray = []
-      imgList.forEach((val, key) => {
-         let keys = val.path.indexOf('tmp')
-        let str = val.path.slice(keys)
-        let obj = {
-          [val.type]: val.expire+str
-        }
-        imgArray.push(obj)
-      })
-      params.accessory = imgArray
-      util.wxpromisify({
-        url: 'friend/addContent',
-        data: params,
-        method: 'post'
-      }).then((res) => {
-        if (res && res.response === 'data') {
-          wx.showToast({
-            title: '发布成功',
-            icon: 'success',
-            duration: 2000,
-            success: function (res) {
-              setTimeout(() => {
-                wx.switchTab({
-                  url: '/pages/publish_index/publish_index'
-                })
-              }, 2000)
-            }
-          })
-        } else {
-          wx.showToast({
-            title: '发布失败',
-            icon: 'none',
-            duration: 5000
-          })
-        }
-      })
+    let imgList = this.data.evalList[0]['imgList']
+    let imgArray = []
+    imgList.forEach((val, key) => {
+      let keys = val.path.indexOf('tmp')
+      let str = val.path.slice(keys)
+      let obj = {
+        [val.type]: val.expire + str
+      }
+      imgArray.push(obj)
+    })
+    params.accessory = imgArray
+    util.wxpromisify({
+      url: 'friend/addContent',
+      data: params,
+      method: 'post'
+    }).then((res) => {
+      if (res && res.response === 'data') {
+        wx.showToast({
+          title: '发布成功',
+          icon: 'success',
+          duration: 2000,
+          success: function (res) {
+            setTimeout(() => {
+              wx.switchTab({
+                url: '/pages/publish_index/publish_index',
+                success: () => {
+                  let page = getCurrentPages().pop();
+                  if (page == undefined || page == null) return;
+                  page.onLoad();
+                }
+              })
+            }, 2000)
+          }
+        })
+      } else {
+        wx.showToast({
+          title: '发布失败',
+          icon: 'none',
+          duration: 5000
+        })
+      }
+    })
   },
-    //显示对话框
+  //显示对话框
   showModal: function () {
     // 显示遮罩层
     var animation = wx.createAnimation({
@@ -279,7 +288,7 @@ Page({
       })
     }.bind(this), 200)
   },
-    openModal() {
+  openModal() {
     this.setData({
       showModalStatus: true
     })
@@ -299,7 +308,7 @@ Page({
     wx.showActionSheet({
       itemList: ["从相册中选择", "拍照"],
       itemColor: "#f7982a",
-      success:  (res) => {
+      success: (res) => {
         if (!res.cancel) {
           if (res.tapIndex == 0) {
             this.chooseVideo("album")
@@ -310,7 +319,7 @@ Page({
       }
     })
   },
-  chooseVideo(type){
+  chooseVideo(type) {
     var evalList = this.data.evalList
     wx.chooseVideo({
       sourceType: [type],
@@ -318,16 +327,18 @@ Page({
       maxDuration: 60,
       success: (res) => {
         let evalList = this.data.evalList
-        evalList[0].tempFilePaths.push({type:'video',path: res.tempFilePath})
-       let showPlusIcon = evalList[0].tempFilePaths.length >= 3 ? false : true
+        evalList[0].tempFilePaths.push({
+          type: 'video',
+          path: res.tempFilePath
+        })
+        let showPlusIcon = evalList[0].tempFilePaths.length >= 3 ? false : true
         this.setData({
           evalList,
           showPlusIcon
         })
-          this.getOssParams(res.tempFilePath,'video')
+        this.getOssParams(res.tempFilePath, 'video')
       },
-      fail: (res) => {
-      }
+      fail: (res) => {}
     })
   }
 })

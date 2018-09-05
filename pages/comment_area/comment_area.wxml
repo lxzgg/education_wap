@@ -1,0 +1,11 @@
+<!--pages/comment_area/comment_area.wxml-->
+<view>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="section">
+      <textarea auto-height placeholder="{{placeholder}}" name="comment" value="{{clear}}"/>
+    </view>
+    <view class="btn-area">
+      <button  formType="submit">{{label}}</button>
+    </view>
+  </form>
+</view>

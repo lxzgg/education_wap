@@ -7,20 +7,14 @@ radio .wx-radio-input {
   height: 30rpx;
 }
 
-radio .wx-radio-input .wx-radio-input-checked {
-}
-
-radio .wx-radio-input.wx-radio-input-checked::before {
-}
-
 /*radio默认样式重置*/
 
 .radio-group {
-font-size: 28rpx;
+font-size: 30rpx;
 }
 
 .radio-group radio{
-margin-right: 10rpx;
+margin-right: 20rpx;
 }
 
 .item {
@@ -33,22 +27,22 @@ margin-right: 10rpx;
 }
 
 .item .name {
-  font-size: 28rpx;
-  width: 182rpx;
+  font-size: 32rpx;
+  min-width: 180rpx;
   line-height: 45rpx;
 }
 
 .item input {
   line-height: 61rpx;
-  font-size: 28rpx;
+  font-size: 30rpx;
 }
 
 .item .name-content {
-  font-size: 28rpx;
+  font-size: 30rpx;
 }
 
 .item .picker {
-  font-size: 24rpx;
+  font-size: 30rpx;
   line-height: 40rpx;
 }
 
@@ -62,10 +56,11 @@ margin-right: 10rpx;
 .item.sp button {
   background-color: #fa0;
   color: #fff;
-  font-size: 24rpx;
-  padding: 28rpx 10rpx;
-  width: 200rpx;
-  line-height: 2rpx;
+  font-size: 28rpx;
+  padding: 0;
+  min-width: 220rpx;
+  line-height: 80rpx;
+  height: 80rpx;
 }
 
 .subBtn {

@@ -39,7 +39,7 @@
 }
 
 .content .nav-list .item text {
-  font-size: 22rpx;
+  font-size: 26rpx;
   text-align: center;
   display: block;
   margin-top: 5rpx;
@@ -65,6 +65,7 @@
   display: flex;
   padding: 0rpx 0rpx 20rpx 0rpx;
   border-bottom: 1px solid #eee;
+  justify-content:space-between;
 }
 
 .content .list .item .top .header-img,.header-img video {
@@ -81,19 +82,24 @@
 .content .list .item .top .top-content {
   flex: 1;
   margin-left: 35rpx;
+    display: flex;
+  flex-direction: column;
+justify-content: space-between;
 }
 
 .content .list .item .top .top-content .content-top {
   display: block;
   font-size: 28rpx;
   line-height: 32rpx;
-  height: 64rpx;
-  overflow: hidden;
+  display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 3;
+overflow: hidden;
+word-wrap:break-word;
 }
 
 .content .list .item .top .top-content .content-bottom {
-  display: flex;
-  margin-top: 40rpx;
+display: flex;
 }
 
 .content .list .item .top .top-content .content-bottom .bottom1 {

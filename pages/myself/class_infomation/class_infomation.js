@@ -7,8 +7,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-  showModalStatus: false,
-  content:{}
+    showModalStatus: false,
+    content: {},
+    index: 0,
+    evalList: [{
+      tempFilePaths: [],
+      imgList: []
+    }],
+    admin_list: []
   },
 
   /**
@@ -16,18 +22,20 @@ Page({
    */
   onLoad: function (options) {
     utils.wxpromisify({
-      url:'class_info/info',
-      data:app.user,
-      method:'post'
-    }).then((res)=>{
-     if(res && res.response === 'data'){
-       this.setData({
-         content: res.data
-       })
-     }
+      url: 'class_info/info',
+      data: app.user,
+      method: 'post'
+    }).then((res) => {
+      if (res && res.response === 'data') {
+        this.setData({
+          content: res.data
+        })
+      }
     })
+    console.log(app.user)
+    this.getTeacherList()
   },
-   //显示对话框
+  //显示对话框
   showModal: function () {
     // 显示遮罩层
     var animation = wx.createAnimation({
@@ -69,58 +77,213 @@ Page({
       })
     }.bind(this), 200)
   },
-  goToBannerContr(){
+  goToBannerContr() {
     wx.navigateTo({
       url: '/pages/banner_control/banner_control'
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  uploadImg() {
+    wx.showActionSheet({
+      itemList: ["从相册中选择", "拍照"],
+      itemColor: "#f7982a",
+      success: (res) => {
+        if (!res.cancel) {
+          if (res.tapIndex == 0) {
+            this.chooseWxImage("album")
+          } else if (res.tapIndex == 1) {
+            this.chooseWxImage("camera")
+          }
+        }
+      }
+    })
+  },
+  chooseWxImage(type) {
+    let evalList = this.data.evalList
+    wx.chooseImage({
+      count: 1,
+      sizeType: ["original", "compressed"],
+      sourceType: [type],
+      success: (res) => {
+        //console.log(res)
+        let content = this.data.content
+        let addImg = res.tempFilePaths
+        let addLen = addImg.length;
+        content.class_image = addImg[0]
+        evalList[0].tempFilePaths.push({
+          type: 'classLogo',
+          path: addImg[0]
+        })
+        this.setData({
+          evalList: evalList,
+          content
+        })
+        this.getOssParams(addImg[0], 'classLogo')
+      }
+    })
+  },
+  getOssParams(path, type) {
+    return Promise.resolve().then(res => {
+      return utils.wxpromisify({
+        url: 'oss/getOssParam',
+        data: {
+          type: type
+        },
+        method: 'post'
+      })
+    }).then((res) => {
+      if (res && res.response == 'data') {
+        let reponseData = res.data
+        let evalList = this.data.evalList
+        let obj = {}
+        obj.expire = reponseData.expire
+        obj.type = type
+        obj.path = path
+        evalList[0].imgList.push(obj)
+        this.setData({
+          evalList
+        })
+        return this.uploadImage(reponseData, path)
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
+  uploadImage(reponseData, path) {
+    return new Promise(resolve => {
+      wx.uploadFile({
+        url: 'https://oss.whwhjy.com',
+        filePath: path,
+        name: 'file',
+        formData: {
+          name: path,
+          key: reponseData.dir + reponseData.expire + "${filename}",
+          policy: reponseData.policy,
+          OSSAccessKeyId: reponseData.accessid,
+          success_action_status: "200",
+          signature: reponseData.signature
+        },
+        success: (res) => {
+          resolve()
+        },
+        fail: function (e) {},
+        complete: function (e) {}
+      })
+    })
+  },
+  getTeacherList() {
+    let url = app.user.admin_type == '1' ? 'user/teaTelBook' : 'user/userTelBook'
+    utils.wxpromisify({
+      url: url,
+      data: {
+        token: app.user.token,
+        user_id: app.user.user_id,
+        class_id: app.user.class_id
+      },
+      method: 'post'
+    }).then((res) => {
+      if (res && res.response === 'data') {
+        this.setData({
+          admin_list: res.list
+        })
+      } else {
+        this.setData({
+          admin_list: []
+        })
+      }
+    })
+  },
+  bindPickerChange(e) {
+    let index = e.detail.value
+    let admin_list = this.data.admin_list
+    let content = this.data.content
+    content.admin_id = admin_list[index].user_id
+    content.username = admin_list[index].username
+    this.setData({
+      index,
+      content
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
+  formSubmit(e) {
+    let admin_id = this.data.admin_list[this.data.index].user_id
+    let image = this.data.evalList[0].imgList[0]
+    let class_image = ''
+    if(image){
+     let keys = image.path.indexOf('tmp')
+     let str = image.path.slice(keys)
+     class_image = image.expire + str
+    }else{
+      class_image = this.data.content.class_image
+    }
+    let member_num = e.detail.value.member_num.trim()
+    let class_name = e.detail.value.class_name.trim()
+    if(!class_image){
+      wx.showToast({
+        title: '请上传班级图片',
+        icon:'none',
+        duration: 3000
+      })
+      return 
+    }
+    if(!class_name){
+      wx.showToast({
+        title: '请填写班级名称',
+        icon:'none',
+        duration: 3000
+      })
+      return 
+    }
+    if(!member_num){
+      wx.showToast({
+        title: '请填写班级成员总数',
+        icon:'none',
+        duration: 3000
+      })
+      return 
+    }
+    let params = {
+      user_id: app.user.user_id,
+      token: app.user.token,
+      class_id: app.user.class_id,
+      class_name,
+      member_num,
+      admin_id,
+      class_image
+    }
+    wx.showToast({
+      icon: "loading",
+      title: "正在提交"
+    })
+    utils.wxpromisify({
+      url: 'class_info/editClass',
+      data: params,
+      method: 'post'
+    }).then((res) => {
+      if (res && res.response === 'data') {
+        wx.showToast({
+          title: '保存成功',
+          icon: 'success',
+          duration: 2000,
+          success: (res) => {
+            this.onLoad()
+          }
+        })
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+      } else {
+        wx.showToast({
+          title: res.error.message,
+          icon: 'none',
+          duration: 5000
+        })
+      }
+    }).catch((err)=>{
+       wx.showModal({
+          title: '提示',
+          content: '请求超时',
+          showCancel: false,
+          success: ()=> {
+           
+          }
+        })
+    })
   }
 })

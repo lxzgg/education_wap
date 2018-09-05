@@ -1,25 +1,26 @@
 <view class="title">
     <view class="title-name">老师列表({{tearchTotal}})</view>
-    <view class="title-btn" bindtap="invitTeacher">
-        <view class="button">
+    <view class="title-btn">
+        <!--<button class="button" bindtap="invitTeacher" >邀请老师</button>-->
+        <button class="button" open-type="share" data-page='teacher'>
             邀请老师
-        </view>
+        </button>
     </view>
 </view>
-<view class="box" wx:for="{{tearchList}}" wx:key="{{index}}">
+<view class="box" wx:for="{{teacherList}}" wx:key="{{index}}">
     <view class="box-l">
         <image src="{{item.avatarUrl}}"></image>
-        <view class="name">{{item.nickname}}</view>
+        <view class="name">{{item.nickname  || '无'}}</view>
         <view class="position">{{item.subject}}</view>
     </view>
     <view class="box-r">
-        <view class="icon icon-phone" data-num="{{item.mobile}}">  </view>
+        <view class="icon icon-phone" data-num="{{item.mobile}}" bindtap="callPhone"></view>
         <view class="icon icon-shanchu1 icon2" data-id="{{item.user_id}}" bindtap="delete"></view>
     </view>
 </view>
 <view class="title">
     <view class="title-name">家长列表:({{parentTotal}})</view>
-    <view class="title-btn" bindtap="invitParent">
+    <view class="title-btn" bindtap="showModal">
         <view class="button">
             邀请家长
         </view>
@@ -28,11 +29,19 @@
 <view class="box" wx:for="{{parentList}}" wx:key="{{index}}">
     <view class="box-l">
         <image src="{{item.avatarUrl}}"></image>
-        <view class="name">{{item.nickname}}</view>
+        <view class="name">{{item.nickname  || '无'}}</view>
         <view class="position">{{item.subject}}</view>
     </view>
     <view class="box-r">
-        <view class="icon icon-phone" data-num="{{item.mobile}}">  </view>
+        <view class="icon icon-phone" data-num="{{item.mobile}}" bindtap="callPhone">  </view>
         <view class="icon icon-shanchu1 icon2" data-id="{{item.user_id}}" bindtap="delete"></view>
     </view>
+</view>
+<!--屏幕背景变暗的背景 -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!--弹出框 -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+    <image src="{{erCodeImg}}" alt="二维码"></image>
+    <button bindtap="savePhotos">保存二维码到相册</button>
+    <text>可以将小程序推荐给其他班主任和学生</text>
 </view>

@@ -7,7 +7,7 @@
 }
 
 .type .text {
-  font-size: 28rpx;
+  font-size: 30rpx;
 }
 
 .type .list {
@@ -21,7 +21,7 @@
   border: 1rpx solid #7796f4;
   color: #7796f4;
   border-radius: 60rpx;
-  font-size: 24rpx;
+  font-size: 28rpx;
   margin: 0  0 10rpx 10rpx;
 }
 
@@ -43,7 +43,7 @@
 .publish-content textarea {
   height: 230rpx;
   width: 100%;
-  font-size: 24rpx;
+  font-size: 30rpx;
   padding: 20rpx;
   box-sizing: border-box;
 }
@@ -106,7 +106,7 @@
 }
 
 .publish-content .button-list .item .text {
-  font-size: 28rpx;
+  font-size: 30rpx;
   line-height: 55rpx;
 }
 
@@ -150,7 +150,7 @@
   height: 75rpx;
   line-height: 75rpx;
   text-align: center;
-  font-size: 28rpx;
+  font-size: 30rpx;
   border-radius: 60rpx;
   background-color: #577ef1;
   color: #ffffff;
@@ -168,7 +168,7 @@
   background: #000000;
   opacity: 0.2;
   overflow: hidden;
-  z-index: 1000;
+  z-index: 100;
   color: #fff;
 }
 /*对话框 */
@@ -177,15 +177,15 @@
   background-color: #ffffff;
   overflow: hidden;
   position: fixed;
-  top: 30%;
+  top: 40%;
   left: 18%;
   width: 64%;
-  z-index: 2000;
+  z-index: 2009;
   box-shadow: 5rpx 5rpx 5rpx #d9d9d9;
 }
 
 .commodity_attr_box view {
-  font-size: 30rpx;
+  font-size: 32rpx;
   width: 100%;
   padding-left: 50rpx;
   line-height: 90rpx;
@@ -194,5 +194,9 @@
 .commodity_attr_box view:first-child {
   border-bottom: 1rpx solid #d9d9d9;
 }
-
+.tips {
+  font-size: 24rpx;
+  color: #999;
+  padding-left: 30rpx;
+}
 

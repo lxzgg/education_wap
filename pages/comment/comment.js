@@ -61,7 +61,6 @@ Page({
         content_details = res.data
         eval_list = res.list
       }
-      console.log(content_details)
 
       this.setData({
         eval_list,
@@ -71,79 +70,9 @@ Page({
       })
     })
   },
-
-  //评论提交
-  formSubmit(e) {
-    let comment = e.detail.value
-    let articleid = this.data.options.articleid
-    let type = this.data.options.type
-    const params = {
-      token: app.user.token,
-      user_id: app.user.user_id,
-      eval_info: comment
-    }
-    let url = type === 'index' ? 'article/article_eval' : 'friend/eval_content'
-    if (type === 'index') {
-      params.article_id = articleid
-    } else {
-      params.content_id = articleid
-    }
-    util.wxpromisify({
-      url: url,
-      data: params,
-      method: 'post'
-    }).then(res => {
-      if (res && res.response === 'data') {
-        this.getContent()
-      } else {
-        wx.showToast({
-          title: '评论失败',
-          icon: 'none',
-          duration: 3000
-        })
-      }
-    })
-  },
-  //获取评论id ，显示回复框
-  repyBtn(e) {
-    let id = e.currentTarget.dataset.id
-    this.setData({
-      curInput: id
-    })
-  },
-
-  //回复提交
-  repyContent(e) {
-    let repy = e.detail.value
-    let curInput = this.data.curInput
-    let type = this.data.options.type
-    const params = {
-      token: app.user.token,
-      user_id: app.user.user_id
-    }
-    let url = type === 'index' ? 'article/eval_reply' : 'friend/eval_reply'
-    if (type === 'index') {
-      params.eval_id = curInput
-      params.reply = repy
-    } else {
-      params.eval_id = curInput
-      params.eval_reply = repy
-    }
-    util.wxpromisify({
-      url: url,
-      data: params,
-      method: 'post'
-    }).then(res => {
-      if (res && res.response === 'data') {
-        this.getContent()
-      } else {
-        wx.showToast({
-          title: '回复失败',
-          icon: 'none',
-          duration: 3000
-        })
-      }
-
+  goToCommentArea(e) {
+    wx.navigateTo({
+      url: '/pages/comment_area/comment_area?articleid=' + this.data.options.articleid +'&id=' + e.currentTarget.dataset.id + '&type=' + this.data.options.type + '&ret=' + e.currentTarget.dataset.ret
     })
   }
 })

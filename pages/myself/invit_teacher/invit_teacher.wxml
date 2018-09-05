@@ -24,10 +24,10 @@
       <view class="section">
         <view class="section__title">手机号码</view>
         <view class="section-input">
-          <input name="mobile" type="number" placeholder="输入手机号" />
+          <input name="mobile" type="number" disabled value="{{mobile}}" placeholder="手机号" />
         </view>
         <view class="section-btn">
-          <button open-type="share">邀请老师</button>
+          <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">使用微信手机号</button>
         </view>
       </view>
       <view class="section">

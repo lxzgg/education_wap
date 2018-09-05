@@ -60,6 +60,7 @@ Page({
       method: 'post'
     }).then((res) => {
       if (res && res.response === 'data') {
+        console.log(res)
         this.setData({
            list: res.list
         })
@@ -135,7 +136,6 @@ Page({
       //上传图片到后台
          let keys = path.indexOf('tmp')
        let filename = reponseData.expire+path.slice(keys)
-       console.log(filename)
       utils.wxpromisify({
         url: 'class_info/ad_upload',
         data: {
@@ -145,7 +145,6 @@ Page({
         },
         method: 'post'
       }).then((res) => {
-        console.log(res)
         this.getBannerImg()
       })
     })

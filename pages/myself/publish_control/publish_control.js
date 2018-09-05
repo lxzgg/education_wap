@@ -9,10 +9,10 @@ Page({
   data: {
     article: [],
     totalPage: 1,
-    pageSize: 3,
+    pageSize: 10,
     currentPage: 1
   },
-  onShow: function () {
+  onLoad: function () {
     this.getArticle()
   },
   getArticle() {
@@ -98,7 +98,7 @@ Page({
     let page = this.data.currentPage
     let totalPage = this.data.totalPage
     wx.hideLoading()
-    if (page >= totalPage) {
+    if (page > totalPage) {
       wx.showToast({
         title: '没有更多数据了',
         duration: 3000,
@@ -108,7 +108,7 @@ Page({
       this.setData({
         currentPage: page + 1
       })
-      this.getFirendContent()
+      this.getArticle()
     }
   }
 })

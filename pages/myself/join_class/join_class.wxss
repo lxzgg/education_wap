@@ -7,26 +7,27 @@
 }
 
 .section-btn button {
-  width: 185rpx;
-  height: 54rpx;
+  min-width: 215rpx;
+  height: 70rpx;
   background-color: #ffaa00;
   box-shadow: 0rpx 0rpx 9rpx 0rpx rgba(130, 129, 129, 0.34);
   border-radius: 14rpx 10rpx 10rpx 10rpx;
   color: #fff;
-  font-size: 24rpx;
-  line-height: 54rpx;
+  font-size: 30rpx;
+  padding: 0 5rpx;
+  line-height: 70rpx;
 }
 
 .section__title {
-  font-size: 26rpx;
+  font-size: 30rpx;
   color: #333333;
   min-width: 120rpx;
-  line-height: 48rpx;
+  line-height: 56rpx;
 }
 
 .section-input {
   width: 100%;
-  font-size: 26rpx;
+  font-size: 30rpx;
   color: #333;
   text-align: left;
   padding-left: 10rpx;
@@ -34,7 +35,7 @@
 
 .class_item {
   text-align: center;
-  font-size: 26rpx;
+  font-size: 30rpx;
   line-height: 44rpx;
   /*color: #ffffff;*/
   width: 78rpx;
@@ -81,7 +82,7 @@
     width: 100%;
     line-height: 50rpx;
 	background-color: #eeeeee;
-    font-size: 26rpx;
+    font-size: 30rpx;
     color: #999;
     padding-left: 43rpx;
 }

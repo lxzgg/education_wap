@@ -35,7 +35,7 @@
 }
 
 .user-header .header-l .header-c .nike-name {
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #999;
 }
 
@@ -55,9 +55,10 @@
   padding: 0 20rpx;
 }
 
-.content image {
- max-width: 710rpx;
-	max-height: 564rpx;
+ .content image, .content video{
+   width:100%;
+ /* max-width: 710rpx;
+	max-height: 564rpx; */
 }
 
 .content text,
@@ -69,7 +70,7 @@
 .content h2,
 .content h3,
 .content h5 {
-  font-size: 24rpx;
+  font-size: 28rpx;
 }
 
 .comment-list {
@@ -108,14 +109,16 @@
 }
 
 .comment-list .user-comment .user-header2 .header-l .header-c .nike-name {
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #999;
 }
 
 .comment-list .user-comment .user-comment2 {
-  width: 100%;
-  padding-left: 140rpx;
+  /* width: 100%; */
+  padding-left: 100rpx;
+  padding-right: 20rpx;
   font-size: 30rpx;
+  word-wrap: break-word;
 }
 
 .comment-list .user-comment:first-child {
@@ -138,7 +141,7 @@
   background-color: #ffffff;
   height: 60rpx;
   line-height: 60rpx;
-  font-size: 24rpx;
+  font-size: 28rpx;
   border-radius: 5rpx;
   width: 383rpx;
 }
@@ -156,29 +159,30 @@
   margin-left: 70rpx;
 }
 
-.footer .footer-c .text .icon{
-  font-size: 24rpx;
+.footer .footer-c .text{
+  font-size: 30rpx;
   color: #999999;
-}
-.footer .footer-c .active {
-  font-size: 45rpx;
-  color: #ffaa00;
 }
 
 
 .footer .footer-r {
   text-align: center;
-  margin-left: 80rpx;
+  margin-left: 40rpx;
   line-height: 38rpx;
 }
 
 .footer .footer-r .text {
-  font-size: 30rpx;
+  font-size: 28rpx;
   color: #999999;
 }
 
-.footer .footer-r .icon {
+.footer .footer-r .icon,.footer .footer-c .icon{
   font-size: 40rpx;
+   color: #999999;
+}
+.footer .footer-c .active {
+  font-size: 45rpx;
+  color: #ffaa00;
 }
 
 /**/
@@ -187,12 +191,12 @@
   justify-content: flex-start;
   width: 100%;
   color: #666;
-font-size: 24rpx;
+font-size: 28rpx;
 }
 
 .header-d {
   color: #ffaa00;
-  font-size: 24rpx;
+  font-size: 28rpx;
   min-width: 100rpx;
 }
 

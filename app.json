@@ -25,7 +25,11 @@
     "pages/myself/invit_teacher/invit_teacher",
     "pages/myself/join_class/join_class",
     "pages/public_circle/public_circle",
-    "pages/screen_count/screen_count"
+    "pages/screen_count/screen_count",
+    "pages/comment_area/comment_area",
+    "pages/help/modify_banner/modify_banner",
+    "pages/help/create_class/create_class",
+    "pages/help/invit_teacher/invit_teacher"
   ],
   "window": {
     "backgroundTextStyle": "light",

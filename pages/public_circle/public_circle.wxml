@@ -21,7 +21,7 @@
     <div style="height: 10rpx;width:100%;background: #fff;" ></div>
     <view class="button-list">
       <view class="item">
-        <view class="text">公开</view>
+        <view class="text">公开<text class="tips">公开即班级外的成员也可查看</text></view>
         <view>
           <switch bindchange="switchChange" checked="{{switch}}" color="#ffaa00" />
         </view>

@@ -1,20 +1,23 @@
+<form bindsubmit="formSubmit">
 <view class="input">
-    <view class="inner-input">
-        <view class="input-title">分类名称</view>
-        <view class="input-input">
-            <input type="text" placeholder="请选择分类名称"/>
-        </view>
+  <view class="inner-input">
+    <view class="input-title">分类名称</view>
+    <view class="input-input">
+      <input type="text" placeholder="请选择分类名称" name="cate_name" />
     </view>
-
+  </view>
 </view>
 <view class="input">
-    <view class="inner-input">
-        <view class="input-title">选择图标</view>
-    </view>
+  <view class="inner-input">
+    <view class="input-title">选择图标</view>
+  </view>
 </view>
 <view class="icon-list">
-    <view class="icon-item" wx:for="{{list}}" wx:key="{{index}}" data-id="{{item.icon_id}}">
-        <image src="{{item.iconSrc}}"></image>
+  <view wx:for="{{list}}" wx:key="{{index}}" class="icon-box {{ item.icon_id == icon_id ? 'active' :''}}"  data-id="{{item.icon_id}}" bindtap="selectIcon">
+    <view class="icon-item">
+      <image src="{{item.iconSrc}}"></image>
     </view>
+  </view>
 </view>
-<view class="post">保存</view>
+  <button class="post" formType="submit">保 存</button>
+</form>

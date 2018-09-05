@@ -30,7 +30,7 @@
       <image src="/image/a4.png"></image>
       <text>光荣榜</text>
     </navigator>
-    <navigator class="item" open-type='navigate' url="javascript:;">
+    <navigator class="item" open-type='navigate' url="/pages/inform/inform?type=6&name=请假">
       <image src="/image/a5.png"></image>
       <text>请假</text>
     </navigator>
@@ -42,14 +42,14 @@
 
   <view class="list" wx:if="{{isEmpty == false}}">
     <view class="item" wx:for="{{article}}" wx:key="index">
-      <view class="top">
+      <view class="top" data-articleid="{{item.article_id}}" bindtap="goToComment">
         <view class="header-img">
           <image wx:if="{{item.article_accessory[0].image}}" src="{{item.article_accessory[0].image}}"></image>
           <video wx:elif="{{item.article_accessory[0].video}}" src="{{item.article_accessory[0].video}}"></video>
           <image wx:else src="../../image/xiaohaoge.png"></image>
         </view>
         <view class="top-content">
-          <text class="content-top">{{item.article_content}}</text>
+          <view class="content-top">{{item.article_content}}</view>
           <view class="content-bottom">
             <view class="bottom1">{{item.article_type}}</view>
             <view class="bottom2">{{item.create_time}}</view>

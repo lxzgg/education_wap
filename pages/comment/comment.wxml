@@ -21,11 +21,6 @@
       <image src="{{item.image}}" wx:if="{{item.image}}"></image>
       <video src="{{item.video}}" wx:if="{{item.video}}"></video>
   </view>
- <!--<view>
-  <video src="/image/ppp.jpg"></video>
-  </view>-->
- 
- 
 </view>
 <view class="comment-list">
   <view class="user-comment" wx:for="{{eval_list}}" wx:key="{{index}}">
@@ -40,7 +35,7 @@
             <view class="nike-name">{{item.eval_time}}</view>
           </view>
         </view>
-        <view class="header-d" bindtap="repyBtn" data-id="{{item.eval_id}}" wx:if="{{item.eval_reply == ''}}">回复</view>
+        <view class="header-d" bindtap="goToCommentArea" data-id="{{item.eval_id}}" data-ret="repy" wx:if="{{item.eval_reply == ''}}">回复</view>
       </view>
     </view>
     <view class="user-comment2">
@@ -58,8 +53,7 @@
 </view>
 <view class="footer">
   <view class="footer-l">
-    <input type="text" placeholder-style="color:#666" placeholder="留下您的精彩评论" value="{{info}}" name="comment" bindconfirm="formSubmit"
-      confirm-type="done" />
+    <input type="text" placeholder-style="color:#666" placeholder="留下您的精彩评论" data-ret="eval" data-id="{{content_details.article_id}}" bindfocus="goToCommentArea" value="{{info}}" name="comment" bindconfirm="formSubmit"></input>
   </view>
   <view class="footer-c">
     <text class="icon icon-dianzan {{content_details.is_remard == '1' ? 'active' :''}}"></text>

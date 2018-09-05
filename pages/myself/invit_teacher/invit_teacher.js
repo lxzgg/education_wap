@@ -10,6 +10,8 @@ Page({
     selSubIndex: 1,
     showObjInput: false,
     classInfo: {},
+    invit_class_id:'',
+    mobile:'',
     workItem: [{
         subject_type: 1,
         subject_name: '语文'
@@ -52,43 +54,38 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(ooptions)
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-    //获取当前打开页面的微信的user_id
-    new Promise((resolve, reject) => {
-      wx.login({
-        success: res => {
-          resolve(res.code)
-        },
-        fail: err => {}
+    let invit_class_id = options.class_id
+    if (options.handle && options.handle == 'invitTeacher') {
+      //获取当前打开页面的微信的user_id
+      new Promise((resolve, reject) => {
+        wx.login({
+          success: res => {
+            resolve(res.code)
+          },
+          fail: err => {}
+        })
+      }).then((res) => {
+        return utils.wxpromisify({
+          url: 'user/loginStatus',
+          data: {
+            code: res
+          },
+          method: 'post'
+        })
+      }).then((res) => {
+        if (res && res.response === 'data') {
+          this.setData({
+            invit_class_id
+          })
+          let data = res.data
+          // data.class_id = class_id
+          Object.assign(app.user, data)
+          wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'),data))
+        }
       })
-    }).then((res) => {
-      return utils.wxpromisify({
-        url: 'user/loginStatus',
-        data: {
-          code: res
-        },
-        method: 'post'
-      })
-    }).then((res) => {
-      if (res && res.response === 'data') {
-        Object.assign(app.user, res.data)
-        wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'), res.data))
-      }
-    })
-  },
+    }
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    //获取当前班级信息
+     //获取当前班级信息
     utils.wxpromisify({
       url: 'class_info/info',
       data: {
@@ -106,6 +103,7 @@ Page({
       }
     })
   },
+
   formSubmit(e) {
     let mobile = e.detail.value.mobile
     let username = e.detail.value.username
@@ -147,7 +145,7 @@ Page({
       ...subObj,
       user_id: app.user.user_id,
       token: app.user.token,
-      class_id: app.user.class_id
+      class_id: this.data.invit_class_id
     }
     utils.wxpromisify({
       url: 'user/addTeacher',
@@ -165,7 +163,29 @@ Page({
             url: '/pages/index/index'
           })
         }, 2000)
+      }else{
+        wx.showModal({
+          title: '提示',
+          content: res.error.message,
+          showCancel: false,
+          success: function () {
+            wx.navigateTo({
+               url: '/pages/index/index'
+            })
+          }
+        })
       }
+    }).catch((err)=>{
+       wx.showModal({
+          title: '提示',
+          content: '请求超时',
+          showCancel: false,
+          success: function () {
+            wx.navigateTo({
+              url: '/pages/myself/class_contact'
+            })
+          }
+        })
     })
   },
   isPoneAvailable(str) {
@@ -182,9 +202,23 @@ Page({
    */
   onShareAppMessage: function (options) {
     return {
-      title: '弹出分享时显示的分享标题',
+      title: '邀请您加入班级',
       desc: '分享页面的内容',
-      path: 'pages/myself/invit_teacher/invit_teacher?id=12' // 路径，传递参数到指定页面。
+      path: 'pages/myself/invit_teacher/invit_teacher?handle=invitTeacher&class_id='+app.user.class_id // 路径，传递参数到指定页面。
     }
-  }
+  },
+
+    // 获取用户手机号码
+  getPhoneNumber(e) {
+    const {encryptedData, iv} = e.detail
+    wx.login({
+      success: res => {
+        const code = res.code
+        app.api.getUserMobile({code, encryptedData, iv}).then(res => {
+          const mobile = res.data.mobile
+          this.setData({mobile})
+        })
+      }
+    })
+  },
 })

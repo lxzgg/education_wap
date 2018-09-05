@@ -17,7 +17,7 @@ Page({
     today: '2018-08-30'
   },
   //事件处理函数
-  onShow: function () {
+  onLoad: function () {
     let date = new Date()
     let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
     let month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
@@ -70,7 +70,11 @@ Page({
       this.setData({
         currentTab: cur
       })
+      this.setData({
+        content_list:[]
+      })
       this.getFirendContent()
+
     }
   },
   //获取家长圈内容列表
@@ -110,11 +114,11 @@ Page({
     const articleid = e.currentTarget.dataset.id
     let content_list = this.data.content_list
     let is_zan = content_list[key].is_remard
-    if (is_zan == '1') {
-      return
-    }
-    content_list[key].is_remard = content_list[key].is_remard === 1 ? 0 : 1
-    content_list[key].like_num = parseInt(content_list[key].like_num) + 1
+    // if (is_zan == '1') {
+    //   return
+    // }
+    content_list[key].is_remard = content_list[key].is_remard == '1' ? 0 : 1
+    content_list[key].like_num = content_list[key].is_remard == '1' ? parseInt(content_list[key].like_num) + 1 : parseInt(content_list[key].like_num) - 1
     util.wxpromisify({
       url: 'friend/like_content',
       data: {
@@ -124,6 +128,7 @@ Page({
       },
       method: 'post'
     }).then(res => {
+      // this.getFirendContent()
       this.setData({
         content_list
       })

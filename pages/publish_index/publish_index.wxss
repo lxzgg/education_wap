@@ -13,7 +13,7 @@
 
 .banner-add .banner-top {
   display: flex;
-  font-size: 24rpx;
+  font-size: 28rpx;
   justify-content: space-between;
 }
 
@@ -40,7 +40,7 @@
 .nav .nav-item {
   display: inline-block;
   text-align: center;
-  font-size: 24rpx;
+  font-size: 28rpx;
   padding: 0 20rpx;
   color: #999999;
 }
@@ -87,17 +87,17 @@
 }
 
 .talk-list .talk-item .user-header .header-l .header-c .user-name {
-  font-size: 30rpx;
-  color: #999999;
+  font-size: 26rpx;
+  color: #666;
 }
 
 .talk-list .talk-item .user-header .header-l .header-c .nike-name {
-  font-size: 24rpx;
-  color: #eeeeee;
+  font-size: 26rpx;
+  color: #999;
 }
 
 .talk-list .talk-item .user-header .header-r {
-  color: #999999;
+  color: #666;
   font-size: 30rpx;
   display: flex;
   line-height: 108rpx;

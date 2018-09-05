@@ -1,8 +1,8 @@
 <view class="list">
   <view class="item" wx:for="{{inform_list}}" wx:key="index">
-    <view class="top">
+    <view class="top" data-articleid="{{item.article_id}}" bindtap="goToComment">
       <view class="header-img">
-        <image wx:if="{{item.article_accessory[0].image}}" src="{{item.article_accessory[0].image}}"></image>
+        <image wx:if="{{item.article_accessory[0].image}}"  src="{{item.article_accessory[0].image}}"></image>
         <image wx:else src="../../image/user.png"></image>
       </view>
       <view class="top-content">

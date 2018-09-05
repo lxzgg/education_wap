@@ -2,7 +2,7 @@
 
 .item {
   background-color: #f9f9f9;
-  font-size: 28rpx;
+  font-size: 30rpx;
   display: flex;
   justify-content: space-between;
   padding: 15rpx 38rpx;
@@ -19,6 +19,9 @@
   line-height: 75rpx;
   margin-right: 20rpx;
 }
+.item .item-name .item-name-name:nth-child(2) ,.item .item-name .item-name-name:nth-child(3) {
+  letter-spacing:10px
+}
 
 .item .item-name .item-name-name.sp {
   margin-right: 0;
@@ -32,15 +35,13 @@
 }
 
 .item .item-button {
-  background-color: #ffaa00;
-  color: #ffffff;
-  width: 185rpx;
-  height: 54rpx;
-  line-height: 54rpx;
-  font-size: 26rpx;
-  text-align: center;
-  border-radius: 15rpx;
-  padding: 5rpx 15rpx;
+  background-color: #fa0;
+  color: #fff;
+  font-size: 28rpx;
+  padding: 0;
+  min-width: 220rpx;
+  line-height: 80rpx;
+  height: 80rpx;
 }
 
 .item .list {
@@ -116,7 +117,7 @@
 
 .item.no-item radio-group label text {
   line-height: 70rpx;
-  font-size: 24rpx;
+  font-size: 28rpx;
   margin-left: 10rpx;
   color: #999999;
 }

@@ -9,6 +9,7 @@ Page({
   data: {
     showModalStatus: false,
     submitAuth: false,
+    is_parent: true,
     info: '',
     list: [{
       index: 1,
@@ -26,10 +27,10 @@ Page({
       index: 4,
       active: false,
       label: '光荣榜'
-      // }, {
-      //   index: 4,
-      //   active: false,
-      //   label: '接龙'
+    }, {
+      index: 6,
+      active: false,
+      label: '请假'
     }],
     handle: [{
         index: 0,
@@ -39,7 +40,7 @@ Page({
       {
         index: 1,
         type: '允许评论',
-        on: false
+        on: true
       },
       {
         index: 2,
@@ -65,26 +66,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // let role = app.user.user_role
-    // if (role === 1) {
-    //   this.setData({
-    //     submitAuth: false
-    //   })
-    // } else {
-    //   wx.showModal({
-    //     title: '提示',
-    //     content: '您没有发布的权限',
-    //     showCancel: false,
-    //     success: function () {
-    //       wx.switchTab({
-    //         url: '/pages/index/index'
-    //       })
-    //     }
-    //   })
-    //   this.setData({
-    //     submitAuth: true
-    //   })
-    // }
+     let role = app.user.user_role
+     let is_parent = role == '2' ? true : false
+     let list = this.data.list
+     if(is_parent){
+       list.splice(-1,1)
+     }
+      this.setData({
+       list
+      })
   },
   switchChange(e) {
     let num = e.currentTarget.dataset.num
@@ -170,7 +160,10 @@ Page({
         var addImg = res.tempFilePaths
         var addLen = addImg.length;
         for (var i = 0; i < addLen; i++) {
-          img.push({type: 'image',path: addImg[i]})
+          img.push({
+            type: 'image',
+            path: addImg[i]
+          })
         }
         evalList[0].tempFilePaths = img
         if (img.length >= 3) {
@@ -181,7 +174,7 @@ Page({
           showPlusIcon: showPlusIcon
         })
         for (let i = 0; i < addImg.length; i++) {
-          this.getOssParams(addImg[i],'image')
+          this.getOssParams(addImg[i], 'image')
         }
 
       }
@@ -204,7 +197,7 @@ Page({
     })
   },
 
-  getOssParams(path,type) {
+  getOssParams(path, type) {
     return Promise.resolve().then(res => {
       return util.wxpromisify({
         url: 'oss/getOssParam',
@@ -225,7 +218,6 @@ Page({
         this.setData({
           evalList
         })
-        console.log(evalList)
         return this.uploadImage(reponseData, path)
       }
     })
@@ -297,14 +289,44 @@ Page({
           title: '发布成功',
           icon: 'success',
           duration: 2000,
-          success: function (res) {
+          success: (res) => {
             setTimeout(() => {
               wx.switchTab({
-                url: '../index/index'
+                url: '/pages/index/index',
+                 success: () => {
+                  let page = getCurrentPages().pop();
+                  if (page == undefined || page == null) return;
+                  page.onLoad();
+                }
+              })
+              //清空表单
+              this.setData({
+                info: '',
+                evalList: [{
+                  tempFilePaths: [],
+                  imgList: []
+                }],
+                handle: [{
+                    index: 0,
+                    type: '顶置',
+                    on: false
+                  },
+                  {
+                    index: 1,
+                    type: '允许评论',
+                    on: true
+                  },
+                  {
+                    index: 2,
+                    type: '公开',
+                    on: false
+                  }
+                ]
               })
             }, 2000)
           }
         })
+
       } else {
         wx.showToast({
           title: '发布失败',
@@ -376,7 +398,7 @@ Page({
     wx.showActionSheet({
       itemList: ["从相册中选择", "拍照"],
       itemColor: "#f7982a",
-      success:  (res) => {
+      success: (res) => {
         if (!res.cancel) {
           if (res.tapIndex == 0) {
             this.chooseVideo("album")
@@ -387,7 +409,7 @@ Page({
       }
     })
   },
-  chooseVideo(type){
+  chooseVideo(type) {
     var evalList = this.data.evalList
     wx.chooseVideo({
       sourceType: [type],
@@ -395,16 +417,18 @@ Page({
       maxDuration: 60,
       success: (res) => {
         let evalList = this.data.evalList
-        evalList[0].tempFilePaths.push({type:'video',path: res.tempFilePath})
-       let showPlusIcon = evalList[0].tempFilePaths.length >= 3 ? false : true
+        evalList[0].tempFilePaths.push({
+          type: 'video',
+          path: res.tempFilePath
+        })
+        let showPlusIcon = evalList[0].tempFilePaths.length >= 3 ? false : true
         this.setData({
           evalList,
           showPlusIcon
         })
-          this.getOssParams(res.tempFilePath,'video')
+        this.getOssParams(res.tempFilePath, 'video')
       },
-      fail: (res) => {
-      }
+      fail: (res) => {}
     })
   }
 })

@@ -27,11 +27,11 @@
         </view>
         <view class="header-c">
           <view class="user-name">{{item.add_user}}</view>
-          <!--<view class="nike-name">学生-小豆豆</view>-->
+          <view class="nike-name">{{item.create_time}}</view>
         </view>
       </view>
     </view>
-    <view class="content">
+    <view class="content" data-id="{{item.id}}" bindtap="bindComment">
       <view>{{item.content}}</view>
       <view class="img_arr_display" wx:if="{{item.accessory.length >=2}}">
         <block wx:for="{{item.accessory}}" wx:for-item="arr" wx:key="index">
@@ -42,7 +42,7 @@
       <block wx:elif="{{item.accessory[0].image}}">
         <image src="{{item.accessory[0]['image']}}"></image>
       </block>
-      <block wx:else="{{item.accessory[0].video}}">
+      <block wx:elif="{{item.accessory[0].video}}">
         <video src="{{item.accessory[0]['video']}}"></video>
       </block>
 

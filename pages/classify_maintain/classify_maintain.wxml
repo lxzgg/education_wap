@@ -12,7 +12,7 @@
     </view>
 </view>
 <view class="item" wx:for="{{list}}" wx:key="typeList">
-    <view class="item-l" catchtap="openDo" data-index="{{index}}" data-id="{{item.cate_id}}">
+    <view class="item-l" data-index="{{index}}" data-id="{{item.cate_id}}">
         <view class="type-img">
             <image src="{{item.cate_icon}}"></image>
         </view>

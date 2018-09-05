@@ -5,17 +5,17 @@
       <view class="section">
         <view class="section__title">手机号码</view>
         <view class="section-input">
-          <input name="mobile" type="number" placeholder="输入手机号" />
+          <input name="mobile" type="number" disabled value="{{mobile}}" placeholder="手机号" />
         </view>
         <view class="section-btn">
-          <button open-type="share">邀请老师</button>
+          <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">使用微信手机号</button>
         </view>
       </view>
       <view class="tips">手机号仅供老师联系家长时使用，不会用于其他商业用途</view>
       <view class="section">
         <view class="section__title">孩子姓名</view>
         <view class="section-input">
-          <input name="input" type="text" placeholder="输入姓名" />
+          <input name="child_name" type="text" placeholder="输入姓名" />
         </view>
         <view class="section-btn">
 

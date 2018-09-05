@@ -21,8 +21,7 @@ Page({
           class_list: res.list,
           isEmpty: false
         })
-      } else {
-      }
+      } else {}
     })
   },
   goToAddClass() {
@@ -73,8 +72,14 @@ Page({
               wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'), res.data))
 
               wx.switchTab({
-                url: '/pages/index/index'
+                url: '/pages/index/index',
+                success: () => {
+                  let page = getCurrentPages().pop();
+                  if (page == undefined || page == null) return;
+                  page.onLoad();
+                }
               })
+
               wx.hideLoading()
             }).catch(() => {
               wx.showToast({
@@ -92,8 +97,7 @@ Page({
           title: res.msg,
           icon: 'fail',
           duration: 5000,
-          success: function (res) {
-          }
+          success: function (res) {}
         })
       }
     })

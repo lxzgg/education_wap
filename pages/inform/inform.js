@@ -23,7 +23,8 @@ Page({
       title: options.name
     })
     this.setData({
-      options
+      options,
+      inform_list:[]
     })
     this.getArticle()
 

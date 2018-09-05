@@ -10,10 +10,13 @@ Page({
     adList: [{
       ad_image: '../../image/banner1.jpg'
     }],
-    article:[]
+    article: []
   },
 
-  onShow() {
+  onLoad(options) {
+    // console.log(options)
+    // console.log(this.data.currentPage)
+    // console.log(this.data.article)
     this.init()
   },
 
@@ -54,7 +57,8 @@ Page({
     }).then(res => {
       if (res.response === 'data') {
         let article = this.data.article
-        article.push.apply(article,res.list)
+        article.push(...res.list)
+       
         this.setData({
           article,
           isEmpty: false,
@@ -92,11 +96,11 @@ Page({
     const articleid = e.currentTarget.dataset.articleid
     let article = this.data.article
     let is_zan = article[key].is_remard
-    if (is_zan == '1') {
-      return
-    }
-    article[key].is_remard = article[key].is_remard === 1 ? 0 : 1
-    article[key].like_num = parseInt(article[key].like_num) + 1
+    // if (is_zan == '1') {
+    //   return
+    // }
+    article[key].is_remard = article[key].is_remard == '1' ? 0 : 1
+    article[key].like_num = article[key].is_remard == '1'? parseInt(article[key].like_num) + 1 : parseInt(article[key].like_num) - 1
     util.wxpromisify({
       url: 'article/like_article',
       data: {
@@ -130,7 +134,7 @@ Page({
       })
     } else {
       this.setData({
-        currentPage : page+1
+        currentPage: page + 1
       })
       this.getArticle()
     }
