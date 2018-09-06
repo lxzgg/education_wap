@@ -1,31 +1,7 @@
 <view class="list">
-     <navigator open-type="navigate" url="/pages/help/create_class/create_class"  class="item">
-        <view class="title">如何创建班级？</view>
+     <navigator open-type="navigate" url="/pages/help_center_info/help_center_info?id={{item.id}}" wx:for="{{center_content}}" wx:key="{{index}}" class="item">
+        <view class="title">{{item.content}}</view>
         <view class="icon icon-you"></view>
     </navigator>
-    <view class="item">
-        <view class="title">如何发布信息？</view>
-        <view class="icon icon-you"></view>
-    </view>
-    <view class="item">
-        <view class="title">如何删除发布消息？</view>
-        <view class="icon icon-you"></view>
-    </view>
-    <view class="item">
-        <view class="title">我想让家长接龙怎么办？</view>
-        <view class="icon icon-you"></view>
-    </view>
-    <view class="item">
-        <view class="title">首页的大图可以修改吗？</view>
-        <view class="icon icon-you"></view>
-    </view>
-    <view class="item">
-        <view class="title">如何邀请老师加入班级？</view>
-        <view class="icon icon-you"></view>
-    </view>
-    <view class="item">
-        <view class="title">如何修改老师/孩子相关信息</view>
-        <view class="icon icon-you"></view>
-    </view>
 </view>
 

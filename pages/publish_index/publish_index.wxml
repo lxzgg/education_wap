@@ -64,7 +64,7 @@
         </view>
         <view class="bottom-item">
           <view class="icon" data-id="{{item.id}}"><button plain="true" open-type="share"><text class="icon icon-fenxiang"></text></button></view>
-          <view class="number">0</view>
+          <!--<view class="number">0</view>-->
         </view>
       </view>
     </view>

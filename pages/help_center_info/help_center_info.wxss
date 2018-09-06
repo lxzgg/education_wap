@@ -1,0 +1,8 @@
+/* pages/help_center_info/help_center_info.wxss */
+.section{
+  padding: 20rpx;
+}
+.image{
+  width: 100%;
+  margin-bottom: 30rpx;
+}

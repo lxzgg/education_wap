@@ -169,7 +169,7 @@ Page({
           content: res.error.message,
           showCancel: false,
           success: function () {
-            wx.navigateTo({
+            wx.reLaunch({
                url: '/pages/index/index'
             })
           }
@@ -181,7 +181,7 @@ Page({
           content: '请求超时',
           showCancel: false,
           success: function () {
-            wx.navigateTo({
+            wx.reLaunch({
               url: '/pages/myself/class_contact'
             })
           }

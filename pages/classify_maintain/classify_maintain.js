@@ -91,7 +91,7 @@ Page({
     })
   },
   addClassIcon() {
-    wx.navigateTo({
+    wx.reLaunch({
       url: '/pages/add_classify/add_classify'
     })
   },
@@ -108,12 +108,12 @@ Page({
     }).then(res => {
       if (res && res.response === 'data') {
         wx.showToast({
-          title: '图标添加成功',
+          title: '保存成功',
           icon: 'success',
           duration: 2000
         })
         setTimeout(() => {
-          wx.navigateTo({
+          wx.reLaunch({
             url: '/pages/index/index'
           })
         }, 2000)

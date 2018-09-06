@@ -1,66 +1,39 @@
 // pages/help_center/help_center.js
+const app = getApp()
+const utils = require('../../utils/util')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    center_content: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+    utils.wxpromisify({
+      url: 'help/help_list',
+      data: {},
+      method: 'post'
+    }).then(res => {
+      if (res && res.response === 'data') {
+        this.setData({center_content: res.list})
+      } else {
+        wx.showToast({
+          title: res.error.message,
+          icon: 'none',
+          duration: 5000
+        })
+      }
+    }).catch((err) => {
+      wx.showModal({
+        title: '提示',
+        content: '请求超时',
+        showCancel: false
+      })
+    })
   }
 })

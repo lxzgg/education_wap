@@ -55,7 +55,7 @@ Page({
     params: {
       article_type: 1,
       is_top: 0,
-      can_comment: 0,
+      can_comment: 1,
       is_open: 0,
       article_accessory: []
     },
@@ -69,7 +69,7 @@ Page({
      let role = app.user.user_role
      let is_parent = role == '2' ? true : false
      let list = this.data.list
-     if(is_parent){
+     if(!is_parent){
        list.splice(-1,1)
      }
       this.setData({
@@ -291,13 +291,8 @@ Page({
           duration: 2000,
           success: (res) => {
             setTimeout(() => {
-              wx.switchTab({
-                url: '/pages/index/index',
-                 success: () => {
-                  let page = getCurrentPages().pop();
-                  if (page == undefined || page == null) return;
-                  page.onLoad();
-                }
+              wx.reLaunch({
+                url: '/pages/index/index'
               })
               //清空表单
               this.setData({

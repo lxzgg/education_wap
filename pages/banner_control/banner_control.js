@@ -20,8 +20,59 @@ Page({
   },
   // 开启排序
   setSort(e) {
+    let num = e.currentTarget.dataset.num
+    if (num == '0') { //完成
+      let lists = this.data.list
+      let arr = [],
+        sort = []
+      lists.forEach((val, key) => {
+        arr.push(val.cate_id)
+        sort.push(key + 1)
+      })
+      let params = {
+        ad_list: arr.toString(),
+        sort_list: sort.toString()
+      }
+      this.submitScort(params)
+    }
     this.setData({
-      isSort: e.currentTarget.dataset.num
+      isSort: num
+    })
+  },
+  submitScort(params) {
+    utils.wxpromisify({
+      url: 'class_info/adSort',
+      data: {
+        user_id: app.user.user_id,
+        token: app.user.token,
+        ...params
+      },
+      method: 'post'
+    }).then(res => {
+      if (res && res.response === 'data') {
+        wx.showToast({
+          title: '保存成功',
+          icon: 'success',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.reLaunch({
+            url: '/pages/index/index'
+          })
+        }, 2000)
+      } else {
+        wx.showToast({
+          title: res.error.message,
+          icon: 'none',
+          duration: 5000
+        })
+      }
+    }).catch((err) => {
+      wx.showModal({
+        title: '提示',
+        content: '请求超时',
+        showCancel: false
+      })
     })
   },
   down(e) {
@@ -60,9 +111,8 @@ Page({
       method: 'post'
     }).then((res) => {
       if (res && res.response === 'data') {
-        console.log(res)
         this.setData({
-           list: res.list
+          list: res.list
         })
       }
     })
@@ -71,7 +121,7 @@ Page({
     wx.showActionSheet({
       itemList: ["从相册中选择", "拍照"],
       itemColor: "#f7982a",
-      success:  (res)=>{
+      success: (res) => {
         if (!res.cancel) {
           if (res.tapIndex == 0) {
             this.chooseWxImage("album")
@@ -88,7 +138,6 @@ Page({
       sizeType: ["original", "compressed"],
       sourceType: [type],
       success: (res) => {
-        console.log(res)
         var addImg = res.tempFilePaths
         var addLen = addImg.length
         wx.showToast({
@@ -134,8 +183,8 @@ Page({
       })
     }).then(() => {
       //上传图片到后台
-         let keys = path.indexOf('tmp')
-       let filename = reponseData.expire+path.slice(keys)
+      let keys = path.indexOf('tmp')
+      let filename = reponseData.expire + path.slice(keys)
       utils.wxpromisify({
         url: 'class_info/ad_upload',
         data: {

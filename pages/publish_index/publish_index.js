@@ -92,7 +92,7 @@ Page({
     }).then(res => {
       if (res && res.response === 'data') {
         let content_list = this.data.content_list
-        content_list.push.apply(content_list, res.list)
+        content_list.push(...res.list)
         this.setData({
           content_list
         })

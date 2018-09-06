@@ -5,6 +5,7 @@ Page({
   data: {
     // 默认教师
     admin_type: 1,
+    mobile:'',
     city: ['广东省', '深圳市', '南山区']
   },
 
@@ -34,7 +35,7 @@ Page({
       admin_type
     }).then(res => {
       Object.assign(app.user, res.data)
-      wx.switchTab({url: '/pages/index/index'})
+      wx.reLaunch({url: '/pages/myself/switch_class/switch_class'})
       wx.showToast({title: '班级创建成功'})
     })
   },

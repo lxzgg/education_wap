@@ -72,7 +72,7 @@ Page({
           duration: 2000
         })
         setTimeout(() => {
-          wx.navigateTo({
+          wx.reLaunch({
             url: '/pages/classify_maintain/classify_maintain'
           })
         }, 2000)

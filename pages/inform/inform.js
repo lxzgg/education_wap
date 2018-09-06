@@ -45,7 +45,7 @@ Page({
     }).then(res => {
       if (res && res.response === 'data') {
         const inform_list = this.data.inform_list
-        inform_list.push.apply(inform_list,res.list)
+        inform_list.push(...res.list)
         this.setData({
           inform_list,
           isEmpty: false

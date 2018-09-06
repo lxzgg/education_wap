@@ -1,0 +1,4 @@
+<!--pages/help_center_info/help_center_info.wxml-->
+<view class="section">
+    <image class="image" wx:for="{{center_detail}}" mode="widthFix" wx:key="{{index}}" src="{{item}}" bindtap="previewImage"></image>
+</view>

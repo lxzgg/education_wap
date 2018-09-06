@@ -5,7 +5,7 @@ Page({
   data: {
     isEmpty: true,
     totalPage: 1,
-    pageSize: 3,
+    pageSize: 10,
     currentPage: 1,
     adList: [{
       ad_image: '../../image/banner1.jpg'
@@ -14,18 +14,13 @@ Page({
   },
 
   onLoad(options) {
-    // console.log(options)
-    // console.log(this.data.currentPage)
-    // console.log(this.data.article)
     this.init()
   },
-
   init() {
     this.getBanner()
     this.getArticle()
     this.cateList()
   },
-
 
   /********************api********************/
 
@@ -41,7 +36,6 @@ Page({
           adList: res.list
         })
       }
-
     })
   },
 

@@ -28,7 +28,7 @@ Page({
     }).then(res => {
       if (res && res.response === 'data') {
         let article = this.data.article
-        article.push.apply(article, res.list)
+        article.push(...res.list)
         this.setData({
           article
         })

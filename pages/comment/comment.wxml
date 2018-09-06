@@ -18,7 +18,7 @@
 <view class="content">
   <view>{{content_details.article_content}}</view>
   <view wx:for="{{content_details.article_accessory}}" wx:key="key">
-      <image src="{{item.image}}" wx:if="{{item.image}}"></image>
+      <image src="{{item.image}}" wx:if="{{item.image}}" mode="widthFix"></image>
       <video src="{{item.video}}" wx:if="{{item.video}}"></video>
   </view>
 </view>

@@ -226,13 +226,8 @@ Page({
           duration: 2000,
           success: function (res) {
             setTimeout(() => {
-              wx.switchTab({
-                url: '/pages/publish_index/publish_index',
-                success: () => {
-                  let page = getCurrentPages().pop();
-                  if (page == undefined || page == null) return;
-                  page.onLoad();
-                }
+              wx.reLaunch({
+                url: '/pages/publish_index/publish_index'
               })
             }, 2000)
           }

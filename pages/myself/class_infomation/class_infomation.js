@@ -32,7 +32,6 @@ Page({
         })
       }
     })
-    console.log(app.user)
     this.getTeacherList()
   },
   //显示对话框
@@ -104,7 +103,6 @@ Page({
       sizeType: ["original", "compressed"],
       sourceType: [type],
       success: (res) => {
-        //console.log(res)
         let content = this.data.content
         let addImg = res.tempFilePaths
         let addLen = addImg.length;
@@ -204,41 +202,46 @@ Page({
   },
 
   formSubmit(e) {
-    let admin_id = this.data.admin_list[this.data.index].user_id
+    let admin_id = ''
+    if (this.data.admin_list.length > 0) {
+      admin_id = this.data.admin_list[this.data.index].user_id
+    } else {
+      admin_id = this.data.content.admin_id
+    }
     let image = this.data.evalList[0].imgList[0]
     let class_image = ''
-    if(image){
-     let keys = image.path.indexOf('tmp')
-     let str = image.path.slice(keys)
-     class_image = image.expire + str
-    }else{
+    if (image) {
+      let keys = image.path.indexOf('tmp')
+      let str = image.path.slice(keys)
+      class_image = image.expire + str
+    } else {
       class_image = this.data.content.class_image
     }
-    let member_num = e.detail.value.member_num.trim()
-    let class_name = e.detail.value.class_name.trim()
-    if(!class_image){
+    let member_num = e.detail.value.member_num
+    let class_name = e.detail.value.class_name
+    if (!class_image) {
       wx.showToast({
         title: '请上传班级图片',
-        icon:'none',
+        icon: 'none',
         duration: 3000
       })
-      return 
+      return
     }
-    if(!class_name){
+    if (!class_name) {
       wx.showToast({
         title: '请填写班级名称',
-        icon:'none',
+        icon: 'none',
         duration: 3000
       })
-      return 
+      return
     }
-    if(!member_num){
+    if (!member_num) {
       wx.showToast({
         title: '请填写班级成员总数',
-        icon:'none',
+        icon: 'none',
         duration: 3000
       })
-      return 
+      return
     }
     let params = {
       user_id: app.user.user_id,
@@ -275,15 +278,15 @@ Page({
           duration: 5000
         })
       }
-    }).catch((err)=>{
-       wx.showModal({
-          title: '提示',
-          content: '请求超时',
-          showCancel: false,
-          success: ()=> {
-           
-          }
-        })
+    }).catch((err) => {
+      wx.showModal({
+        title: '提示',
+        content: '请求超时',
+        showCancel: false,
+        success: () => {
+
+        }
+      })
     })
   }
 })

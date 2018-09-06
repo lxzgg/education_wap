@@ -52,9 +52,6 @@ Page({
           icon: 'success',
           duration: 2000,
           success: function (res) {
-            wx.showLoading({
-              title: '加载中'
-            })
             new Promise((resolve) => {
               wx.login({
                 success: res => {
@@ -68,19 +65,14 @@ Page({
               })
             }).then(res => {
               // 用户信息全局保存
+               wx.showToast({
+                title: '切换成功',icon:'success'
+              })
               Object.assign(app.user, res.data)
               wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'), res.data))
-
-              wx.switchTab({
-                url: '/pages/index/index',
-                success: () => {
-                  let page = getCurrentPages().pop();
-                  if (page == undefined || page == null) return;
-                  page.onLoad();
-                }
+              wx.reLaunch({
+                url: '/pages/index/index'
               })
-
-              wx.hideLoading()
             }).catch(() => {
               wx.showToast({
                 title: '初始化失败'

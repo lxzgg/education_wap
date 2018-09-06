@@ -25,7 +25,7 @@ Page({
   },
   //页面跳转到用户基本信息
   goToPersonInfo() {
-    wx.navigateTo({
+    wx.reLaunch({
       url: '/pages/personData/personData'
     })
   },
