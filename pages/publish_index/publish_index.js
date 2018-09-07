@@ -14,7 +14,8 @@ Page({
     totalPage: 0,
     pageSize: 10,
     currentPage: 1,
-    today: '2018-08-30'
+    today: '2018-08-30',
+    banner: ''
   },
   //事件处理函数
   onLoad: function () {
@@ -22,7 +23,7 @@ Page({
     let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
     let month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
     let today = date.getFullYear() + '-' + month + '-' + day
-    this.getContent()
+
     wx.getSystemInfo({
       success: (res) => {
         this.setData({
@@ -33,10 +34,15 @@ Page({
         })
       }
     })
-     this.getFirendContent()
+    this.init()
+  },
+  init() {
+    this.getFirendBanner()
+    this.getCateContent()
+    this.getFirendContent()
   },
   //获取分类内容
-  getContent() {
+  getCateContent() {
     util.wxpromisify({
       data: {},
       url: 'friend/getCateList',
@@ -71,7 +77,7 @@ Page({
         currentTab: cur
       })
       this.setData({
-        content_list:[]
+        content_list: []
       })
       this.getFirendContent()
 
@@ -114,9 +120,6 @@ Page({
     const articleid = e.currentTarget.dataset.id
     let content_list = this.data.content_list
     let is_zan = content_list[key].is_remard
-    // if (is_zan == '1') {
-    //   return
-    // }
     content_list[key].is_remard = content_list[key].is_remard == '1' ? 0 : 1
     content_list[key].like_num = content_list[key].is_remard == '1' ? parseInt(content_list[key].like_num) + 1 : parseInt(content_list[key].like_num) - 1
     util.wxpromisify({
@@ -128,7 +131,6 @@ Page({
       },
       method: 'post'
     }).then(res => {
-      // this.getFirendContent()
       this.setData({
         content_list
       })
@@ -163,5 +165,27 @@ Page({
       })
       this.getFirendContent()
     }
+  },
+  onShareAppMessage() {
+    return {
+      title: '分享家长圈内容',
+      imageUrl: '/image/xiaohaoge.png',
+      path: 'pages/public_index/public_index' // 路径，传递参数到指定页面。
+    }
+  },
+  getFirendBanner() {
+    util.wxpromisify({
+      url: 'friend/banner',
+      data: {
+        class_id: app.user.class_id
+      },
+      method: 'post'
+    }).then(res => {
+      if (res && res.response === 'data') {
+        this.setData({
+          banner: res.data.banner
+        })
+      }
+    })
   }
 })

@@ -72,7 +72,42 @@ Page({
   },
   goToCommentArea(e) {
     wx.navigateTo({
-      url: '/pages/comment_area/comment_area?articleid=' + this.data.options.articleid +'&id=' + e.currentTarget.dataset.id + '&type=' + this.data.options.type + '&ret=' + e.currentTarget.dataset.ret
+      url: '/pages/comment_area/comment_area?articleid=' + this.data.options.articleid + '&id=' + e.currentTarget.dataset.id + '&type=' + this.data.options.type + '&ret=' + e.currentTarget.dataset.ret
     })
+  },
+  //点赞
+  clickZan(e) {
+    const type = this.data.options.type
+    const articleid = e.currentTarget.dataset.articleid
+    let content_details = this.data.content_details
+    let is_zan = content_details.is_remard
+    content_details.is_remard = content_details.is_remard == '1' ? 0 : 1
+    content_details.like_num = content_details.is_remard == '1' ? parseInt(content_details.like_num) + 1 : parseInt(content_details.like_num) - 1
+    let url = type === 'index' ? 'article/like_article' : 'friend/like_content'
+    let params = {
+      token: app.user.token,
+      user_id: app.user.user_id
+    }
+    if (type === 'index') {
+      params.article_id = articleid
+    } else {
+      params.content_id = articleid
+    }
+    util.wxpromisify({
+      url: url,
+      data: params,
+      method: 'post'
+    }).then(res => {
+      this.setData({
+        content_details
+      })
+    })
+  },
+  onShareAppMessage() {
+    return {
+      title: '分享内容',
+      imageUrl: '/image/xiaohaoge.png',
+      path: 'pages/public_index/public_index' // 路径，传递参数到指定页面。
+    }
   }
 })

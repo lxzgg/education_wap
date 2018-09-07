@@ -9,7 +9,7 @@ Page({
   data: {
     selShipIndex: 1,
     showShipInput: false,
-    mobile:'',
+    mobile: '',
     Relationship: [{
         family_role: 1,
         family_role_name: '爸爸'
@@ -44,8 +44,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.handle && options.handle == 'joinClass') {
-      //获取当前打开页面的微信的user_id
+    let scene = decodeURIComponent(options.scene)
+    let arr_scene = this.format(scene)
+    console.log(arr_scene)
+    let class_id = arr_scene.class_id
+    if (class_id) {
+      //获取当前打开页面的微信的class_id
       new Promise((resolve, reject) => {
         wx.login({
           success: res => {
@@ -63,8 +67,10 @@ Page({
         })
       }).then((res) => {
         if (res && res.response === 'data') {
-          Object.assign(app.user, res.data)
-          wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'), res.data))
+          let data = res.data
+          data.class_id = class_id
+          Object.assign(app.user, data)
+          wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'), data))
         }
       })
     }
@@ -128,6 +134,9 @@ Page({
       token: app.user.token,
       class_id: app.user.class_id
     }
+    // wx.showModal({
+    //   content: JSON.stringify(params)
+    // })
     utils.wxpromisify({
       url: 'user/addFamily',
       data: params,
@@ -140,7 +149,7 @@ Page({
           duration: 2000
         })
         setTimeout(() => {
-          wx.switchTab({
+          wx.reLaunch({
             url: '/pages/index/index'
           })
         }, 2000)
@@ -150,23 +159,23 @@ Page({
           content: res.error.message,
           showCancel: false,
           success: function () {
-            wx.navigateTo({
-               url: '/pages/index/index'
+            wx.reLaunch({
+              url: '/pages/index/index'
             })
           }
         })
       }
-    }).catch((err)=>{
-       wx.showModal({
-          title: '提示',
-          content: '请求超时',
-          showCancel: false,
-          success: function () {
-            wx.navigateTo({
-               url: '/pages/index/index'
-            })
-          }
-        })
+    }).catch((err) => {
+      wx.showModal({
+        title: '提示',
+        content: '请求超时',
+        showCancel: false,
+        success: function () {
+          wx.navigateTo({
+            url: '/pages/index/index'
+          })
+        }
+      })
     })
   },
   //手机号码验证
@@ -186,18 +195,44 @@ Page({
       path: 'pages/myself/join_class/join_class?handle=joinClass' // 路径，传递参数到指定页面。
     }
   },
-    // 获取用户手机号码
+  // 获取用户手机号码
   getPhoneNumber(e) {
-    const {encryptedData, iv} = e.detail
+    const {
+      encryptedData,
+      iv
+    } = e.detail
     wx.login({
       success: res => {
         const code = res.code
-        app.api.getUserMobile({code, encryptedData, iv}).then(res => {
+        app.api.getUserMobile({
+          code,
+          encryptedData,
+          iv
+        }).then(res => {
           const mobile = res.data.mobile
-          this.setData({mobile})
+          this.setData({
+            mobile
+          })
         })
       }
     })
+  },
+  //格式化参数
+  format(string) {
+    let params = []
+    if (string) {
+      if (string.indexOf('&')) {
+        let arr = string.split('&')
+        for (let i = 0, l = arr.length; i < l; i++) {
+          let a = arr[i].split("=");
+          params[a[0]] = a[1];
+        }
+        return params;
+      } else {
+        let b = string.split('=')
+        params[b[0]] = b[1]
+      }
+    }
+    return params
   }
-
 })

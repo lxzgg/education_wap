@@ -22,7 +22,7 @@
           <view class="icon icon-iconfontpinglun"></view>
           <view class="number">{{item.eval_num}}</view>
         </view>
-        <view class="bottom-item">
+        <view class="bottom-item" bindtap="goToScreenCount" data-type="{{item.article_type}}" data-articleid="{{item.article_id}}">
           <view class="icon icon-tubiao_liulan"></view>
           <view class="number">{{item.browser_num}}</view>
         </view>

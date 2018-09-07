@@ -12,7 +12,7 @@ Page({
     totalPage: 0,
     pageSize: 10,
     currentPage: 1,
-    options:{}
+    options: {}
   },
 
   /**
@@ -24,10 +24,9 @@ Page({
     })
     this.setData({
       options,
-      inform_list:[]
+      inform_list: []
     })
     this.getArticle()
-
   },
   //获取文章列表
   getArticle() {
@@ -83,11 +82,19 @@ Page({
       url: '/pages/comment/comment?articleid=' + article_id + '&type=index'
     })
   },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
+
+  //跳转到浏览统计页面
+  goToScreenCount(e) {
+    let article_id = e.currentTarget.dataset.articleid
+    let type = e.currentTarget.dataset.type
+    wx.navigateTo({
+      url: '/pages/screen_count/screen_count?articleid=' + article_id + '&type=' + type
+    })
+  },
+
+  // 页面上拉触底事件的处理函数
   onReachBottom: function () {
-      wx.showLoading({
+    wx.showLoading({
       title: '加载中...'
     })
     let page = this.data.currentPage
@@ -101,17 +108,19 @@ Page({
       })
     } else {
       this.setData({
-        currentPage : page+1
+        currentPage: page + 1
       })
       this.getArticle()
     }
-
   },
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '给你分享一个' + this.data.type,
+      imageUrl: '/image/xiaohaoge.png',
+      path: 'pages/index/index' // 路径，传递参数到指定页面。
+    }
   }
 })

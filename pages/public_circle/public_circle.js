@@ -1,11 +1,6 @@
-// pages/publish/publish.js
 let util = require('../../utils/util')
 const app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     submitAuth: false,
     navData: [],
@@ -19,10 +14,6 @@ Page({
     showPlusIcon: true,
     showModalStatus: false
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     util.wxpromisify({
       data: {},
@@ -35,6 +26,9 @@ Page({
         navData
       })
     })
+  },
+  onShow(options){
+   
   },
   switchChange(e) {
     let switchs = e.detail.value

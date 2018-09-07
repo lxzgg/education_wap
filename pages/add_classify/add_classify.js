@@ -8,7 +8,8 @@ Page({
    */
   data: {
     list: [],
-    icon_id: ""
+    icon_id: "",
+    cate_name: ""
   },
 
   /**
@@ -16,24 +17,30 @@ Page({
    */
   onLoad: function (options) {
 
-  },
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
     util.wxpromisify({
       url: 'class_info/getIcon',
-      data: {
-        // user_id: app.user.user_id,
-        // token: app.user.token,
-        // class_id: app.user.class_id
-      },
+      data: {},
       method: 'post'
     }).then(res => {
       if (res && res.response === 'data') {
         let list = res.list
         this.setData({
           list
+        })
+      }
+    }).then(() => {
+      if (options) {
+        let list = this.data.list,
+          index = 0
+        list.forEach((val, key) => {
+          if (val.iconSrc === options.cate_icon) {
+            index = key
+          }
+        })
+        let icon_id = list[index].icon_id
+        this.setData({
+          cate_name: options.cate_name,
+          icon_id
         })
       }
     })
@@ -72,26 +79,26 @@ Page({
           duration: 2000
         })
         setTimeout(() => {
-          wx.reLaunch({
+          wx.navigateTo({
             url: '/pages/classify_maintain/classify_maintain'
           })
         }, 2000)
-         } else {
+      } else {
         wx.showToast({
           title: res.error.message,
           icon: 'none',
           duration: 5000
         })
       }
-    }).catch((err)=>{
-       wx.showModal({
-          title: '提示',
-          content: '请求超时',
-          showCancel: false,
-          success: ()=> {
-           
-          }
-        })
+    }).catch((err) => {
+      wx.showModal({
+        title: '提示',
+        content: '请求超时',
+        showCancel: false,
+        success: () => {
+
+        }
+      })
     })
   },
 

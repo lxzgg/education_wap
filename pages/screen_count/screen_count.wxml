@@ -5,8 +5,8 @@
         <text>{{options.content}}</text>
     </view>
     <view class="section">
-        <view data-index="1" class="btn {{curIndex == 1 ? 'active' : 0}}" bindtap="switchReadStatus">未阅读人数{{count.noBrowser}}人</view>
-        <view data-index="2" class="btn  {{curIndex == 2 ? 'active' : 0}}" bindtap="switchReadStatus">已阅读人数{{count.browser}}人</view>
+        <view data-index="1" class="btn {{curIndex == 1 ? 'active' : ''}}" bindtap="switchReadStatus">已阅读人数{{count.browser}}人</view>
+        <view data-index="2" class="btn  {{curIndex == 2 ? 'active' : ''}}" bindtap="switchReadStatus">未阅读人数{{count.noBrowser}}人</view>
     </view>
      <view class="isEmpty" wx:if="{{personlist.length <= 0}}">
            {{message}}

@@ -12,7 +12,7 @@ export default {
   },
   // 分类列表
   cateList(param) {
-    return ajax.post('class_info/getIcon', param)
+    return ajax.post('class_info/cateList', param)
   },
   // 班级列表
   classList(param) {

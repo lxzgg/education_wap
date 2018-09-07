@@ -22,7 +22,7 @@
   color: #7796f4;
   border-radius: 60rpx;
   font-size: 28rpx;
-  margin-left: 10rpx;
+  margin: 0 0 10rpx 10rpx;
 }
 
 .type .list .list-item:first-child {
@@ -165,7 +165,7 @@
   border-radius: 60rpx;
   background-color: #577ef1;
   color: #ffffff;
-  margin: 50rpx auto;
+  margin: 50rpx auto 10rpx auto;
 }
 
 /*使屏幕变暗 */
@@ -210,5 +210,18 @@
 
 .hidden{
   display: none !important;
+}
+
+.del_btn{
+  font-size: 28rpx;
+display: block;
+cursor: pointer;
+text-align: center;
+color: #999;
+}
+.del_view{
+  display: flex;
+justify-content: center;
+margin-bottom: 50rpx;
 }
 

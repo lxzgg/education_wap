@@ -2,8 +2,8 @@
   <view class="type">
     <view class="text">请选择您要发布的分类</view>
     <view class="list">
-      <view class="list-item {{item.active?'active':''}}" wx:for="{{list}}" wx:item="item" wx:key="{{item.index}}" data-index="{{item.index}}"
-        bindtap="changeActive">{{item.label}}</view>
+      <view class="list-item {{item.cate_id === cate_id ? 'active':''}}" wx:for="{{list}}" wx:item="item" wx:key="{{item.cate_id}}" data-id="{{item.cate_id}}"
+        bindtap="changeActive">{{item.cate_name}}</view>
     </view>
   </view>
   <view class="publish-content">
@@ -28,6 +28,8 @@
     </view>
   </view>
   <button class="post" formType="submit" disabled="{{submitAuth}}">确定发布</button>
+  <view class="del_view"><text class="del_btn">删除</text></view>
+   
 </form>
 <!--屏幕背景变暗的背景 -->
 <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>

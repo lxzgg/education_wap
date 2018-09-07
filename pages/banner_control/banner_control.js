@@ -8,15 +8,7 @@ Page({
    */
   data: {
     isSort: 0,
-    list: [{
-        id: 1,
-        src: '/image/banner1.jpg'
-      },
-      {
-        id: 2,
-        src: '/image/banner2.jpg'
-      },
-    ]
+    list: []
   },
   // 开启排序
   setSort(e) {
@@ -37,6 +29,36 @@ Page({
     }
     this.setData({
       isSort: num
+    })
+  },
+  //开启删除
+  openDel(e) {
+    let index = e.currentTarget.dataset.index;
+    let id = this.data.list[index].id
+    wx.showActionSheet({
+      itemList: ['删除'],
+      success: (res) => {
+        console.log(res.tapIndex)
+        if (res.tapIndex === 0) {
+          utils.wxpromisify({
+            url: 'class_info/delAd',
+            data: {
+              user_id: app.user.user_id,
+              token: app.user.token,
+              id: id
+            },
+            method: 'post'
+          }).then(res => {
+            if (res && res.response === 'data') {
+              this.data.list.splice(index, 1)
+              this.setData({
+                list: this.data.list
+              })
+            }
+          })
+        }
+      },
+      fail: (res) => {}
     })
   },
   submitScort(params) {

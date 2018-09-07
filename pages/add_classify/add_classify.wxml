@@ -3,7 +3,7 @@
   <view class="inner-input">
     <view class="input-title">分类名称</view>
     <view class="input-input">
-      <input type="text" placeholder="请选择分类名称" name="cate_name" />
+      <input type="text" placeholder="请选择分类名称" name="cate_name" value="{{cate_name}}" />
     </view>
   </view>
 </view>

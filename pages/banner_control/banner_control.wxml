@@ -13,7 +13,7 @@
 </view>
 <view class="banner-list">
     <view class="item" wx:for="{{list}}" wx:key="bannerList">
-        <image src="{{item.ad_image}}"></image>
+        <image src="{{item.ad_image}}" bindtap="openDel" data-index="{{index}}"></image>
         <view class="item-r"  wx:if="{{isSort==1}}">
             <view class="icon icon-xia" data-index="{{index}}" catchtap="down"></view>
             <view class="icon icon-shang"data-index="{{index}}" catchtap="up"></view>

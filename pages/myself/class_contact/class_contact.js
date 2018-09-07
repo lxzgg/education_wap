@@ -11,7 +11,8 @@ Page({
     parentList: [],
     tearchTotal: 0,
     parentTotal: 0,
-    showModalStatus: false
+    showModalStatus: false,
+    qrcode:''
   },
 
   /**
@@ -40,7 +41,7 @@ Page({
         })
       }
     })
-
+  
     //教师
     utils.wxpromisify({
       url: 'user/teaTelBook',
@@ -63,6 +64,7 @@ Page({
         })
       }
     })
+  this.createqrCode()
   },
   delete(e) {
     let del_user_id = e.currentTarget.dataset.id
@@ -90,11 +92,26 @@ Page({
       url: '/pages/myself/invit_teacher/invit_teacher'
     })
   },
-  // invitParent(){
-  //    wx.navigateTo({
-  //     url: '/pages/myself/join_class/join_class'
-  //   })
-  // },
+  //生成二维码
+    createqrCode(){
+    utils.wxpromisify({
+      url: 'index/qrcode',
+      data: {
+        param: {
+          class_id: app.user.class_id
+        },
+        page: 'pages/myself/join_class/join_class'
+      },
+      method: "post"
+    }).then(res => {
+      if(res && res.response === 'data'){
+        let qrcode = res.data.qrcode
+        this.setData({
+           qrcode
+        })
+      }
+    })
+  },
 
   //邀请
   onShareAppMessage: function (e) {
@@ -106,19 +123,6 @@ Page({
   },
   //显示对话框
   showModal: function () {
-    // utils.wxpromisify({
-    //   url: 'index/qrcode',
-    //   data: {
-    //     param: {
-    //       class_id: app.user.class_id
-    //     },
-    //     page: 'pages/myself/join_class/join_class'
-
-    //   },
-    //   method: "post"
-
-    // }).then(res => {})
-    // 显示遮罩层
     var animation = wx.createAnimation({
       duration: 200,
       timingFunction: "linear",
@@ -158,13 +162,34 @@ Page({
       })
     }.bind(this), 200)
   },
+  
   //保存二维码
   savePhotos() {
-    wx.saveImageToPhotosAlbum({
-      filePath: this.data.erCodeImg,
+    let qrcode = this.data.qrcode
+    wx.getImageInfo({
+      src: qrcode,
       success: (res) => {
-        this.setData({
-          showModalStatus: false
+        wx.saveImageToPhotosAlbum({
+          filePath: res.path,
+          success: (res) => {
+            wx.showToast({
+              title: '保存成功',
+              icon: 'success',
+              duration: 3000
+            })
+            setTimeout(() => {
+              this.setData({
+                showModalStatus: false
+              })
+            }, 3000)
+          },
+          fail: (err) => {
+            wx.showToast({
+              title: '保存失败',
+              icon: 'none',
+              duration: 3000
+            })
+          }
         })
       }
     })

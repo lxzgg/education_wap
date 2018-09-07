@@ -2,7 +2,7 @@
   <swiper indicator-dots autoplay circular>
     <block wx:for="{{adList}}" wx:key="{{item.id}}">
       <swiper-item>
-        <image wx:if="{{adList}}"class="slide-image" src="{{item.ad_image}}"></image>
+        <image wx:if="{{adList}}" class="slide-image" src="{{item.ad_image}}"></image>
       </swiper-item>
     </block>
   </swiper>
@@ -10,11 +10,11 @@
 
 <view class="content">
   <view class="nav-list">
-    <!--<navigator class="item" wx:for="{{cateList}}" wx:key="{{index}}" open-type="navigate" url="/pages/inform/inform?type={{item.cate_id}}&name={{item.cate_name}}">
+    <navigator class="item" wx:for="{{cateList}}" wx:key="{{index}}" open-type="navigate" url="/pages/inform/inform?type={{item.cate_id}}&name={{item.cate_name}}">
       <image src="{{item.cate_icon}}"></image>
       <text>{{item.cate_name}}</text>
-    </navigator>-->
-    <navigator class="item" open-type="navigate" url="/pages/inform/inform?type=1&name=通知">
+    </navigator>
+    <!--<navigator class="item" open-type="navigate" url="/pages/inform/inform?type=1&name=通知">
       <image src="/image/a1.png"></image>
       <text>通知</text>
     </navigator>
@@ -33,7 +33,7 @@
     <navigator class="item" open-type='navigate' url="/pages/inform/inform?type=6&name=请假">
       <image src="/image/a5.png"></image>
       <text>请假</text>
-    </navigator>
+    </navigator>-->
     <!--<navigator class="item" open-type='navigate' url="javascript:;">
       <image src="/image/a6.png"></image>
       <text>分类管理</text>
@@ -49,7 +49,11 @@
           <image wx:else src="../../image/xiaohaoge.png"></image>
         </view>
         <view class="top-content">
-          <view class="content-top">{{item.article_content}}</view>
+          <view class="content-top">
+            <text>
+                {{item.article_content}}
+            </text>
+          </view>
           <view class="content-bottom">
             <view class="bottom1">{{item.article_type}}</view>
             <view class="bottom2">{{item.create_time}}</view>
@@ -65,12 +69,12 @@
           <view class="icon icon-iconfontpinglun"></view>
           <view class="number">{{item.eval_num}}</view>
         </view>
-        <view class="bottom-item">
+        <view class="bottom-item" bindtap="goToScreenCount" data-type="{{item.article_type}}" data-articleid="{{item.article_id}}">
           <view class="icon icon-tubiao_liulan"></view>
           <view class="number">{{item.browser_num}}</view>
         </view>
         <view class="bottom-item">
-           <!--<view class="icon icon-fenxiang"></view>-->
+          <!--<view class="icon icon-fenxiang"></view>-->
           <view class="icon"><button plain="true" open-type="share"><text class="icon icon-fenxiang"></text></button></view>
           <view class="number"></view>
         </view>

@@ -11,27 +11,8 @@ Page({
     submitAuth: false,
     is_parent: true,
     info: '',
-    list: [{
-      index: 1,
-      active: true,
-      label: '通知'
-    }, {
-      index: 2,
-      active: false,
-      label: '作业'
-    }, {
-      index: 3,
-      active: false,
-      label: '相册'
-    }, {
-      index: 4,
-      active: false,
-      label: '光荣榜'
-    }, {
-      index: 6,
-      active: false,
-      label: '请假'
-    }],
+    cate_id: 1,
+    list: [],
     handle: [{
         index: 0,
         type: '顶置',
@@ -75,6 +56,34 @@ Page({
       this.setData({
        list
       })
+    this.cateList()
+  },
+  onShow(){
+    let publish_data = app.publish_data
+    console.log(publish_data)
+    if(publish_data){
+      wx.setTopBarText({
+  text: '编辑发布'
+})
+       util.wxpromisify({
+        url: 'article/article_detail',
+        data: {
+          article_id: publish_data.articleid,
+          user_id: app.user.user_id,
+          token: app.user.token
+        },
+        method: 'post'
+      }).then((res)=>{
+        if(res && res.response === 'data'){
+          const responseData = res.data
+             let cate_id = parseInt(responseData.article_type)
+             let info = responseData.article_content
+             let is_top = responseData.is_top
+
+        }
+      })
+    }
+    
   },
   switchChange(e) {
     let num = e.currentTarget.dataset.num
@@ -88,17 +97,27 @@ Page({
       params.is_open = bool
     }
   },
-  changeActive(e) {
-    let index = e.target.dataset.index
-    let data_list = this.data.list.map((val, key, arr) => {
-      val.active = val.index == index ? true : false
-      return val
+  //分类列表
+  cateList() {
+    app.api.home.cateList({
+      token: app.user.token,
+      user_id: app.user.user_id,
+      class_id: app.user.class_id
+    }).then(res => {
+      if (res.response === 'data') {
+        this.setData({
+          list: res.list
+        })
+      }
     })
+  },
+  changeActive(e) {
+    let cate_id = e.target.dataset.id
     let params = this.data.params
-    params.article_type = index
+    params.article_type = cate_id
     this.setData({
       params: params,
-      list: data_list
+     cate_id
     })
   },
   //设置权限

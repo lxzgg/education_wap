@@ -129,7 +129,7 @@
   margin: 64rpx 0 0 140rpx;
 }
 .commodity_attr_box button{
-  width: 254rpx;
+  width: 260rpx;
 	height: 64rpx;
 	background-image: linear-gradient(90deg, 
 		#7796f4 0%, 

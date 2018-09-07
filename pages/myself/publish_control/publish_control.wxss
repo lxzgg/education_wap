@@ -71,3 +71,36 @@
   color: #999999;
   margin-left: 40rpx;
 }
+
+.section .btn {
+  width: 190rpx;
+  height: 60rpx;
+  color: #ffaa00;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  background: #fff;
+  border: 1rpx solid #ffaa00;
+}
+
+.section .btn:first-child {
+  border-top-left-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+}
+
+.section .btn:last-child {
+  border-top-right-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+}
+
+.section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 22rpx auto;
+  text-align: center;
+}
+
+.section .active {
+  background: #ffaa00;
+  color: #fff;
+}

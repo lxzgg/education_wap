@@ -8,8 +8,8 @@ Page({
     showModalStatus: false,
     roleName: '',
     loginAuth: 0,
-    isAdmin:false,
-    erCodeImg: '/image/user.png',
+    isAdmin: false,
+    qrcode: '',
     evalList: [{
       tempFilePaths: [],
       imgList: []
@@ -22,10 +22,13 @@ Page({
       isAdmin
     })
     this.getUserSelfInfo()
+    //生成二维码
+    this.createqrCode()
   },
+  
   //页面跳转到用户基本信息
   goToPersonInfo() {
-    wx.reLaunch({
+    wx.navigateTo({
       url: '/pages/personData/personData'
     })
   },
@@ -92,18 +95,6 @@ Page({
   },
   //显示对话框
   showModal: function () {
-    // utils.wxpromisify({
-    //   url: 'index/qrcode',
-    //   data: {
-    //     param: {
-    //       class_id: app.user.class_id
-    //     },
-    //     page: 'pages/index/index'
-
-    //   },
-    //   method: "post"
-
-    // }).then(res => {})
     // 显示遮罩层
     var animation = wx.createAnimation({
       duration: 200,
@@ -145,14 +136,53 @@ Page({
       })
     }.bind(this), 200)
   },
+  createqrCode() {
+    utils.wxpromisify({
+      url: 'index/qrcode',
+      data: {
+        param: {
+          class_id: app.user.class_id
+        },
+        page: 'pages/index/index'
+      },
+      method: "post"
+    }).then(res => {
+      if (res && res.response === 'data') {
+        let qrcode = res.data.qrcode
+        this.setData({
+          qrcode
+        })
+      }
+    })
+  },
 
   //保存图片
   savePhotos() {
-    wx.saveImageToPhotosAlbum({
-      filePath: this.data.erCodeImg,
+    let qrcode = this.data.qrcode
+    wx.getImageInfo({
+      src: qrcode,
       success: (res) => {
-        this.setData({
-          showModalStatus: false
+        wx.saveImageToPhotosAlbum({
+          filePath: res.path,
+          success: (res) => {
+            wx.showToast({
+              title: '保存成功',
+              icon: 'success',
+              duration: 3000
+            })
+            setTimeout(() => {
+              this.setData({
+                showModalStatus: false
+              })
+            }, 3000)
+          },
+          fail: (err) => {
+            wx.showToast({
+              title: '保存失败',
+              icon: 'none',
+              duration: 3000
+            })
+          }
         })
       }
     })
@@ -191,8 +221,8 @@ Page({
           evalList: evalList,
           imageUrl
         })
-        this.getOssParams(addImg[0], 'head_image').then(()=>{
-             this.submitImg()
+        this.getOssParams(addImg[0], 'head_image').then(() => {
+          this.submitImg()
         })
       }
     })

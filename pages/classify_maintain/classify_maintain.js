@@ -29,25 +29,26 @@ Page({
     })
   },
   // 开启弹窗
-  // openDo(e) {
-  //   let index = e.currentTarget.dataset.index;
-  //   let that = this
-  //   wx.showActionSheet({
-  //     itemList: ['编辑', '删除'],
-  //     success: function (res) {
-  //       console.log(res.tapIndex)
-  //       if (res.tapIndex === 1) {
-  //         that.data.list.splice(index, 1)
-  //         that.setData({
-  //           list: that.data.list
-  //         })
-  //       }
-  //     },
-  //     fail: function (res) {
-  //       console.log(res.errMsg)
-  //     }
-  //   })
-  // },
+  openDo(e) {
+      let index = e.currentTarget.dataset.index
+    let cate = this.data.list[index]
+    wx.showActionSheet({
+      itemList: ['编辑', '删除'],
+      success: (res) => {
+        console.log(res.tapIndex)
+        if (res.tapIndex === 1) {
+          this.data.list.splice(index, 1)
+          this.setData({
+            list: this.data.list
+          })
+        }else if(res.tapIndex === 0){
+           wx.navigateTo({url:'/pages/add_classify/add_classify?cate_name='+cate.cate_name+'&cate_id='+cate.cate_id+'&cate_icon='+cate.cate_icon})
+        }
+      },
+      fail: (res) => {
+      }
+    })
+  },
   // 开启排序
   setSort(e) {
     let num = e.currentTarget.dataset.num
@@ -82,6 +83,7 @@ Page({
       },
       method: 'post'
     }).then(res => {
+      console.log(res)
       if (res && res.response === 'data') {
         let list = res.list
         this.setData({

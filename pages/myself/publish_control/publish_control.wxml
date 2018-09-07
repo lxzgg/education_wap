@@ -1,18 +1,23 @@
+<view class="section">
+  <view data-index="1" class="btn {{curIndex == 1 ? 'active' : ''}}" bindtap="switchReadStatus">我的发布</view>
+  <view data-index="2" class="btn  {{curIndex == 2 ? 'active' : ''}}" bindtap="switchReadStatus">家长圈</view>
+</view>
 <view class="list">
   <view class="item" wx:for="{{article}}" wx:key="index">
     <view class="tags">
       <view class="tag">{{item.article_type}}</view>
     </view>
     <view class="item-content">
-      <view class="content-info">
-        {{item.article_content}}
+      <view class="content-info" bindtap="gotToEdit" data-articleid="{{item.article_id}}">
+        <text> {{item.article_content}}</text>
       </view>
       <view class="content-bottom">
         <view class="look">浏览量：{{item.browser_num}}</view>
         <view class="bottom-btn">
-          <view class="text"  data-articleid="{{item.article_id}}" data-type="{{item.article_type}}" bindtap="goToCount">阅读统计</view>
-          <view class="{{item.can_comment == '1' ? 'btn-l' :'btn-r'}}" data-articleid="{{item.article_id}}" data-index="{{index}}" bindtap="switchCommentAuth">{{item.can_comment == '1' ? '评论已开' :'评论已关'}}</view>
-          <view class="{{item.is_top == '1' ? 'btn-l' :'btn-r'}}" bindtap="switchTopAuth" data-articleid="{{item.article_id}}" data-index="{{index}}">{{item.is_top == '1' ? '已置顶' :'未置顶'}}</view>
+          <view class="text" data-articleid="{{item.article_id}}" data-type="{{item.article_type}}" bindtap="goToCount">阅读统计</view>
+          <view class="{{item.can_comment == '1' ? 'btn-l' :'btn-r'}}" data-articleid="{{item.article_id}}" data-index="{{index}}"
+            bindtap="switchCommentAuth">{{item.can_comment == '1' ? '评论已开' :'评论已关'}}</view>
+          <view class="{{item.is_top == '1' ? 'btn-l' :'btn-r'}}" bindtap="switchTopAuth" data-articleid="{{item.article_id}}" data-index="{{index}}">{{item.is_top == '1' ? '取消置顶' :'点击置顶'}}</view>
         </view>
       </view>
     </view>

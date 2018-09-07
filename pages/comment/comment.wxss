@@ -199,11 +199,6 @@ font-size: 28rpx;
   font-size: 28rpx;
   min-width: 100rpx;
 }
-
-.user-comment2 .repy .input {
-  display: block
-}
-
 .user-comment2 .repy {
   display: flex;
   line-height: 50rpx;

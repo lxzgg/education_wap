@@ -16,7 +16,7 @@
   </view>
 </view>
 <view class="content">
-  <view>{{content_details.article_content}}</view>
+  <view><text>{{content_details.article_content}}</text></view>
   <view wx:for="{{content_details.article_accessory}}" wx:key="key">
       <image src="{{item.image}}" wx:if="{{item.image}}" mode="widthFix"></image>
       <video src="{{item.video}}" wx:if="{{item.video}}"></video>
@@ -39,14 +39,14 @@
       </view>
     </view>
     <view class="user-comment2">
-      {{item.eval_info}}
+     <text>{{item.eval_info}}</text>
       <view class="repy" wx:if="{{item.eval_id == curInput}}">
         <text  class="input">回复</text><!--{{item.nickname}}:-->
         <input type="text" placeholder-style="color:#999" placeholder="回复{{item.nickname}}:" value="{{info}}" name="repy" focus="{{item.eval_id == curInput}}"
           bindconfirm="repyContent" confirm-type="done" />
       </view>
       <view class="repy" wx:if="{{item.eval_reply != ''}}">
-        <text class="input"><text style="margin-right: 10rpx;color: #999;">回复{{item.nickname}}:</text>{{item.eval_reply}}</text>
+        <text style="margin-right: 10rpx;color: #999;">回复{{item.nickname}}:</text><text>{{item.eval_reply}}</text>
       </view>
     </view>
   </view>
@@ -56,7 +56,7 @@
     <input type="text" placeholder-style="color:#666" placeholder="留下您的精彩评论" data-ret="eval" data-id="{{content_details.article_id}}" bindfocus="goToCommentArea" value="{{info}}" name="comment" bindconfirm="formSubmit"></input>
   </view>
   <view class="footer-c">
-    <text class="icon icon-dianzan {{content_details.is_remard == '1' ? 'active' :''}}"></text>
+    <text class="icon icon-dianzan {{content_details.is_remard == '1' ? 'active' :''}}" bindtap="clickZan" data-articleid="{{content_details.article_id}}"> </text>
     <view class="text">{{content_details.like_num}}</view>
   </view>
   <view class="footer-r">

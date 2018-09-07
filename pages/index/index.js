@@ -10,9 +10,9 @@ Page({
     adList: [{
       ad_image: '../../image/banner1.jpg'
     }],
+    cateList:[],
     article: []
   },
-
   onLoad(options) {
     this.init()
   },
@@ -52,7 +52,7 @@ Page({
       if (res.response === 'data') {
         let article = this.data.article
         article.push(...res.list)
-       
+
         this.setData({
           article,
           isEmpty: false,
@@ -66,7 +66,7 @@ Page({
     app.api.home.cateList({
       token: app.user.token,
       user_id: app.user.user_id,
-      class_id: app.user.class_id,
+      class_id: app.user.class_id
     }).then(res => {
       if (res.response === 'data') {
         this.setData({
@@ -84,17 +84,24 @@ Page({
     })
   },
 
+  //跳转到浏览统计页面
+  goToScreenCount(e) {
+    let article_id = e.currentTarget.dataset.articleid
+    let type = e.currentTarget.dataset.type
+    wx.navigateTo({
+      url: '/pages/screen_count/screen_count?articleid=' + article_id + '&type=' + type
+    })
+  },
+
   //点赞
   clickZan(e) {
     const key = e.currentTarget.dataset.index
     const articleid = e.currentTarget.dataset.articleid
     let article = this.data.article
     let is_zan = article[key].is_remard
-    // if (is_zan == '1') {
-    //   return
-    // }
     article[key].is_remard = article[key].is_remard == '1' ? 0 : 1
-    article[key].like_num = article[key].is_remard == '1'? parseInt(article[key].like_num) + 1 : parseInt(article[key].like_num) - 1
+    article[key].like_num = article[key].is_remard == '1' ? parseInt(article[key].like_num) + 1 : parseInt(article[key].like_num) - 1
+
     util.wxpromisify({
       url: 'article/like_article',
       data: {
@@ -109,7 +116,13 @@ Page({
       })
     })
   },
-  onShareAppMessage() {},
+  onShareAppMessage() {
+    return {
+      title: '分享首页内容',
+      imageUrl: '/image/xiaohaoge.png',
+      path: 'pages/index/index' // 路径，传递参数到指定页面。
+    }
+  },
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -132,5 +145,35 @@ Page({
       })
       this.getArticle()
     }
+  },
+  //下拉刷新数据
+  onPullDownRefresh(e) {
+    wx.showToast({
+      title: "加载中",
+      icon: 'loading',
+      duration: 2000
+    })
+    this.init();
+    setTimeout(() => {
+      wx.stopPullDownRefresh();
+    }, 2000)
+  },
+  //格式化参数
+  format(string) {
+    let params = []
+    if (string) {
+      if (string.indexOf('&')) {
+        let arr = string.split('&')
+        for (let i = 0, l = arr.length; i < l; i++) {
+          let a = arr[i].split("=");
+          params[a[0]] = a[1];
+        }
+        return params;
+      } else {
+        let b = string.split('=')
+        params[b[0]] = b[1]
+      }
+    }
+    return params
   }
 })

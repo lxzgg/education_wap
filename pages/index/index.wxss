@@ -19,23 +19,22 @@
 
 .content .nav-list {
   width: 100%;
-  min-height: 180rpx;
-  padding: 30rpx 20rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 20rpx 0 0rpx 40rpx;
   box-sizing: border-box;
   background-color: #f3f6fe;
   box-shadow: rgba(130, 129, 129, 0.34) 0 0 14rpx;
 }
 
 .content .nav-list .item {
-  width: 90rpx;
-  margin-right: 57rpx;
-  float: left;
+  margin: 0 40rpx 20rpx 0;
 }
 
 .content .nav-list .item image {
-  width: 90rpx;
-  height: 90rpx;
-  display: block;
+  max-width: 90rpx;
+  max-height: 90rpx;
 }
 
 .content .nav-list .item text {
@@ -45,14 +44,6 @@
   margin-top: 5rpx;
   color: #77c9f4;
   overflow: hidden;
-}
-
-.content .nav-list .item:nth-child(5n) {
-  margin-right: 0;
-}
-
-.content .nav-list .item:nth-child(n+6) {
-  margin-top: 20rpx;
 }
 
 .content .list .item {

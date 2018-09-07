@@ -9,6 +9,7 @@ Page({
   data: {
     showModalStatus: false,
     content: {},
+    qrcode:'',
     index: 0,
     evalList: [{
       tempFilePaths: [],
@@ -33,6 +34,7 @@ Page({
       }
     })
     this.getTeacherList()
+    this.createqrCode()
   },
   //显示对话框
   showModal: function () {
@@ -287,6 +289,57 @@ Page({
 
         }
       })
+    })
+  },
+  //生成二维码
+    createqrCode(){
+    utils.wxpromisify({
+      url: 'index/qrcode',
+      data: {
+        param: {
+          class_id: app.user.class_id
+        },
+        page: 'pages/myself/join_class/join_class'
+      },
+      method: "post"
+    }).then(res => {
+      if(res && res.response === 'data'){
+        let qrcode = res.data.qrcode
+        this.setData({
+           qrcode
+        })
+      }
+    })
+  },
+   //保存图片
+  savePhotos() {
+    let qrcode = this.data.qrcode
+    wx.getImageInfo({
+      src: qrcode,
+      success: (res) => {
+        wx.saveImageToPhotosAlbum({
+          filePath: res.path,
+          success: (res) => {
+            wx.showToast({
+              title: '保存成功',
+              icon: 'success',
+              duration: 3000
+            })
+            setTimeout(() => {
+              this.setData({
+                showModalStatus: false
+              })
+            }, 3000)
+          },
+          fail: (err) => {
+            wx.showToast({
+              title: '保存失败',
+              icon: 'none',
+              duration: 3000
+            })
+          }
+        })
+      }
     })
   }
 })

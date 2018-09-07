@@ -154,7 +154,7 @@
   border-radius: 60rpx;
   background-color: #577ef1;
   color: #ffffff;
-  margin: 50rpx auto;
+  margin: 50rpx auto 10rpx auto;
 }
 
 
@@ -200,3 +200,15 @@
   padding-left: 30rpx;
 }
 
+.del_btn{
+  font-size: 28rpx;
+display: block;
+cursor: pointer;
+text-align: center;
+color: #999;
+}
+.del_view{
+  display: flex;
+justify-content: center;
+margin-bottom: 50rpx;
+}

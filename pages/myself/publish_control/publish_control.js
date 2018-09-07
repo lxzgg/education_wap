@@ -1,16 +1,12 @@
-// pages/myself/publish_control/publish_control.js
 const app = getApp()
 const util = require('../../../utils/util')
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     article: [],
     totalPage: 1,
     pageSize: 10,
-    currentPage: 1
+    currentPage: 1,
+    curIndex: 1
   },
   onLoad: function () {
     this.getArticle()
@@ -90,6 +86,25 @@ Page({
       url: '/pages/screen_count/screen_count?articleid=' + articleid + '&type=' + type
     })
   },
+  //跳转到编辑页面
+  gotToEdit(e) {
+    const articleid = e.currentTarget.dataset.articleid
+    app.publish_data = {
+      articleid: articleid,
+      handle: 'edit'
+    }
+    if (this.data.curIndex === 1) { //我的发布
+      wx.switchTab({
+        url: '/pages/publish/publish'
+      })
+      app.publish_data.page = 'my_publish'
+    } else {
+      app.publish_data.page = 'parent_publish'
+      wx.navigateTo({
+        url: '/pages/public_circle/public_circle'
+      })
+    }
+  },
   //上拉加载
   onReachBottom: function (e) {
     wx.showLoading({
@@ -110,5 +125,15 @@ Page({
       })
       this.getArticle()
     }
+  },
+  //切换btn
+  switchReadStatus(e) {
+    let curIndex = e.currentTarget.dataset.index
+    this.setData({
+      curIndex,
+      currentPage: 1,
+      article:[]
+    })
+    this.getArticle()
   }
 })
