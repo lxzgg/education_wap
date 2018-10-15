@@ -169,10 +169,13 @@ Page({
     this.setData({
       role: app.user.user_role
     })
-    let url = this.data.role === 1 ? 'user/userInfoTea' : 'user/userInfo'
+    let url = (this.data.role === 1)  ? 'user/userInfoTea' : 'user/userInfo'
     utils.wxpromisify({
       url: url,
-      data: app.user,
+      data: {
+        user_id: app.user.user_id,
+        token: app.user.token
+      },
       method: 'post'
     }).then((res) => {
       if (res && res.response === 'data') {
@@ -205,7 +208,6 @@ Page({
   },
   // 获取用户手机号码
   getPhoneNumber(e) {
-    console.log(e)
     const {encryptedData, iv} = e.detail
     wx.login({
       success: res => {
@@ -263,7 +265,6 @@ Page({
       let hobbyItem = this.data.hobby
       let hobbyIndex = this.data.hobbyIndex
       selHobby = this.handlefn(showhobbyInput, other_hobby, '爱好', 'like_id', 'other_like', hobbyItem, hobbyIndex, 9)
-      console.log(selHobby)
       //亲属关系
       let other_ship = e.detail.value.family_role_name
       let showShipInput = this.data.showshipInput
@@ -274,7 +275,7 @@ Page({
       selShip.child_sex = gender
       selShip.child_birth = birthday
 
-    } else if (this.data.role == '1') {
+    } else if (this.data.role == '1' || this.data.role == '0') {
 
       //课程
       let other_class = e.detail.value.subject_name
@@ -295,7 +296,7 @@ Page({
       ...selShip,
       ...selHobby
     }
-    let url = this.data.role === 1 ? 'user/submitTeacherInfo' : 'user/submitUserInfo'
+    let url = (this.data.role === 1 || this.data.role === 0) ? 'user/submitTeacherInfo' : 'user/submitUserInfo'
     utils.wxpromisify({
       url: url,
       data: selVal,
@@ -305,13 +306,18 @@ Page({
         wx.showToast({
           title: '内容保存成功',
           icon: 'success',
-          duration: 5000
+          duration: 2000
         })
         setTimeout(() => {
           wx.switchTab({
             url: '/pages/my/my'
           })
-        }, 5000)
+        }, 2000)
+      }else{
+        wx.showToast({
+          title: res.error.message,
+          icon:'none'
+        })
       }
     })
   },

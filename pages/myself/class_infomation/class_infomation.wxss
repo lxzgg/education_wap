@@ -78,7 +78,7 @@
   border-radius: 60rpx;
   background-color: #577ef1;
   color: #ffffff;
-  margin: 170rpx auto;
+  margin: 170rpx auto 0 auto;
 }
 
 /*使屏幕变暗 */
@@ -99,7 +99,7 @@
 /*对话框 */
 
 .commodity_attr_box {
-  height: 480rpx;
+  /*height: 480rpx;*/
   background-color: #ffffff;
   overflow: hidden;
   position: fixed;
@@ -135,4 +135,11 @@
   font-size: 22.74rpx;
   color: #999999;
   text-align: center;
+}
+
+.del_btn {
+  font-size: 30rpx;
+  color: #666;
+  text-align: center;
+  margin-top: 25rpx;
 }

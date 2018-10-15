@@ -14,6 +14,32 @@ Page({
     article: []
   },
   onLoad(options) {
+    let class_id = app.user.class_id
+    if(class_id == '0'){
+       new Promise((resolve) => {
+        wx.login({
+          success: res => {
+            resolve(res)
+          }
+        })
+      }).then(res => {
+        const code = res.code
+        return app.api.loginStatus({
+          code
+        })
+      }).then(res => {
+        // 用户信息全局保存
+        app.user = res.data
+        wx.setStorage({
+          key: 'user',
+          data: res.data
+        })
+        wx.hideLoading()
+         this.init()
+      }).catch(() => {
+       
+      })
+    }
     this.init()
   },
   init() {
@@ -41,25 +67,36 @@ Page({
 
   // 获取文章列表
   getArticle() {
-    app.api.home.article({
-      page: this.data.currentPage,
-      token: app.user.token,
-      num: this.data.pageSize,
-      user_id: app.user.user_id,
-      class_id: app.user.class_id,
-      article_type: ''
+    util.wxpromisify({
+      url: 'index/indexArticle',
+      data: {
+        token: app.user.token,
+        user_id: app.user.user_id,
+        class_id: app.user.class_id
+      },
+      method: 'post'
     }).then(res => {
-      if (res.response === 'data') {
+        if (res.response === 'data') {
         let article = this.data.article
-        article.push(...res.list)
-
+        // article.push(...res.list)
         this.setData({
-          article,
+          article:res.list,
           isEmpty: false,
           totalPage: res.total_page
         })
       }
     })
+  
+    // app.api.home.article({
+    //   page: this.data.currentPage,
+    //   token: app.user.token,
+    //   num: this.data.pageSize,
+    //   user_id: app.user.user_id,
+    //   class_id: app.user.class_id,
+    //   article_type: ''
+    // }).then(res => {
+    
+    // })
   },
   // 首页分类列表
   cateList() {
@@ -126,26 +163,26 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function (e) {
-    wx.showLoading({
-      title: '加载中...'
-    })
-    let page = this.data.currentPage
-    let totalPage = this.data.totalPage
-    wx.hideLoading()
-    if (page >= totalPage) {
-      wx.showToast({
-        title: '没有更多数据了',
-        duration: 3000,
-        icon: 'none'
-      })
-    } else {
-      this.setData({
-        currentPage: page + 1
-      })
-      this.getArticle()
-    }
-  },
+  // onReachBottom: function (e) {
+  //   wx.showLoading({
+  //     title: '加载中...'
+  //   })
+  //   let page = this.data.currentPage
+  //   let totalPage = this.data.totalPage
+  //   wx.hideLoading()
+  //   if (page >= totalPage) {
+  //     wx.showToast({
+  //       title: '没有更多数据了',
+  //       duration: 3000,
+  //       icon: 'none'
+  //     })
+  //   } else {
+  //     this.setData({
+  //       currentPage: page + 1
+  //     })
+  //     this.getArticle()
+  //   }
+  // },
   //下拉刷新数据
   onPullDownRefresh(e) {
     wx.showToast({
@@ -153,6 +190,7 @@ Page({
       icon: 'loading',
       duration: 2000
     })
+    this.setData({article:[]})
     this.init();
     setTimeout(() => {
       wx.stopPullDownRefresh();

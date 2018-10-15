@@ -29,7 +29,7 @@
 }
 
 .content .nav-list .item {
-  margin: 0 40rpx 20rpx 0;
+  margin: 0 45rpx 20rpx 0;
 }
 
 .content .nav-list .item image {

@@ -1,18 +1,15 @@
-// pages/publish/publish.js
 let util = require('../../utils/util')
 const app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     showModalStatus: false,
-    submitAuth: false,
-    is_parent: true,
-    info: '',
+    homeworkAuth: false, //发布
+    is_parent: true, //是否为家长
+    info: '', //编辑内容
+    hwt_id:'', //作业类型
     cate_id: 1,
     list: [],
+    handleStatus: true,
     handle: [{
         index: 0,
         type: '顶置',
@@ -22,13 +19,20 @@ Page({
         index: 1,
         type: '允许评论',
         on: true
-      },
-      {
-        index: 2,
-        type: '公开',
-        on: false
       }
+      // {
+      //   index: 2,
+      //   type: '公开',
+      //   on: false
+      // }
     ],
+    homeworkType: [{
+      id: '12',
+      subject: '数学'
+    },{
+      id: '13',
+      subject: '语文'
+    }],
     evalList: [{
       tempFilePaths: [],
       imgList: []
@@ -38,34 +42,26 @@ Page({
       is_top: 0,
       can_comment: 1,
       is_open: 0,
+    //  hwt_id: '', 作业科目类型
       article_accessory: []
     },
-    showPlusIcon: true
+    showPlusIcon: true,
+    showDeleteBtn: false
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-     let role = app.user.user_role
-     let is_parent = role == '2' ? true : false
-     let list = this.data.list
-     if(!is_parent){
-       list.splice(-1,1)
-     }
-      this.setData({
-       list
-      })
+
     this.cateList()
   },
-  onShow(){
+  onShow() {
+    this.setData({
+      handleStatus: true
+    })
     let publish_data = app.publish_data
-    console.log(publish_data)
-    if(publish_data){
-      wx.setTopBarText({
-  text: '编辑发布'
-})
-       util.wxpromisify({
+    if (publish_data && publish_data.articleid) {
+      wx.setNavigationBarTitle({
+        title: '编辑发布'
+      })
+      util.wxpromisify({
         url: 'article/article_detail',
         data: {
           article_id: publish_data.articleid,
@@ -73,17 +69,100 @@ Page({
           token: app.user.token
         },
         method: 'post'
-      }).then((res)=>{
-        if(res && res.response === 'data'){
+      }).then((res) => {
+        if (res && res.response === 'data') {
           const responseData = res.data
-             let cate_id = parseInt(responseData.article_type)
-             let info = responseData.article_content
-             let is_top = responseData.is_top
+          let handle = this.data.handle
+          let params = this.data.params
+          //置顶
+          handle[0].on = responseData.is_top == '1' ? true : false
+          params.is_top = responseData.is_top
+          //评论
+          handle[1].on = responseData.can_comment == '1' ? true : false
+          params.can_comment = responseData.can_comment
+          //公开
+          handle[2].on = responseData.is_open == '1' ? true : false
+          params.is_open = responseData.is_open
 
+          //类型
+          let cate_id = parseInt(responseData.article_type)
+          params.article_type = cate_id
+          let info = responseData.article_content
+          app.publish_data.article_accessory = responseData.article_accessory
+
+          //页面展示图片
+          let evalList = this.data.evalList,
+            img = []
+          if (responseData.article_accessory && responseData.article_accessory.length > 0) {
+            img = responseData.article_accessory.map((val, key) => {
+              let type = Object.keys(val)[0]
+              return {
+                type: type,
+                path: val[type]
+              }
+            })
+          }
+          Object.assign(evalList[0].tempFilePaths, img)
+          let len = evalList[0].tempFilePaths.length
+          let showPlusIcon = len > 2 ? false : true
+          this.setData({
+            params,
+            info,
+            handle,
+            evalList,
+            cate_id,
+            showDeleteBtn: true,
+            showPlusIcon
+          })
         }
       })
     }
-    
+  },
+  onHide() { //进入后台 跳转到其他页面
+    if (this.data.showDeleteBtn && this.data.handleStatus) {
+      wx.setNavigationBarTitle({
+        title: '发布'
+      })
+      app.publish_data = {}
+      this.setData({
+        showDeleteBtn: false,
+        info: '',
+        evalList: [{
+          tempFilePaths: [],
+          imgList: []
+        }]
+      })
+    }
+  },
+  delArticle() {
+    util.wxpromisify({
+      url: 'article/del_article',
+      data: {
+        id: app.publish_data.articleid,
+        user_id: app.user.user_id,
+        token: app.user.token
+      },
+      method: 'post'
+    }).then((res) => {
+      if (res && res.response === 'data') {
+        wx.showToast({
+          title: '删除成功',
+          icon: "success",
+          duration: 3000
+        })
+        setTimeout(() => {
+          wx.reLaunch({
+            url: '/pages/index/index'
+          })
+        }, 2000)
+      } else {
+        wx.showToast({
+          title: '删除失败',
+          icon: "none",
+          duration: 2000
+        })
+      }
+    })
   },
   switchChange(e) {
     let num = e.currentTarget.dataset.num
@@ -105,19 +184,54 @@ Page({
       class_id: app.user.class_id
     }).then(res => {
       if (res.response === 'data') {
+        let role = app.user.user_role
+        let is_parent = role == '2' ? true : false
+        let list = res.list
+        let Teacher_arr = [],
+          Parent_arr = []
+        list.forEach((val, key) => {
+          if (is_parent) {
+            if (val.cate_name == '请假') {
+              Parent_arr.push(val)
+            }
+          } else {
+            if (val.cate_name == '请假') {
+              list.splice(key, 1)
+            }
+            Teacher_arr = list
+          }
+        })
+        let arr = is_parent ? Parent_arr : Teacher_arr
         this.setData({
-          list: res.list
+          list: arr,
+          cate_id: arr[0].cate_id
         })
       }
     })
   },
+
+  //发布内容类型
   changeActive(e) {
     let cate_id = e.target.dataset.id
+    let cate_name = e.target.dataset.catename
+   // let homeworkAuth = cate_name == '作业' ? true : false
     let params = this.data.params
     params.article_type = cate_id
     this.setData({
       params: params,
-     cate_id
+      cate_id,
+    //  homeworkAuth
+    })
+  },
+
+  //切换作业类型
+   changeActiveHWT(e) {
+    let hwt_id = e.target.dataset.id
+    let params = this.data.params
+    params.hwt_id = hwt_id
+    this.setData({
+      params: params,
+      hwt_id
     })
   },
   //设置权限
@@ -132,12 +246,14 @@ Page({
   },
   //添加图片
   joinPicture: function (e) {
+    this.setData({
+      handleStatus: false
+    })
     var evalList = this.data.evalList;
-    var that = this;
     var imgNumber = evalList[0].tempFilePaths.length
     if (imgNumber >= 3) {
       wx.showModal({
-        title: '',
+        title: '提示',
         content: '最多上传三张图片/视频',
         showCancel: false,
       })
@@ -145,14 +261,13 @@ Page({
     }
     wx.showActionSheet({
       itemList: ["从相册中选择", "拍照"],
-      // itemList: ["从相册中选择"],
       itemColor: "#f7982a",
-      success: function (res) {
+      success: (res) => {
         if (!res.cancel) {
           if (res.tapIndex == 0) {
-            that.chooseWxImage("album", imgNumber)
+            this.chooseWxImage("album", imgNumber)
           } else if (res.tapIndex == 1) {
-            that.chooseWxImage("camera", imgNumber)
+            this.chooseWxImage("camera", imgNumber)
           }
         }
       }
@@ -168,14 +283,12 @@ Page({
         return val
       })
     }
-    var that = this;
     let maxCount = 3 - num
     wx.chooseImage({
       count: maxCount,
       sizeType: ["original", "compressed"],
       sourceType: [type],
       success: (res) => {
-
         var addImg = res.tempFilePaths
         var addLen = addImg.length;
         for (var i = 0; i < addLen; i++) {
@@ -188,14 +301,14 @@ Page({
         if (img.length >= 3) {
           showPlusIcon = false
         }
-        that.setData({
+
+        this.setData({
           evalList: evalList,
-          showPlusIcon: showPlusIcon
+          showPlusIcon: showPlusIcon,
         })
         for (let i = 0; i < addImg.length; i++) {
           this.getOssParams(addImg[i], 'image')
         }
-
       }
     })
   },
@@ -203,16 +316,32 @@ Page({
   clearImg(e) {
     let index = e.currentTarget.dataset.index
     let evalList = this.data.evalList
-    let params = this.data.params
     let img = evalList[0].tempFilePaths
+    //编辑
+    if (app.publish_data) {
+      let keys_arr = Object.keys(app.publish_data)
+      if (keys_arr.length > 0) {
+        if (app.publish_data.article_accessory.length > 0) {
+          let del_path = img[index].path
+          let keys = ''
+          app.publish_data.article_accessory.forEach((val, key) => {
+            if (val.path === del_path) {
+              keys = key
+            }
+          })
+          app.publish_data.article_accessory.splice(keys, 1)
+        }
+      }
+
+    }
     let showPlusIcon = this.data.showPlusIcon
     img.splice(index, 1)
     if (img.length < 3) {
       showPlusIcon = true
     }
     this.setData({
-      evalList: evalList,
-      showPlusIcon: showPlusIcon
+      evalList,
+      showPlusIcon
     })
   },
 
@@ -273,6 +402,9 @@ Page({
       class_id: app.user.class_id,
       article_content: descript
     }
+    if (app.publish_data && app.publish_data.articleid) {
+      params.id = app.publish_data.articleid
+    }
     if (!descript) {
       wx.showToast({
         title: '请输入文字描述',
@@ -288,6 +420,7 @@ Page({
     let imgList = this.data.evalList[0]['imgList']
     let data_params = this.data.params,
       imgArray = []
+
     imgList.forEach((val, key) => {
       let keys = val.path.indexOf('tmp')
       let str = val.path.slice(keys)
@@ -296,7 +429,19 @@ Page({
       }
       imgArray.push(obj)
     })
+    //编辑
+    if (app.publish_data) {
+      let keys_arr = Object.keys(app.publish_data)
+      if (keys_arr.length > 0) {
+        if (app.publish_data.article_accessory.length > 0) {
+          app.publish_data.article_accessory.forEach((val, key) => {
+            imgArray.push(val)
+          })
+        }
+      }
+    }
     params.article_accessory = imgArray
+    params.article_type = this.data.cate_id
     Object.assign(data_params, params)
     util.wxpromisify({
       url: 'article/release',
@@ -305,7 +450,7 @@ Page({
     }).then((res) => {
       if (res && res.response === 'data') {
         wx.showToast({
-          title: '发布成功',
+          title: '操作成功',
           icon: 'success',
           duration: 2000,
           success: (res) => {
@@ -340,10 +485,9 @@ Page({
             }, 2000)
           }
         })
-
       } else {
         wx.showToast({
-          title: '发布失败',
+          title: res.error.message,
           icon: 'none',
           duration: 5000
         })
@@ -409,6 +553,9 @@ Page({
     }
   },
   joinVideo(e) {
+    this.setData({
+      handleStatus: false
+    })
     wx.showActionSheet({
       itemList: ["从相册中选择", "拍照"],
       itemColor: "#f7982a",

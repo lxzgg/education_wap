@@ -224,4 +224,24 @@ color: #999;
 justify-content: center;
 margin-bottom: 50rpx;
 }
+.hwt{
+  margin: 0;
+}
+.home-item{
+  padding: 5rpx 8rpx;
+  border: 1rpx solid #7796f4;
+  color: #7796f4;
+  /*border-radius: 60rpx;*/
+  font-size: 28rpx;
+  margin: 0 0 0rpx 10rpx;
+}
+.type .list .home-item:first-child {
+  margin-left: 0;
+}
+
+.type .list .home-item.active {
+  background-color: #ffaa00;
+  color: #ffffff;
+  border-color: #ffaa00;
+}
 

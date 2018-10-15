@@ -1,22 +1,13 @@
-// pages/add_classify/add_classify.js
 const app = getApp()
 const util = require('../../utils/util')
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     list: [],
     icon_id: "",
-    cate_name: ""
+    cate_name: "",
+    id:''
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-
     util.wxpromisify({
       url: 'class_info/getIcon',
       data: {},
@@ -30,6 +21,9 @@ Page({
       }
     }).then(() => {
       if (options) {
+      wx.setNavigationBarTitle({
+        title: '编辑分类'
+      })
         let list = this.data.list,
           index = 0
         list.forEach((val, key) => {
@@ -40,7 +34,8 @@ Page({
         let icon_id = list[index].icon_id
         this.setData({
           cate_name: options.cate_name,
-          icon_id
+          icon_id,
+          id: options.cate_id
         })
       }
     })
@@ -68,13 +63,14 @@ Page({
         token: app.user.token,
         class_id: app.user.class_id,
         cate_icon: this.data.icon_id,
-        cate_name
+        cate_name,
+        id: this.data.id
       },
       method: 'post'
     }).then(res => {
       if (res && res.response === 'data') {
         wx.showToast({
-          title: '图标添加成功',
+          title: '操作成功',
           icon: 'success',
           duration: 2000
         })
@@ -96,44 +92,8 @@ Page({
         content: '请求超时',
         showCancel: false,
         success: () => {
-
         }
       })
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
 })

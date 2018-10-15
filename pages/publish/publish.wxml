@@ -2,9 +2,23 @@
   <view class="type">
     <view class="text">请选择您要发布的分类</view>
     <view class="list">
-      <view class="list-item {{item.cate_id === cate_id ? 'active':''}}" wx:for="{{list}}" wx:item="item" wx:key="{{item.cate_id}}" data-id="{{item.cate_id}}"
+      <view class="list-item {{item.cate_id === cate_id ? 'active':''}}" 
+        wx:for="{{list}}" 
+        wx:item="item" 
+        wx:key="{{item.cate_id}}" 
+        data-catename="{{item.cate_name}}" 
+        data-id="{{item.cate_id}}"
         bindtap="changeActive">{{item.cate_name}}</view>
     </view>
+     <!--<view class="text" wx:if="{{homeworkAuth}}">请选择发布作业的科目：</view>
+     <view class="list hwt" wx:if="{{homeworkAuth}}">
+      <view class="home-item {{arr.id === hwt_id ? 'active':''}}" 
+        wx:for="{{homeworkType}}" 
+        wx:for-item="arr" 
+        wx:key="{{arr.id}}" 
+        data-id="{{arr.id}}"
+        bindtap="changeActiveHWT">{{arr.subject}}</view>
+    </view>-->
   </view>
   <view class="publish-content">
     <textarea placeholder="输入您想要输入的文字" name="descript" placeholder-style="color:#999;" value="{{info}}"></textarea>
@@ -27,8 +41,8 @@
       </view>
     </view>
   </view>
-  <button class="post" formType="submit" disabled="{{submitAuth}}">确定发布</button>
-  <view class="del_view"><text class="del_btn">删除</text></view>
+  <button class="post" formType="submit" disabled="{{submitAuth}}">{{ showDeleteBtn ? '保存编辑' : '立即发布'}}</button>
+  <view class="del_view"><text class="del_btn" bindtap="delArticle" wx:if="{{showDeleteBtn}}">删除</text></view>
    
 </form>
 <!--屏幕背景变暗的背景 -->

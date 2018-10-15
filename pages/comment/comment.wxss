@@ -79,7 +79,7 @@
 
 .comment-list .user-comment {
   padding: 20rpx;
-  border-bottom: 1rpx solid #eeeeee;
+  /* border-bottom: 1rpx solid #eeeeee; */
 }
 
 .comment-list .user-comment .user-header2 .header-l {
@@ -133,6 +133,7 @@
   bottom: 0;
   width: 100%;
   display: flex;
+  z-index: 99;
   padding: 20rpx 20rpx;
   box-sizing: border-box;
 }

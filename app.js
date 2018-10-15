@@ -8,7 +8,7 @@ App({
   user_role: ['游客', '教师', '家长'],
   onLaunch(options) {
     let scene = encodeURIComponent(options.scene)
-    const code = ['1047','1048','1049'] //通过识别二维码，扫描二维码，相册中选择二维码识别途径的，不跳转到首页，直接跳转到指定页面
+    const code = ['1047', '1048', '1049', '1007', '1008','1043'] //通过识别二维码，扫描二维码，相册中选择二维码识别途径的，不跳转到首页，直接跳转到指定页面
     let bool = code.indexOf(scene) > -1 ? false : true
     if (bool) { //微信小程序当前支持的场景值
       // 登陆

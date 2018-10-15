@@ -5,7 +5,7 @@
   border-bottom: 4rpx solid #eee;
 }
 
-.header text:first-child {
+.header .type {
   border: 1rpx solid #ffaa00;
   color: #ffaa00;
   font-size: 20rpx;
@@ -69,6 +69,8 @@
 .content .item {
   display: flex;
   border-bottom: 1px solid #eee;
+  align-items: center;
+  flex-direction: row;
 }
 
 .content .item:first-child {
@@ -76,16 +78,16 @@
 }
 
 .content .item .nickname {
-  line-height: 80rpx;
   font-size: 24rpx;
   color: #999999;
+  display: flex;
+  align-content: center;
 }
 
 .content .item .nickname text {
   font-size: 20rpx;
   color: #ffaa00;
   margin-left: 15rpx;
-  line-height: 100rpx;
 }
 
 .isEmpty {

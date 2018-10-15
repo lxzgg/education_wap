@@ -41,12 +41,12 @@
     <view class="item">
         <view class="name">
             <view class="name-text">当前管理员</view>
-            <view class="name-text">{{content.username}}</view>
+            <view class="name-text">{{content.nickname}}</view>
         </view>
         <view class="sp-right">
 
             <view class="text"> 
-                <picker bindchange="bindPickerChange" range-key="username" value="{{index}}" range="{{admin_list}}">
+                <picker bindchange="bindPickerChange" range-key="nickname" value="{{index}}" range="{{admin_list}}">
                     <view class="picker">
                         更换管理员
                     </view>
@@ -67,6 +67,7 @@
         <view class="icon icon-you"></view>
     </navigator>
     <button class="post" formType="submit">保存设置</button>
+    <view class="del_btn" bindtap="delClass">删除</view>
 </form>
 </view>
 

@@ -96,6 +96,7 @@
 }
 
 /*使屏幕变暗 */
+
 .commodity_screen {
   width: 100%;
   height: 100%;
@@ -103,51 +104,55 @@
   top: 0;
   left: 0;
   background: #000000;
-  opacity: 0.2;
+  opacity: 0.7;
   overflow: hidden;
   z-index: 1000;
   color: #fff;
 }
 
 /*对话框 */
+
 .commodity_attr_box {
-  height: 480rpx;
+  /* height: 480rpx;  */
   background-color: #ffffff;
   overflow: hidden;
   position: fixed;
   /*margin:0 auto;
   left:auto;
   right:auto;*/
-  top:25%;
-  left: 18%;
-  width: 64%;
+  top: 15%;
+  left: 15%;
+  width: 70%;
   z-index: 2000;
 }
-.commodity_attr_box image{
+
+.commodity_attr_box image {
   max-height: 211rpx;
   max-width: 211rpx;
   margin: 64rpx 0 0 140rpx;
 }
-.commodity_attr_box button{
+
+.commodity_attr_box button {
   width: 260rpx;
-	height: 64rpx;
-	background-image: linear-gradient(90deg, 
-		#7796f4 0%, 
-		#4e77f0 100%);
-	border-radius: 10rpx;
+  height: 64rpx;
+  background-image: linear-gradient(90deg, #7796f4 0%, #4e77f0 100%);
+  border-radius: 10rpx;
   color: #fff;
   line-height: 64rpx;
   text-align: center;
   font-size: 25.26rpx;
   margin: 18rpx auto;
 }
-.commodity_attr_box text{
+
+.commodity_attr_box text {
   display: block;
- font-size: 22.74rpx;
-	color: #999999;
+  font-size: 22.74rpx;
+  color: #999999;
   text-align: center;
+  margin-bottom: 20rpx;
 }
-.login_auth{
+
+.login_auth {
   width: 170rpx;
   line-height: 70rpx;
   background: #7796f4;
@@ -155,6 +160,15 @@
   color: #fff;
   border: 2rpx solid #7796f4;
 }
-.hidden{
+
+.hidden {
   display: none !important;
+}
+
+.canvas_style {
+  border: 1rpx solid #ccc;
+  width: 480rpx;
+  height: 565rpx;
+  box-shadow: 5rpx 5rpx 5rpx #ccc;
+  margin: 10rpx 0 0 20rpx;
 }

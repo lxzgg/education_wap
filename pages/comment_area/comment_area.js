@@ -71,7 +71,7 @@ Page({
           duration: 3000
         })
         setTimeout(() => {
-          wx.reLaunch({ //返回评论详情页面
+          wx.redirectTo({ //返回评论详情页面
             url: '/pages/comment/comment?articleid='+this.data.options.articleid+'&type='+this.data.options.type
           })
           this.setData({clear:''})
@@ -112,7 +112,7 @@ Page({
           duration: 3000
         })
         setTimeout(() => {
-          wx.navigateTo({ //返回评论详情页面
+          wx.redirectTo({ //返回评论详情页面
             url: '/pages/comment/comment?articleid='+this.data.options.articleid+'&type='+this.data.options.type
           })
         this.setData({clear:''})

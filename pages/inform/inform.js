@@ -30,16 +30,20 @@ Page({
   },
   //获取文章列表
   getArticle() {
+    let params = {
+      page: this.data.currentPage,
+      token: app.user.token,
+      num: this.data.pageSize,
+      user_id: app.user.user_id,
+    }
+    let url = this.data.options.is_platform == 'true' ? 'index/platformList' :'index/article'
+    if (this.data.options.is_platform != 'true') {
+      params.class_id = app.user.class_id,
+      params.article_type = this.data.options.type
+    }
     utils.wxpromisify({
-      url: 'index/article',
-      data: {
-        page: this.data.currentPage,
-        token: app.user.token,
-        num: this.data.pageSize,
-        user_id: app.user.user_id,
-        class_id: app.user.class_id,
-        article_type: this.data.options.type
-      },
+      url: url,
+      data: params,
       method: 'post'
     }).then(res => {
       if (res && res.response === 'data') {

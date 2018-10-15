@@ -36,7 +36,7 @@ let that = this
     })
   },
  bindGetUserInfo: function(e) {
-    console.log(e.detail.userInfo)
+    // console.log(e.detail.userInfo)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

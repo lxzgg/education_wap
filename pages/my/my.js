@@ -9,13 +9,20 @@ Page({
     roleName: '',
     loginAuth: 0,
     isAdmin: false,
+    windowWidth: 240,
+    windowHeight: 300,
     qrcode: '',
     evalList: [{
       tempFilePaths: [],
       imgList: []
     }],
   },
-  onLoad: function (options) {
+  onHide() {
+    this.setData({
+      showModalStatus: false
+    })
+  },
+  onShow: function (options) {
     //非管理员 权限限制
     let isAdmin = app.user.is_admin == '1' ? true : false
     this.setData({
@@ -24,8 +31,10 @@ Page({
     this.getUserSelfInfo()
     //生成二维码
     this.createqrCode()
+    //查找当前班级
+    this.getCurrentClasss()
   },
-  
+
   //页面跳转到用户基本信息
   goToPersonInfo() {
     wx.navigateTo({
@@ -38,29 +47,44 @@ Page({
       success: (res) => {
         if (res.code) {
           wx.getUserInfo({
-            withCredentials: false,
+            withCredentials: true,
             success: (data) => {
-              const userInfo_string = data.rawData
-              const userInfo = JSON.parse(userInfo_string)
-              utils.wxpromisify({
-                url: "user/updateUserInfo",
-                data: {
-                  user_id: app.user.user_id,
-                  token: app.user.token,
-                  city: userInfo.province,
-                  nickname: userInfo.nickName,
-                  gender: userInfo.gender,
-                  language: userInfo.language,
-                  avatarUrl: userInfo.avatarUrl
-                },
-                method: 'post'
-              }).then((res) => {
-                if (res && res.response === 'data') {
-                  // Object.assign(app.user, {islogin:1})
-                  // wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'), {islogin:1}))
-                  this.getUserSelfInfo()
-                }
-
+              new Promise((resolve, reject) => {
+                utils.wxpromisify({
+                  url: "user/login",
+                  data: {
+                    code: res.code,
+                    encryptedData: data.encryptedData,
+                    iv: data.iv
+                  },
+                  method: 'post'
+                }).then((ret) => {
+                  Object.assign(app.user, ret.data)
+                  wx.setStorageSync('user', ret.data)
+                  let unionid = ret.data.unionid
+                  const userInfo_string = data.rawData
+                  const userInfo = JSON.parse(userInfo_string)
+                  utils.wxpromisify({
+                    url: "user/updateUserInfo",
+                    data: {
+                      unionid: unionid,
+                      user_id: app.user.user_id,
+                      token: app.user.token,
+                      city: userInfo.province,
+                      nickname: userInfo.nickName,
+                      gender: userInfo.gender,
+                      language: userInfo.language,
+                      avatarUrl: userInfo.avatarUrl
+                    },
+                    method: 'post'
+                  }).then((res) => {
+                    if (res && res.response === 'data') {
+                      // Object.assign(app.user, {islogin:1})
+                      // wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'), {islogin:1}))
+                      this.getUserSelfInfo()
+                    }
+                  })
+                })
               })
             },
             fail: (err) => {}
@@ -81,17 +105,31 @@ Page({
     })
     utils.wxpromisify({
       url: 'user/userInfo',
-      data: app.user,
+      data: {
+        user_id: app.user.user_id,
+        token: app.user.token
+      },
       method: 'post'
     }).then((ret) => {
       if (ret.response == 'data') {
+        app.username = ret.data.username
+        // Object.assign(app.user, app.user.username)
         this.setData({
           nickname: ret.data.nickname,
-          imageUrl: ret.data.avatarUrl,
+          imageUrl: ret.data.avatarUrl
           // loginAuth: app.user.islogin
         })
       }
     }).catch((err) => {})
+  },
+  getCurrentClasss() {
+    utils.wxpromisify({
+      url: 'class_info/info',
+      data: app.user,
+      method: 'post'
+    }).then((res) => {
+      app.class_name = res.data.class_name
+    })
   },
   //显示对话框
   showModal: function () {
@@ -107,12 +145,21 @@ Page({
       animationData: animation.export(),
       showModalStatus: true
     })
-    setTimeout(function () {
-      // animation.translateY(0).step()
+    setTimeout(() => {
+      const username = app.username ? app.username : ''
+      const class_name = app.class_name
+      // console.log(this.data.qrcode)
+      wx.getImageInfo({
+        src: this.data.qrcode,
+        success: (res) => {
+          this.drawImg(username, class_name, res.path)
+        }
+      })
+
       this.setData({
         animationData: animation.export()
       })
-    }.bind(this), 200)
+    }, 200)
   },
 
   //隐藏对话框
@@ -158,31 +205,44 @@ Page({
 
   //保存图片
   savePhotos() {
-    let qrcode = this.data.qrcode
-    wx.getImageInfo({
-      src: qrcode,
+    wx.showModal({
+      title: '提示',
+      content: '保存该图片，可以分享给其他老师或者家长',
       success: (res) => {
-        wx.saveImageToPhotosAlbum({
-          filePath: res.path,
-          success: (res) => {
-            wx.showToast({
-              title: '保存成功',
-              icon: 'success',
-              duration: 3000
-            })
-            setTimeout(() => {
-              this.setData({
-                showModalStatus: false
+        if (res.confirm) {
+          let qrcode = this.data.qrcode
+          wx.saveImageToPhotosAlbum({
+            filePath: qrcode,
+            success: (res) => {
+              wx.showToast({
+                title: '保存成功',
+                icon: 'success',
+                duration: 3000
               })
-            }, 3000)
-          },
-          fail: (err) => {
-            wx.showToast({
-              title: '保存失败',
-              icon: 'none',
-              duration: 3000
-            })
-          }
+              setTimeout(() => {
+                this.setData({
+                  showModalStatus: false
+                })
+              }, 3000)
+            },
+            fail: (err) => {
+              wx.showToast({
+                title: '保存失败',
+                icon: 'none',
+                duration: 3000
+              })
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '已取消',
+            icon: 'none'
+          })
+        }
+      },
+      complete: () => {
+        this.setData({
+          showModalStatus: false
         })
       }
     })
@@ -293,5 +353,57 @@ Page({
     }).then(res => {
       this.getUserSelfInfo()
     })
+  },
+
+  drawImg(name, class_name, tempPath) {
+    const ctx = wx.createCanvasContext('qrcodeImg')
+    // var imgPath = '/image/index.png'; //二维码
+
+
+    ctx.setFillStyle('#fff')
+    ctx.fillRect(0, 0, this.data.windowWidth, this.data.windowHeight) //填充一个矩形
+
+    ctx.setFillStyle('black')
+    ctx.setFontSize(14)
+    const title = name + '邀请您使用平安学园创建班级'
+    ctx.fillText(title, (this.data.windowWidth - ctx.measureText(title).width) / 2, 30)
+
+    // ctx.setFillStyle('#fff')
+    ctx.drawImage(tempPath, 45, 50, 150, 145); //显示图片 (img,sx,sy,swidth,sheight,x,y,width,height)
+    ctx.setFontSize(12)
+    ctx.setFillStyle('#666')
+    ctx.fillText('长按图片识别二维码', (this.data.windowWidth - ctx.measureText('长按图片识别二维码').width) / 2, 210)
+
+    ctx.setFillStyle('#222')
+    ctx.setFontSize(12)
+    ctx.fillText('步骤如下：', 10, 235)
+
+    ctx.setFillStyle('#333')
+    ctx.setFontSize(11)
+    ctx.fillText('创建班级--邀请家长/老师--发布/家长圈发布', 10, 258)
+
+    ctx.draw(false, setTimeout(() => {
+      wx.canvasToTempFilePath({
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0,
+        destWidth: this.data.windowWidth,
+        destHeight: this.data.windowHeight,
+        canvasId: 'qrcodeImg',
+        success: (res) => {
+          this.setData({
+            // shareImg: res.tempFilePath,
+            qrcode: res.tempFilePath
+          })
+        },
+        fail: (res) => {
+          wx.showToast({
+            title: '生成失败',
+            icon: "none"
+          })
+        }
+      })
+    }, 200));
   }
 })

@@ -1,13 +1,13 @@
 <view class="banner">
   <view class="header-img">
     <image wx:if="{{imageUrl}}" src="{{imageUrl}}" bindtap="switchHeadImg"></image>
-    <image wx:else src="/image/xiaohaoge.png"></image>
+    <image wx:else src="/image/xiaohaoge.png" bindtap="switchHeadImg"></image>
   </view>
   <view class="user-name" bindtap='goToPersonInfo'>{{nickname || '无'}}
     <text class="icon icon-you"></text>
   </view>
-  <view class="user-position">{{roleName  || '无'}}</view>
-   <button class="login_auth" open-type="getUserInfo" bindgetuserinfo="getUserInfo" wx:if="{{loginAuth == '0'}}">授权登录</button>
+  <view class="user-position">{{roleName || '无'}}</view>
+  <button class="login_auth" open-type="getUserInfo" bindgetuserinfo="getUserInfo" wx:if="{{loginAuth == '0'}}">授权登录</button>
 </view>
 <view class="list">
   <navigator class="item" open-type="navigate" url="/pages/myself/publish_control/publish_control">
@@ -17,7 +17,7 @@
     </view>
     <view class="icon icon-you"></view>
   </navigator>
-  <navigator class="item item2 {{isAdmin == true ? '': 'hidden'}}"  open-type="navigate" url="/pages/myself/class_infomation/class_infomation">
+  <navigator class="item item2 {{isAdmin == true ? '': 'hidden'}}" open-type="navigate" url="/pages/myself/class_infomation/class_infomation">
     <view class="name">
       <view class="btn-icon"></view>
       <view class="name-text">班级信息</view>
@@ -65,8 +65,9 @@
 <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
 <!--弹出框 -->
 <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
-    <image src="{{qrcode}}" alt="二维码"></image>
-    <button bindtap="savePhotos">保存二维码到相册</button>
-    <text>可以将小程序推荐给其他班主任和学生</text>
+  <!--<image src="{{qrcode}}" alt="二维码"></image>-->
+   <canvas canvas-id="qrcodeImg" class="canvas_style"></canvas>
+  <button bindtap="savePhotos">保存图片到相册</button>
+  <text>可以将小程序推荐给其他班主任和学生</text>
 </view>
 

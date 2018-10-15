@@ -11,7 +11,7 @@
   <view class="item">
     <view class="item-name">
       <view class="item-name-name">姓名</view>
-      <view class="item-name-content"><input name="username" placeholder="输入姓名" value="{{content.username}}"/></view>
+      <view class="item-name-content"><input name="username" placeholder="输入姓名" value="{{content.username || content.child_name}}"/></view>
     </view>
   </view>
   <view class="item no-item">
@@ -62,7 +62,7 @@
         <view class="list-item input-box" wx:if="{{showhobbyInput}}"><input type="text" name="other_like"/></view>
     </view>
   </view>
-  <view class="item" wx:if="{{role == '1'}}">
+  <view class="item" wx:if="{{role == '1' || role == '0' }}">
     <view class="item-name">
       <view class="item-name-name sp">所任课程</view>
     </view>

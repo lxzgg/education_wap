@@ -38,7 +38,6 @@ Page({
     wx.showActionSheet({
       itemList: ['删除'],
       success: (res) => {
-        console.log(res.tapIndex)
         if (res.tapIndex === 0) {
           utils.wxpromisify({
             url: 'class_info/delAd',

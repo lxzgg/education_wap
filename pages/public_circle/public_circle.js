@@ -5,6 +5,7 @@ Page({
     submitAuth: false,
     navData: [],
     switch: true,
+    handleStatus: true,
     current_id: 1,
     info: '',
     evalList: [{
@@ -12,7 +13,10 @@ Page({
       imgList: []
     }],
     showPlusIcon: true,
-    showModalStatus: false
+    showModalStatus: false,
+    showDeleteBtn: false,
+    content_id: '',
+    options:{}
   },
   onLoad: function (options) {
     util.wxpromisify({
@@ -23,12 +27,22 @@ Page({
       const navData = res.list
       navData.splice(0, 1)
       this.setData({
-        navData
+        navData,
+        options
       })
     })
+    this.onShow(options)
   },
-  onShow(options){
-   
+  onShow(options) {
+     this.setData({
+        handleStatus: true
+      })
+    if (options && options.articleid) {
+      wx.setNavigationBarTitle({
+        title: '编辑动态'
+      })
+      this.getContentDetails(options.articleid)
+    }
   },
   switchChange(e) {
     let switchs = e.detail.value
@@ -45,6 +59,9 @@ Page({
 
   //添加图片
   joinPicture: function (e) {
+    this.setData({
+      handleStatus: false
+    })
     var evalList = this.data.evalList;
     var that = this;
     var imgNumber = evalList[0].tempFilePaths.length
@@ -115,6 +132,22 @@ Page({
     var evalList = this.data.evalList
     var params = this.data.params
     var img = evalList[0].tempFilePaths
+    //编辑
+    if (app.parent_circle_data_accessory) {
+      let keys_arr = Object.keys(app.parent_circle_data_accessory)
+      if (keys_arr.length > 0) {
+        if (app.parent_circle_data_accessory.length > 0) {
+          let del_path = img[index].path
+          let keys = ''
+          app.parent_circle_data_accessory.forEach((val, key) => {
+            if (val.path === del_path) {
+              keys = key
+            }
+          })
+          app.parent_circle_data_accessory.splice(keys, 1)
+        }
+      }
+    }
     let showPlusIcon = this.data.showPlusIcon
     img.splice(index, 1)
     if (img.length < 3) {
@@ -176,7 +209,10 @@ Page({
   },
 
   formSubmit(e) {
-    let content = e.detail.value.descript.trim()
+    this.setData({
+      handleStatus: true
+    })
+    let content = e.detail.value.descript
     let is_open = this.data.switch ? 1 : 0
     let params = {
       user_id: app.user.user_id,
@@ -185,6 +221,11 @@ Page({
       content,
       cate_ids: this.data.current_id
     }
+    let content_id = this.data.content_id
+    if (content_id) {
+      params.id = content_id
+    }
+
     if (!content) {
       wx.showToast({
         title: '请输入文字描述',
@@ -197,6 +238,7 @@ Page({
       icon: "loading",
       title: "正在提交"
     })
+    //新上传的
     let imgList = this.data.evalList[0]['imgList']
     let imgArray = []
     imgList.forEach((val, key) => {
@@ -207,6 +249,18 @@ Page({
       }
       imgArray.push(obj)
     })
+    //编辑
+    if (app.parent_circle_data_accessory) {
+      let keys_arr = Object.keys(app.parent_circle_data_accessory)
+      if (keys_arr.length > 0) {
+        if (app.parent_circle_data_accessory.length > 0) {
+          // Object.assign(imgArray, app.parent_circle_data_accessory)
+          app.parent_circle_data_accessory.forEach((val, key) => {
+            imgArray.push(val)
+          })
+        }
+      }
+    }
     params.accessory = imgArray
     util.wxpromisify({
       url: 'friend/addContent',
@@ -215,7 +269,7 @@ Page({
     }).then((res) => {
       if (res && res.response === 'data') {
         wx.showToast({
-          title: '发布成功',
+          title: '操作成功',
           icon: 'success',
           duration: 2000,
           success: function (res) {
@@ -228,7 +282,7 @@ Page({
         })
       } else {
         wx.showToast({
-          title: '发布失败',
+          title: res.error.message,
           icon: 'none',
           duration: 5000
         })
@@ -294,6 +348,9 @@ Page({
     }
   },
   joinVideo(e) {
+    this.setData({
+      handleStatus: false
+    })
     wx.showActionSheet({
       itemList: ["从相册中选择", "拍照"],
       itemColor: "#f7982a",
@@ -329,5 +386,103 @@ Page({
       },
       fail: (res) => {}
     })
+  },
+  getContentDetails(content_id) {
+    let params = {
+      content_id: content_id,
+      user_id: app.user.user_id,
+      token: app.user.token
+    }
+    util.wxpromisify({
+      url: 'friend/contentDetail',
+      data: params,
+      method: 'post'
+    }).then((res) => {
+      if (res && res.response === 'data') {
+        const responseData = res.data
+        let current_id = responseData.cate_list[0].cate_id
+        let info = responseData.content
+        let switchs = responseData.is_open == '1' ? true : false
+        let evalList = this.data.evalList
+
+        if (responseData.accessory && responseData.accessory.length > 0) {
+          app.parent_circle_data_accessory = responseData.accessory
+          evalList[0].tempFilePaths = responseData.accessory.map((val, key) => {
+            let type = Object.keys(val)[0]
+            return {
+              type: type,
+              path: val[type]
+            }
+          })
+        }
+        let len = evalList[0].tempFilePaths.length
+        let showPlusIcon = len > 2 ? false : true
+        this.setData({
+          current_id,
+          info,
+          evalList,
+          switch: switchs,
+          showDeleteBtn: true,
+          content_id,
+          showPlusIcon
+        })
+      } else {}
+    })
+  },
+  delContent() {
+    const content_id = this.data.content_id
+    if (!content_id) {
+      wx.showToast({
+        title: '条件不足',
+        duration: 5000,
+        icon: 'none'
+      })
+      return
+    }
+    util.wxpromisify({
+      url: 'friend/del_content',
+      data: {
+        user_id: app.user.user_id,
+        token: app.user.token,
+        id: this.data.content_id
+      },
+      method: 'post'
+    }).then((res) => {
+      if (res && res.response === 'data') {
+        wx.showToast({
+          title: '删除成功',
+          duration: 2000,
+          icon: 'success'
+        })
+        setTimeout(() => {
+          wx.reLaunch({
+            url: '/pages/publish_index/publish_index'
+          })
+        }, 2000)
+      } else {
+        wx.showToast({
+          title: res.error.message,
+          duration: 5000,
+          icon: 'none'
+        })
+      }
+    })
+  },
+  onHide() {
+    if (this.data.showDeleteBtn && this.data.handleStatus) {
+      wx.setNavigationBarTitle({
+        title: '发布动态'
+      })
+      app.parent_circle_data_accessory = []
+      this.setData({
+        options:{},
+        showDeleteBtn: false,
+        info: '',
+        evalList: [{
+          tempFilePaths: [],
+          imgList: []
+        }],
+      })
+    }
   }
 })

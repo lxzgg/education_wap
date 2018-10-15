@@ -40,13 +40,9 @@ Page({
       }
     ]
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     let scene = decodeURIComponent(options.scene)
     let arr_scene = this.format(scene)
-    console.log(arr_scene)
     let class_id = arr_scene.class_id
     if (class_id) {
       //获取当前打开页面的微信的class_id

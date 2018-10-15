@@ -11,6 +11,7 @@ Page({
   onLoad: function () {
     this.getArticle()
   },
+  //获取我的发布内容列表
   getArticle() {
     util.wxpromisify({
       url: 'article/articleList',
@@ -25,6 +26,47 @@ Page({
       if (res && res.response === 'data') {
         let article = this.data.article
         article.push(...res.list)
+        this.setData({
+          article
+        })
+      }
+    })
+  },
+  //获取家长圈发布列表内容
+  getFirendArticle() {
+    util.wxpromisify({
+      url: 'friend/contents',
+      data: {
+        user_id: app.user.user_id,
+        token: app.user.token,
+        page: this.data.currentPage,
+        num: this.data.pageSize
+      },
+      method: 'post'
+    }).then(res => {
+      if (res && res.response === 'data') {
+        let article = this.data.article
+        let list = res.list.map((val, key) => {
+         
+          // let arr = [],
+          //   ids = []
+          // if (val.cate_list.length > 0) {
+          //   val.cate_list.forEach((vo, k) => {
+          //     arr.push(vo.cate_name)
+          //     ids.push(vo.cate_id)
+          //   })
+          // }
+
+          return {
+            article_content: val.content,
+            article_id: val.id,
+            // article_type: arr.toString(),
+            // article_type_ids: ids.toString(),
+            browser_num: val.browser_num,
+            is_open: val.is_open
+          }
+        })
+        article.push(...list)
         this.setData({
           article
         })
@@ -78,10 +120,39 @@ Page({
     })
   },
 
+   //是否公开
+  switchOpenAuth(e) {
+    const key = e.currentTarget.dataset.index
+    const articleid = e.currentTarget.dataset.articleid
+    let article = this.data.article
+    let is_open = article[key].is_open //当前评论权限
+    article[key].is_open = parseInt(article[key].is_open) === 1 ? 0 : 1 //修改后的评论权限
+    util.wxpromisify({
+      url: 'friend/open_status',
+      data: {
+        user_id: app.user.user_id,
+        token: app.user.token,
+        id: articleid
+      },
+      method: 'post'
+    }).then(res => {
+      if (res && res.response === 'data') {
+        this.setData({
+          article
+        })
+      }else{
+        wx.showToast({title: res.error.message,icon:'none',duration:5000})
+      }
+    })
+  },
+
   //跳转到文章统计页面
   goToCount(e) {
+    // if(this.data.curIndex === 2){
+    //   return 
+    // }
     const articleid = e.currentTarget.dataset.articleid
-    const type = e.currentTarget.dataset.type
+    const type = e.currentTarget.dataset.type ? e.currentTarget.dataset.type :''
     wx.navigateTo({
       url: '/pages/screen_count/screen_count?articleid=' + articleid + '&type=' + type
     })
@@ -99,9 +170,8 @@ Page({
       })
       app.publish_data.page = 'my_publish'
     } else {
-      app.publish_data.page = 'parent_publish'
       wx.navigateTo({
-        url: '/pages/public_circle/public_circle'
+        url: '/pages/public_circle/public_circle?articleid='+articleid
       })
     }
   },
@@ -123,17 +193,27 @@ Page({
       this.setData({
         currentPage: page + 1
       })
-      this.getArticle()
+      if (this.data.curIndex == '1') {
+        this.getArticle()
+      } else {
+        this.getFirendArticle()
+      }
     }
   },
   //切换btn
   switchReadStatus(e) {
     let curIndex = e.currentTarget.dataset.index
+    curIndex = parseInt(curIndex)
     this.setData({
       curIndex,
       currentPage: 1,
-      article:[]
+      article: []
     })
-    this.getArticle()
+    if (curIndex == '1') {
+      this.getArticle()
+    } else {
+      this.getFirendArticle()
+    }
+
   }
 })

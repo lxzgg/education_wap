@@ -21,7 +21,7 @@
 </view>
 <scroll-view scroll-x="true" class="nav" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}">
   <block wx:for="{{navData}}" wx:for-index="idx" wx:for-item="navItem" wx:key="idx">
-    <view class="nav-item {{currentTab == navItem.id ?'active':''}}" data-current="{{idx}}" data-id="{{navItem.id}}" bindtap="switchNav">{{navItem.cate_name}}({{navItem.num}})</view>
+    <view class="nav-item {{currentTab == navItem.id ?'active':''}}" data-current="{{idx}}" data-id="{{navItem.id}}" bindtap="switchNav">{{navItem.cate_name}}</view>
   </block>
 </scroll-view>
 <view class="talk-list">
@@ -53,8 +53,6 @@
       <block wx:elif="{{item.accessory[0].video}}">
         <video src="{{item.accessory[0]['video']}}"></video>
       </block>
-
-      <!--<video wx:else src="{{item.video}}"></video>-->
     </view>
     <view class="our-bottom">
       <view class="bottom">
@@ -67,7 +65,7 @@
           <view class="number">{{item.eval_num}}</view>
         </view>
         <view class="bottom-item">
-          <view class="icon icon-tubiao_liulan" data-id="{{item.id}}" bindtap="bindZan"></view>
+          <view class="icon icon-tubiao_liulan" data-id="{{item.id}}"  data-articleid="{{item.id}}" bindtap="goToScreenCount"></view>
           <view class="number">{{item.browser_num}}</view>
         </view>
         <view class="bottom-item">

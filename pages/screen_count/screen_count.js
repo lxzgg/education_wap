@@ -9,7 +9,10 @@ Page({
   data: {
     curIndex: 1,
     options: {},
-    count:{noBrowser: 0, browser: 0},
+    count: {
+      noBrowser: 0,
+      browser: 0
+    },
     personlist: [],
     message: '暂无数据',
   },
@@ -31,10 +34,12 @@ Page({
     this.getScreenPer()
   },
   getScreenPer() {
+    let check_type = this.data.options.type ? 'article' : 'content'
     utils.wxpromisify({
       data: {
         article_id: this.data.options.articleid,
-        type: this.data.curIndex
+        type: this.data.curIndex,
+        check_type: check_type
       },
       url: 'index/browser',
       method: 'post'
@@ -50,24 +55,36 @@ Page({
         const message = res.error.message
         this.setData({
           message,
-          personlist:[]
+          personlist: []
         })
       }
     })
   },
-  getScreenContent(){
-     utils.wxpromisify({
-      url:'article/article_detail',
-      data: {
-        user_id: app.user.user_id,
-        token: app.user.token,
-        article_id: this.data.options.articleid
-      },
+  getScreenContent() {
+    let bool = this.data.options.type ? true : false
+    //type有值表示我的发布 ，,否则是家长圈发布
+    let url = bool ? 'article/article_detail' : 'friend/contentDetail'
+    let params = {
+      user_id: app.user.user_id,
+      token: app.user.token,
+    }
+    if (bool) {
+      params.article_id = this.data.options.articleid
+    } else {
+      params.content_id = this.data.options.articleid
+    }
+    utils.wxpromisify({
+      url: url,
+      data: params,
       method: 'post'
-    }).then(res=>{
-      if(res && res.response === 'data'){
+    }).then(res => {
+      if (res && res.response === 'data') {
         let options = this.data.options
-        options.content = res.data.article_content
+        if (bool) {
+          options.content = res.data.article_content
+        } else {
+          options.content = res.data.content
+        }
         this.setData({
           options
         })

@@ -1,7 +1,7 @@
 <!--pages/screen_count/screen_count.wxml-->
 <view class="containor">
     <view class="header">
-        <text>{{options.type}}</text>
+        <text wx:if="{{options.type}}" class="type">{{options.type}}</text>
         <text>{{options.content}}</text>
     </view>
     <view class="section">

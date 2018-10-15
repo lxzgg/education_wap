@@ -22,6 +22,7 @@
   height: 80rpx;
   line-height: 80rpx;
   border-radius: 10rpx;
+  box-shadow: 2rpx #ccc;
 }
 
 .box {
@@ -78,7 +79,7 @@
   top: 0;
   left: 0;
   background: #000000;
-  opacity: 0.2;
+  opacity: 0.6;
   overflow: hidden;
   z-index: 1000;
   color: #fff;
@@ -87,23 +88,23 @@
 /*对话框 */
 
 .commodity_attr_box {
-  height: 480rpx;
+  /* height: 480rpx;  */
   background-color: #ffffff;
   overflow: hidden;
   position: fixed;
   /*margin:0 auto;
   left:auto;
   right:auto;*/
-  top: 25%;
-  left: 18%;
-  width: 64%;
+  top: 20%;
+  left: 15%;
+  width: 70%;
   z-index: 2000;
 }
 
 .commodity_attr_box image {
   max-height: 211rpx;
   max-width: 211rpx;
-  margin: 64rpx 0 0 140rpx;
+  margin: 10rpx 0 0 140rpx;
 }
 
 .commodity_attr_box button {
@@ -123,4 +124,19 @@
   font-size: 22.74rpx;
   color: #999999;
   text-align: center;
+  margin-bottom: 30rpx;
 }
+.class_title{
+  font-size: 28rpx;
+  text-align: center;
+  color: #333;
+  margin-top: 34rpx;
+}
+.canvas_style {
+  border: 1rpx solid #ccc;
+  width: 480rpx;
+  height: 500rpx;
+  box-shadow: 5rpx 5rpx 5rpx #ccc;
+  margin: 10rpx 0 0 20rpx;
+}
+

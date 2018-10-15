@@ -14,30 +14,6 @@
       <image src="{{item.cate_icon}}"></image>
       <text>{{item.cate_name}}</text>
     </navigator>
-    <!--<navigator class="item" open-type="navigate" url="/pages/inform/inform?type=1&name=通知">
-      <image src="/image/a1.png"></image>
-      <text>通知</text>
-    </navigator>
-    <navigator class="item" open-type='navigate' url="/pages/inform/inform?type=2&name=作业">
-      <image src="/image/a2.png"></image>
-      <text>作业</text>
-    </navigator>
-    <navigator class="item" open-type='navigate' url="/pages/inform/inform?type=3&name=相册">
-      <image src="/image/a3.png"></image>
-      <text>相册</text>
-    </navigator>
-    <navigator class="item" open-type='navigate' url="/pages/inform/inform?type=4&name=光荣榜">
-      <image src="/image/a4.png"></image>
-      <text>光荣榜</text>
-    </navigator>
-    <navigator class="item" open-type='navigate' url="/pages/inform/inform?type=6&name=请假">
-      <image src="/image/a5.png"></image>
-      <text>请假</text>
-    </navigator>-->
-    <!--<navigator class="item" open-type='navigate' url="javascript:;">
-      <image src="/image/a6.png"></image>
-      <text>分类管理</text>
-    </navigator>-->
   </view>
 
   <view class="list" wx:if="{{isEmpty == false}}">
@@ -49,11 +25,9 @@
           <image wx:else src="../../image/xiaohaoge.png"></image>
         </view>
         <view class="top-content">
-          <view class="content-top">
-            <text>
-                {{item.article_content}}
-            </text>
-          </view>
+          <text class="content-top">
+            {{item.article_content}}
+          </text>
           <view class="content-bottom">
             <view class="bottom1">{{item.article_type}}</view>
             <view class="bottom2">{{item.create_time}}</view>
@@ -74,10 +48,17 @@
           <view class="number">{{item.browser_num}}</view>
         </view>
         <view class="bottom-item">
-          <!--<view class="icon icon-fenxiang"></view>-->
           <view class="icon"><button plain="true" open-type="share"><text class="icon icon-fenxiang"></text></button></view>
           <view class="number"></view>
         </view>
+        <navigator 
+          class="bottom-item" 
+          wx:if="{{item.is_platform == '1' }}" 
+          open-type="navigate" 
+          url="/pages/inform/inform?type={{item.article_id}}&name={{item.article_type}}&is_platform=true">
+          <view class="icon"><button plain="true"><text class="icon" style="font-size: 28rpx;">更多</text></button></view>
+          <view class="number"></view>
+        </navigator>
       </view>
     </view>
   </view>

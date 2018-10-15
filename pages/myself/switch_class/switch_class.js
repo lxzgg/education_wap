@@ -5,9 +5,10 @@ Page({
   data: {
     class_list: [],
     isEmpty: true,
-    selClassId: ''
+    selClassId: 1
   },
   onLoad: function (options) {
+    this.setData({ selClassId: app.user.class_id})
     utils.wxpromisify({
       url: 'class_info/classList',
       data: {

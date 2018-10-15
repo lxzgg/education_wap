@@ -12,13 +12,50 @@ Page({
     tearchTotal: 0,
     parentTotal: 0,
     showModalStatus: false,
-    qrcode:''
+    qrcode: '',
+    windowWidth: 240,
+    windowHeight: 300,
+    current_user_id: '',
+    is_admin: false, //是否管理员
+    teacher_phone: false, //拨打电话按钮
+    parent_phone: false, //拨打电话按钮
+    disabled_del: false,//删除按钮
+    class_name: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let role = app.user.user_role //0 无角色 2家长 1教师
+    //let is_teacher = role != '2' ? true : false
+    if(role == '1'){ //可拨打电话 无删除权限
+        this.setData({
+          teacher_phone: true,
+          parent_phone: true,
+          disabled_del: false
+        })
+    }else if(role == '2'){ //
+      this.setData({
+          teacher_phone: true,
+          parent_phone: false,
+          disabled_del: false
+        })
+    }else{
+      this.setData({
+          teacher_phone: true,
+          parent_phone: true,
+          disabled_del: true
+        })
+    }
+    if(app.user.is_admin == '1'){
+      this.setData({is_admin: true})
+    }
+  
+    this.setData({
+     current_user_id: app.user.user_id
+    })
+
     //用户
     utils.wxpromisify({
       url: 'user/userTelBook',
@@ -41,7 +78,7 @@ Page({
         })
       }
     })
-  
+
     //教师
     utils.wxpromisify({
       url: 'user/teaTelBook',
@@ -53,7 +90,7 @@ Page({
       method: 'post'
     }).then((res) => {
       if (res && res.response === 'data') {
-         let tearchTotal = parseInt(res.list.length)
+        let tearchTotal = parseInt(res.list.length)
         this.setData({
           teacherList: res.list,
           tearchTotal
@@ -64,7 +101,8 @@ Page({
         })
       }
     })
-  this.createqrCode()
+    this.createqrCode()
+    this.getClassName()
   },
   delete(e) {
     let del_user_id = e.currentTarget.dataset.id
@@ -93,7 +131,7 @@ Page({
     })
   },
   //生成二维码
-    createqrCode(){
+  createqrCode() {
     utils.wxpromisify({
       url: 'index/qrcode',
       data: {
@@ -104,10 +142,10 @@ Page({
       },
       method: "post"
     }).then(res => {
-      if(res && res.response === 'data'){
+      if (res && res.response === 'data') {
         let qrcode = res.data.qrcode
         this.setData({
-           qrcode
+          qrcode
         })
       }
     })
@@ -116,10 +154,11 @@ Page({
   //邀请
   onShareAppMessage: function (e) {
     return {
-      title: '邀请您加入班级',
+      title: '邀请您加入`' + this.data.class_name + '`',
       imageUrl: '/image/xiaohaoge.png',
       path: 'pages/myself/invit_teacher/invit_teacher?handle=invitTeacher&class_id=' + app.user.class_id // 路径，传递参数到指定页面。
     }
+
   },
   //显示对话框
   showModal: function () {
@@ -136,6 +175,15 @@ Page({
     })
     setTimeout(function () {
       // animation.translateY(0).step()
+
+      wx.getImageInfo({
+        src: this.data.qrcode,
+        success: (res) => {
+          const username = app.username ? app.username : ''
+          const class_name = app.class_name
+          this.drawImg(username, class_name, res.path)
+        }
+      })
       this.setData({
         animationData: animation.export()
       })
@@ -162,34 +210,47 @@ Page({
       })
     }.bind(this), 200)
   },
-  
-  //保存二维码
+
+  //保存图片
   savePhotos() {
-    let qrcode = this.data.qrcode
-    wx.getImageInfo({
-      src: qrcode,
+    wx.showModal({
+      title: '提示',
+      content: '保存该图片，可以分享给其他老师或者家长',
       success: (res) => {
-        wx.saveImageToPhotosAlbum({
-          filePath: res.path,
-          success: (res) => {
-            wx.showToast({
-              title: '保存成功',
-              icon: 'success',
-              duration: 3000
-            })
-            setTimeout(() => {
-              this.setData({
-                showModalStatus: false
+        if (res.confirm) {
+          let qrcode = this.data.qrcode
+          wx.saveImageToPhotosAlbum({
+            filePath: qrcode,
+            success: (res) => {
+              wx.showToast({
+                title: '保存成功',
+                icon: 'success',
+                duration: 3000
               })
-            }, 3000)
-          },
-          fail: (err) => {
-            wx.showToast({
-              title: '保存失败',
-              icon: 'none',
-              duration: 3000
-            })
-          }
+              setTimeout(() => {
+                this.setData({
+                  showModalStatus: false
+                })
+              }, 3000)
+            },
+            fail: (err) => {
+              wx.showToast({
+                title: '保存失败',
+                icon: 'none',
+                duration: 3000
+              })
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '已取消',
+            icon: 'none'
+          })
+        }
+      },
+      complete: () => {
+        this.setData({
+          showModalStatus: false
         })
       }
     })
@@ -199,5 +260,59 @@ Page({
     wx.makePhoneCall({
       phoneNumber: phone
     })
+  },
+  //获取当前班级名称
+  getClassName() {
+    utils.wxpromisify({
+      url: 'class_info/info',
+      data: app.user,
+      method: 'post'
+    }).then((res) => {
+      if (res && res.response === 'data') {
+        let class_name = res.data.class_name
+        this.setData({
+          class_name
+        })
+      }
+    })
+  },
+  drawImg(name, class_name, tempPath) {
+    const ctx = wx.createCanvasContext('qrcodeImg')
+    // var imgPath = '/image/index.png'; //二维码
+    ctx.setFillStyle('#fff')
+    ctx.fillRect(0, 0, this.data.windowWidth, this.data.windowHeight) //填充一个矩形
+    ctx.setFillStyle('black')
+    ctx.setFontSize(14)
+    const title = name + '邀请您加入`' + class_name + '`'
+    ctx.fillText(title, (this.data.windowWidth - ctx.measureText(title).width) / 2, 40)
+    ctx.setFillStyle('#fff')
+    ctx.drawImage(tempPath, 45, 60, 150, 145); //显示图片 (img,sx,sy,swidth,sheight,x,y,width,height)
+    ctx.setFontSize(12)
+    ctx.setFillStyle('#666')
+    const tips = '长按图片识别二维码'
+    ctx.fillText(tips, (this.data.windowWidth - ctx.measureText(tips).width) / 2, 230)
+    ctx.draw(false, setTimeout(() => {
+      wx.canvasToTempFilePath({
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0,
+        destWidth: this.data.windowWidth,
+        destHeight: this.data.windowHeight,
+        canvasId: 'qrcodeImg',
+        success: (res) => {
+          this.setData({
+            // shareImg: res.tempFilePath,
+            qrcode: res.tempFilePath
+          })
+        },
+        fail: (res) => {
+          wx.showToast({
+            title: '生成失败',
+            icon: "none"
+          })
+        }
+      })
+    }, 200));
   }
 })

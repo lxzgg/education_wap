@@ -2,7 +2,6 @@
 //获取应用实例
 const app = getApp()
 const util = require('../../utils/util')
-
 Page({
   data: {
     windowWidth: '',
@@ -187,5 +186,29 @@ Page({
         })
       }
     })
-  }
+  },
+
+  //跳转到统计页面
+  goToScreenCount(e){
+     let article_id = e.currentTarget.dataset.articleid
+    // let type = e.currentTarget.dataset.type
+    wx.navigateTo({
+      url: '/pages/screen_count/screen_count?articleid=' + article_id 
+    })
+  },
+    //下拉刷新数据
+  onPullDownRefresh(e) {
+    wx.showToast({
+      title: "加载中",
+      icon: 'loading',
+      duration: 2000
+    })
+     this.setData({
+        content_list: []
+      })
+    this.init()
+    setTimeout(() => {
+      wx.stopPullDownRefresh();
+    }, 2000)
+  },
 })

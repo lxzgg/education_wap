@@ -9,7 +9,7 @@ Page({
   data: {
     showModalStatus: false,
     content: {},
-    qrcode:'',
+    qrcode: '',
     index: 0,
     evalList: [{
       tempFilePaths: [],
@@ -221,6 +221,8 @@ Page({
     }
     let member_num = e.detail.value.member_num
     let class_name = e.detail.value.class_name
+    //console.log(class_image)
+    // return 
     if (!class_image) {
       wx.showToast({
         title: '请上传班级图片',
@@ -292,7 +294,7 @@ Page({
     })
   },
   //生成二维码
-    createqrCode(){
+  createqrCode() {
     utils.wxpromisify({
       url: 'index/qrcode',
       data: {
@@ -303,15 +305,15 @@ Page({
       },
       method: "post"
     }).then(res => {
-      if(res && res.response === 'data'){
+      if (res && res.response === 'data') {
         let qrcode = res.data.qrcode
         this.setData({
-           qrcode
+          qrcode
         })
       }
     })
   },
-   //保存图片
+  //保存图片
   savePhotos() {
     let qrcode = this.data.qrcode
     wx.getImageInfo({
@@ -341,5 +343,70 @@ Page({
         })
       }
     })
+  },
+  delClass() {
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除本班级？',
+      success: (res) => {
+        if (res.confirm) {
+          utils.wxpromisify({
+            url: 'user/delClass',
+            data: {
+             class_id: app.user.class_id,
+             token: app.user.token,
+             user_id: app.user.user_id
+            },
+            method: "post"
+          }).then(ret => {
+            if (ret && ret.response === 'data') {
+              wx.showToast({
+                title: '删除成功',
+                icon: 'success'
+              })
+              this.loginStatus()
+            } else {
+              wx.showToast({
+                title: ret.error.message,
+                icon: 'none'
+              })
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '已取消删除',
+            icon: 'none'
+          })
+        }
+      }
+    })
+  },
+  loginStatus(){
+     new Promise((resolve) => {
+        wx.login({
+          success: res => {
+            resolve(res)
+          }
+        })
+      }).then(res => {
+        const code = res.code
+        return app.api.loginStatus({
+          code
+        })
+      }).then(res => {
+        // 用户信息全局保存
+       app.user = res.data
+        wx.setStorage({
+          key: 'user',
+          data: res.data
+        })
+        wx.reLaunch({
+          url: '/pages/index/index'
+        })
+      }).catch((err) => {
+        wx.showToast({
+          title: '初始化失败'
+        })
+      })
   }
 })

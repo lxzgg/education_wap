@@ -10,8 +10,8 @@ Page({
     selSubIndex: 1,
     showObjInput: false,
     classInfo: {},
-    invit_class_id:'',
-    mobile:'',
+    invit_class_id: '',
+    mobile: '',
     workItem: [{
         subject_type: 1,
         subject_name: '语文'
@@ -78,30 +78,31 @@ Page({
             invit_class_id
           })
           let data = res.data
-          // data.class_id = class_id
+           data.class_id = invit_class_id
           Object.assign(app.user, data)
-          wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'),data))
+          wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'), data))
+        }
+       // resolve()
+      }).then(() => {
+        //获取当前班级信息
+        return utils.wxpromisify({
+                  url: 'class_info/info',
+                  data: {
+                    token: app.user.token,
+                    user_id: app.user.user_id,
+                    class_id: invit_class_id
+                  },
+                  method: 'post'
+              })
+      }).then((res) => {
+        if (res && res.response === 'data') {
+          const classInfo = res.data
+          this.setData({
+            classInfo
+          })
         }
       })
     }
-
-     //获取当前班级信息
-    utils.wxpromisify({
-      url: 'class_info/info',
-      data: {
-        token: app.user.token,
-        user_id: app.user.user_id,
-        class_id: app.user.class_id
-      },
-      method: 'post'
-    }).then((res) => {
-      if (res && res.response === 'data') {
-        const classInfo = res.data
-        this.setData({
-          classInfo
-        })
-      }
-    })
   },
 
   formSubmit(e) {
@@ -147,6 +148,10 @@ Page({
       token: app.user.token,
       class_id: this.data.invit_class_id
     }
+     wx.showModal({
+          title:'提示',
+          content: JSON.stringify(params)
+        })
     utils.wxpromisify({
       url: 'user/addTeacher',
       data: params,
@@ -163,29 +168,29 @@ Page({
             url: '/pages/index/index'
           })
         }, 2000)
-      }else{
+      } else {
         wx.showModal({
           title: '提示',
           content: res.error.message,
           showCancel: false,
           success: function () {
             wx.reLaunch({
-               url: '/pages/index/index'
+              url: '/pages/index/index'
             })
           }
         })
       }
-    }).catch((err)=>{
-       wx.showModal({
-          title: '提示',
-          content: '请求超时',
-          showCancel: false,
-          success: function () {
-            wx.reLaunch({
-              url: '/pages/myself/class_contact'
-            })
-          }
-        })
+    }).catch((err) => {
+      wx.showModal({
+        title: '提示',
+        content: '请求超时',
+        showCancel: false,
+        success: function () {
+          wx.reLaunch({
+            url: '/pages/myself/class_contact'
+          })
+        }
+      })
     })
   },
   isPoneAvailable(str) {
@@ -204,19 +209,28 @@ Page({
     return {
       title: '邀请您加入班级',
       desc: '分享页面的内容',
-      path: 'pages/myself/invit_teacher/invit_teacher?handle=invitTeacher&class_id='+app.user.class_id // 路径，传递参数到指定页面。
+      path: 'pages/myself/invit_teacher/invit_teacher?handle=invitTeacher&class_id=' + app.user.class_id // 路径，传递参数到指定页面。
     }
   },
 
-    // 获取用户手机号码
+  // 获取用户手机号码
   getPhoneNumber(e) {
-    const {encryptedData, iv} = e.detail
+    const {
+      encryptedData,
+      iv
+    } = e.detail
     wx.login({
       success: res => {
         const code = res.code
-        app.api.getUserMobile({code, encryptedData, iv}).then(res => {
+        app.api.getUserMobile({
+          code,
+          encryptedData,
+          iv
+        }).then(res => {
           const mobile = res.data.mobile
-          this.setData({mobile})
+          this.setData({
+            mobile
+          })
         })
       }
     })
