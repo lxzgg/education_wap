@@ -35,7 +35,7 @@
 }
 
 .user-header .header-l .header-c .nike-name {
-  font-size: 28rpx;
+  font-size: 26rpx;
   color: #999;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .content {
-  padding: 0 20rpx;
+  padding: 0 20rpx 100rpx 20rpx;
 }
 
  .content image, .content video{

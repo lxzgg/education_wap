@@ -3,5 +3,8 @@
   "navigationBarTextStyle": "white",
   "navigationBarTitleText": "我的",
   "backgroundColor": "#FFFFFF",
-  "backgroundTextStyle": "light"
+  "backgroundTextStyle": "light",
+  "usingComponents": {
+    "auth-modal":"/components/modal/modal"
+  }
 }

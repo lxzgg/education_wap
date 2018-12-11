@@ -1,0 +1,22 @@
+.containor{
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 50rpx;
+    image{
+        display: block;
+        margin: 0 auto;
+
+    }
+    button{
+        width: 600rpx;
+        height: 82rpx;
+        background-color: #7897f4;
+        border-radius: 41rpx;
+        color: #fff;
+        font-size: 28rpx;
+        line-height: 82rpx;
+        margin-top: 50rpx;
+    }
+}

@@ -1,12 +1,16 @@
 <view class="list">
   <view class="item" wx:for="{{inform_list}}" wx:key="index">
-    <view class="top" data-articleid="{{item.article_id}}" bindtap="goToComment">
-      <view class="header-img">
+    <view class="top" data-articleid="{{item.article_id}}" data-platform="{{item.is_platform}}"  bindtap="goToComment">
+      <view class="header-img" wx:if="{{isHomework}}">
+        <image src="/image/subject{{item.subject_type}}.png"></image>
+      </view>
+      <view class="header-img" wx:else>
         <image wx:if="{{item.article_accessory[0].image}}"  src="{{item.article_accessory[0].image}}"></image>
         <image wx:else src="../../image/user.png"></image>
       </view>
       <view class="top-content">
-        <text class="content-top">{{item.article_content}}</text>
+        <text wx:if="{{item.is_platform == '1'}}" class="content-top">{{item.title}}</text>
+        <text wx:else class="content-top">{{item.article_content}}</text>
         <view class="content-bottom">
          <view class="bottom1">{{item.article_type}}</view>
             <view class="bottom2">{{item.create_time}}</view>
@@ -18,7 +22,7 @@
           <text class="icon icon-dianzan {{item.is_remard == '1' ? 'active' : ''}}" bindtap="clickZan" data-index="{{index}}" data-articleid="{{item.article_id}}"></text>
           <text class="number">{{item.like_num}}</text>
         </view>
-        <view class="bottom-item" data-articleid="{{item.article_id}}" bindtap="goToComment">
+        <view class="bottom-item" data-articleid="{{item.article_id}}" data-platform="{{item.is_platform}}"  bindtap="goToComment">
           <view class="icon icon-iconfontpinglun"></view>
           <view class="number">{{item.eval_num}}</view>
         </view>
@@ -26,10 +30,10 @@
           <view class="icon icon-tubiao_liulan"></view>
           <view class="number">{{item.browser_num}}</view>
         </view>
-        <view class="bottom-item">
+        <!-- <view class="bottom-item">
           <view class="icon"><button plain="true" open-type="share"><text class="icon icon-fenxiang"></text></button></view>
           <view class="number"></view>
-        </view>
+        </view> -->
       </view>
   </view>
   <view wx:if="{{isEmpty == true}}" style="text-align: center;font-size: 22rpx;color: #999;padding-top: 20rpx;">暂无数据</view>

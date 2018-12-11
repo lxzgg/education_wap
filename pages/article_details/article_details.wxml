@@ -1,0 +1,87 @@
+<import src="../../wxParse/wxParse.wxml"/> 
+<view class="user-header">
+        <view class="header-l">
+          <view class="header-item">
+            <view class="header">
+              <image src="{{content_details.avatarUrl}}"></image>
+            </view>
+            <view class="header-c">
+              <view class="user-name">{{content_details.nickname}}</view>
+              <view class="nike-name">{{content_details.create_time}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="header-r">
+          <view class="icon"><button plain="true" open-type="share"><text class="icon icon-fenxiang">分享</text></button></view>
+          <!--<view class=""></view>-->
+        </view>
+      </view>
+      <view class="content">
+        <view>
+            <text selectable='true' style="display: block; text-align: center;font-size: 30rpx;font-weight: 700;padding-bottom: 20rpx;">
+                {{content_details.title || '无标题'}}
+            </text>
+                <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+
+            <!-- {{content_details.article_content}} -->
+        </view>
+        <!-- <view wx:for="{{content_details.article_accessory}}" wx:key="key">
+            <image src="{{item.image}}" wx:if="{{item.image}}" mode="widthFix" data-src="{{item.image}}" bindtap="previewImage"></image>
+            <video src="{{item.video}}" wx:if="{{item.video}}"></video>
+        </view> -->
+      </view>
+      <view class="comment-list">
+        <view class="user-comment" wx:for="{{eval_list}}" wx:key="{{index}}">
+          <view class="user-header2">
+            <view class="header-l">
+              <view class="header-item">
+                <view class="header">
+                  <image src="{{item.avatarUrl}}"></image>
+                </view>
+                <view class="header-c">
+                  <view class="user-name">{{item.nickname}}</view>
+                  <view class="nike-name">{{item.eval_time}}</view>
+                </view>
+              </view>
+              <view 
+                class="header-d" 
+                bindtap="goToCommentArea" 
+                data-id="{{item.eval_id}}" 
+                data-ret="repy"
+                data-platform="{{content_details.is_system}}"
+                wx:if="{{item.eval_reply == ''}}">回复</view>
+            </view>
+          </view>
+          <view class="user-comment2">
+           <text>{{item.eval_info}}</text>
+            <view class="repy" wx:if="{{item.eval_id == curInput}}">
+              <text  class="input">回复</text><!--{{item.nickname}}:-->
+              <input type="text" 
+               placeholder-style="color:#999" 
+               placeholder="回复{{item.nickname}}:"
+               value="{{info}}" 
+               name="repy" 
+
+               focus="{{item.eval_id == curInput}}"
+                bindconfirm="repyContent" confirm-type="done" />
+            </view>
+            <view class="repy" wx:if="{{item.eval_reply != ''}}">
+              <text style="margin-right: 10rpx;color: #999;">回复{{item.nickname}}:</text><text>{{item.eval_reply}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="footer">
+        <view class="footer-l">
+          <input type="text" placeholder-style="color:#666" placeholder="留下您的精彩评论" data-ret="eval" data-platform="{{content_details.is_system}}"  data-id="{{content_details.article_id}}" bindfocus="goToCommentArea" value="{{info}}" name="comment" bindconfirm="formSubmit"></input>
+        </view>
+        <view class="footer-c">
+          <text class="icon icon-dianzan {{content_details.is_remard == '1' ? 'active' :''}}" bindtap="clickZan" data-articleid="{{content_details.article_id}}"> </text>
+          <view class="text">{{content_details.like_num}}</view>
+        </view>
+        <view class="footer-r">
+          <text class="icon icon-pinglun"></text>
+          <view class="text">评论</view>
+        </view>
+      </view>
+      

@@ -21,7 +21,12 @@
     </view>-->
   </view>
   <view class="publish-content">
-    <textarea placeholder="输入您想要输入的文字" name="descript" placeholder-style="color:#999;" value="{{info}}"></textarea>
+    <textarea 
+      placeholder="输入您想要输入的文字" 
+      name="descript" 
+      placeholder-style="color:#999;"
+      maxlength='-1' 
+      value="{{info}}"></textarea>
     <view class="img-list">
       <view class="item" wx:for="{{evalList[0].tempFilePaths}}" wx:for-item="arr" wx:key="index">
         <image wx:if="{{arr.type == 'image'}}" src="{{arr.path}}"></image>
@@ -41,8 +46,8 @@
       </view>
     </view>
   </view>
-  <button class="post" formType="submit" disabled="{{submitAuth}}">{{ showDeleteBtn ? '保存编辑' : '立即发布'}}</button>
-  <view class="del_view"><text class="del_btn" bindtap="delArticle" wx:if="{{showDeleteBtn}}">删除</text></view>
+  <button class="post" formType="submit" disabled="{{submitAuth}}">立即发布</button>
+  <!-- <view class="del_view"><text class="del_btn" bindtap="delArticle" wx:if="{{showDeleteBtn}}">删除</text></view> -->
    
 </form>
 <!--屏幕背景变暗的背景 -->
@@ -52,3 +57,4 @@
   <view bindtap="chooseType" data-type="camera">相册</view>
   <view bindtap="chooseType" data-type="video">视频</view>
 </view>
+<auth-modal bind:myevent="getResultFromComp" ></auth-modal>

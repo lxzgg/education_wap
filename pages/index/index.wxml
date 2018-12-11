@@ -1,3 +1,4 @@
+
 <view class="banner">
   <swiper indicator-dots autoplay circular>
     <block wx:for="{{adList}}" wx:key="{{item.id}}">
@@ -7,25 +8,55 @@
     </block>
   </swiper>
 </view>
-
 <view class="content">
   <view class="nav-list">
-    <navigator class="item" wx:for="{{cateList}}" wx:key="{{index}}" open-type="navigate" url="/pages/inform/inform?type={{item.cate_id}}&name={{item.cate_name}}">
-      <image src="{{item.cate_icon}}"></image>
-      <text>{{item.cate_name}}</text>
+    <navigator class="item" open-type="navigate" url="/pages/home_file/file_classify/file_classify">
+      <image src="/image/family.png"></image>
+      <text>小家档案</text>
+    </navigator>
+    <navigator class="item" open-type="navigate" url="/pages/inform/inform?type={{item.cate_id}}&name={{item.cate_name}}">
+      <image src="/image/healfeay.png"></image>
+      <text>健康档案</text>
+    </navigator>
+    <navigator class="item" open-type="navigate" url="/pages/inform/inform?type={{item.cate_id}}&name={{item.cate_name}}">
+      <image src="/image/dd.png"></image>
+      <text>家庭理财</text>
+    </navigator>
+    <navigator class="item" open-type="navigate" url="/pages/inform/inform?type={{item.cate_id}}&name={{item.cate_name}}">
+      <image src="/image/book.png"></image>
+      <text>文化书房</text>
+    </navigator>
+    <navigator class="item" open-type="navigate" url="/pages/inform/inform?type={{item.cate_id}}&name={{item.cate_name}}">
+      <image src="/image/food.png"></image>
+      <text>食安食谱</text>
+    </navigator>
+    <navigator class="item" open-type="navigate" url="/pages/inform/inform?type={{item.cate_id}}&name={{item.cate_name}}">
+      <image src="/image/xiangcepng.png"></image>
+      <text>家庭相册</text>
+    </navigator>
+    <navigator class="item" open-type="navigate" url="/pages/inform/inform?type={{item.cate_id}}&name={{item.cate_name}}">
+      <image src="/image/info.png"></image>
+      <text>信息发布</text>
+    </navigator>
+    <navigator class="item" open-type="navigate" url="/pages/inform/inform?type={{item.cate_id}}&name={{item.cate_name}}">
+      <image src="/image/call.png"></image>
+      <text>紧急呼叫</text>
     </navigator>
   </view>
 
   <view class="list" wx:if="{{isEmpty == false}}">
     <view class="item" wx:for="{{article}}" wx:key="index">
-      <view class="top" data-articleid="{{item.article_id}}" bindtap="goToComment">
+      <view class="top" data-articleid="{{item.article_id}}" data-platform="{{item.is_platform}}" bindtap="goToComment">
         <view class="header-img">
-          <image wx:if="{{item.article_accessory[0].image}}" src="{{item.article_accessory[0].image}}"></image>
+          <image wx:if="{{item.article_accessory[0].image}}" src="{{item.article_accessory[0].image}}" mode='aspectFill'></image>
           <video wx:elif="{{item.article_accessory[0].video}}" src="{{item.article_accessory[0].video}}"></video>
           <image wx:else src="../../image/xiaohaoge.png"></image>
         </view>
         <view class="top-content">
-          <text class="content-top">
+          <view class="content-top"  wx:if="{{item.is_platform == '1'}}">
+              {{item.title}}
+          </view>
+          <text wx:else class="content-top">
             {{item.article_content}}
           </text>
           <view class="content-bottom">
@@ -39,7 +70,7 @@
           <text class="icon icon-dianzan {{item.is_remard == '1' ? 'active' : ''}}" bindtap="clickZan" data-index="{{index}}" data-articleid="{{item.article_id}}"></text>
           <text class="number">{{item.like_num}}</text>
         </view>
-        <view class="bottom-item" data-articleid="{{item.article_id}}" bindtap="goToComment">
+        <view class="bottom-item" data-articleid="{{item.article_id}}" data-platform="{{item.is_platform}}" bindtap="goToComment">
           <view class="icon icon-iconfontpinglun"></view>
           <view class="number">{{item.eval_num}}</view>
         </view>
@@ -48,7 +79,17 @@
           <view class="number">{{item.browser_num}}</view>
         </view>
         <view class="bottom-item">
-          <view class="icon"><button plain="true" open-type="share"><text class="icon icon-fenxiang"></text></button></view>
+          <view class="icon">
+            <button 
+              plain="true" 
+              open-type="share"
+              data-src="{{item.article_accessory[0].image}}"
+              data-articleid="{{item.article_id}}"
+              data-platform="{{item.is_platform}}"
+              data-type="{{item.article_type}}">
+              <text class="icon icon-fenxiang"></text>
+            </button>
+          </view>
           <view class="number"></view>
         </view>
         <navigator 
@@ -62,8 +103,8 @@
       </view>
     </view>
   </view>
-</view>
+</view> 
 <view class="empty" wx:if="{{isEmpty == true}}">
   还没有内容
 </view>
-<!--<button wx:if="{{isLogin}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>-->
+<!-- <auth-modal bind:myevent="getResultFromComp"></auth-modal> -->

@@ -12,21 +12,34 @@ Page({
     totalPage: 0,
     pageSize: 10,
     currentPage: 1,
-    options: {}
+    options: {},
+    isHomework: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.setNavigationBarTitle({
       title: options.name
     })
-    this.setData({
-      options,
-      inform_list: []
+    Promise.resolve().then(res => {
+      return new Promise(resolve => {
+        this.setData({
+          options,
+          inform_list: []
+        })
+
+        if (options.name == '作业') {
+          this.setData({
+            isHomework: true
+          })
+        }
+        resolve()
+      })
+    }).then(res => {
+      return this.getArticle()
     })
-    this.getArticle()
   },
   //获取文章列表
   getArticle() {
@@ -36,12 +49,12 @@ Page({
       num: this.data.pageSize,
       user_id: app.user.user_id,
     }
-    let url = this.data.options.is_platform == 'true' ? 'index/platformList' :'index/article'
+    let url = this.data.options.is_platform == 'true' ? 'index/platformList' : 'index/article'
     if (this.data.options.is_platform != 'true') {
-      params.class_id = app.user.class_id,
+      params.class_id = app.user.class_id
       params.article_type = this.data.options.type
     }
-    utils.wxpromisify({
+    return utils.wxpromisify({
       url: url,
       data: params,
       method: 'post'
@@ -80,13 +93,20 @@ Page({
       })
     })
   },
+  //跳转到评论页面
   goToComment(e) {
+    let platform = e.currentTarget.dataset.platform
     let article_id = e.currentTarget.dataset.articleid
-    wx.navigateTo({
-      url: '/pages/comment/comment?articleid=' + article_id + '&type=index'
-    })
+    if (platform == '1') {
+      wx.navigateTo({
+        url: '/pages/article_details/article_details?articleid=' + article_id + '&type=index'
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/comment/comment?articleid=' + article_id + '&type=index'
+      })
+    }
   },
-
   //跳转到浏览统计页面
   goToScreenCount(e) {
     let article_id = e.currentTarget.dataset.articleid
@@ -97,7 +117,7 @@ Page({
   },
 
   // 页面上拉触底事件的处理函数
-  onReachBottom: function () {
+  onReachBottom: function() {
     wx.showLoading({
       title: '加载中...'
     })
@@ -120,7 +140,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return {
       title: '给你分享一个' + this.data.type,
       imageUrl: '/image/xiaohaoge.png',

@@ -11,9 +11,9 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.2.4",
+	"libVersion": "2.4.0",
 	"appid": "wxde4f75e109bf61d4",
-	"projectname": "education_wap",
+	"projectname": "family_wap",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
@@ -33,13 +33,17 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "评论",
-					"pathName": "pages/comment/comment",
-					"query": ""
+					"pathName": "pages/index/index",
+					"query": "articleid=207&type=index",
+					"scene": "1043",
+					"referrerInfo": {
+						"appId": "wxde4f75e109bf61d4"
+					}
 				},
 				{
 					"id": -1,
@@ -136,6 +140,16 @@
 					"name": "班级信息",
 					"pathName": "pages/publish_index/publish_index",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "测试",
+					"pathName": "pages/comment/comment",
+					"query": "articleid=207&type=index",
+					"scene": "1043",
+					"referrerInfo": {
+						"appId": "wxde4f75e109bf61d4"
+					}
 				}
 			]
 		}

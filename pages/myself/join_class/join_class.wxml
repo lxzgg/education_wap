@@ -21,7 +21,7 @@
 
         </view>
       </view>
-      <view class="section">
+      <view class="section" style=" align-items: flex-start;">
         <view class="section__title">所属关系</view>
         <view class="section-input btn">
           <view class="class_item {{item.family_role == selShipIndex ?'item_active' :''}}" 

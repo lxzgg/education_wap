@@ -3,6 +3,9 @@
   "navigationBarTextStyle": "white",
   "navigationBarTitleText": "发布",
   "backgroundColor": "#FFFFFF",
-  "backgroundTextStyle": "light"
+  "backgroundTextStyle": "light",
+  "usingComponents": {
+    "auth-modal":"/components/modal/modal"
+  }
 
 }

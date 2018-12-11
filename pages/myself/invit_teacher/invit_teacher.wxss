@@ -56,7 +56,6 @@
 
 .bottom {
   margin: 20rpx;
-  height: 320rpx;
   background-color: #fafbff;
   box-shadow: 0rpx 0rpx 11rpx 0rpx rgba(192, 192, 192, 0.54);
   border-radius: 10rpx;
@@ -67,6 +66,7 @@
   border-bottom: 1rpx solid #eee;
   padding: 20rpx 12rpx;
   text-align: center;
+  align-items: center;
 }
 
 .section-btn button {
@@ -101,12 +101,9 @@
   text-align: center;
   font-size: 30rpx;
   line-height: 44rpx;
-  /*color: #ffffff;*/
-  width: 78rpx;
-  height: 44rpx;
   border-radius: 10rpx;
   border: solid 1rpx #74b8fd;
-  /*padding: 1rpx;*/
+  padding: 6rpx 12rpx;
 }
 
 .btn-area button {
@@ -119,7 +116,7 @@
   font-size: 26rpx;
   text-align: center;
   line-height: 75rpx;
-  margin-top: 100rpx;
+  margin: 30rpx auto;
 }
 .section .btn{
   display: flex;

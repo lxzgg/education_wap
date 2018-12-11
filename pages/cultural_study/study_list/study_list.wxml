@@ -1,0 +1,24 @@
+<view class="containor">
+  <view class="box">
+    <image src="/image/552d913f69995c08d6f8dbf79df6a233.png"></image>
+    <view class="title">
+      温馨舒适的书房<text class="count">(100)</text>
+    </view>
+  </view>
+  <view class="box">
+    <image src="/image/91951947421ef4e6f8d9923e5aaeb7cf.png"></image>
+    <view class="title">
+      温馨舒适的书房<text class="count">(100)</text>
+    </view>
+  </view>
+  <view class="box">
+    <image src="/image/552d913f69995c08d6f8dbf79df6a233.png"></image>
+    <view class="title">
+      温馨舒适的书房<text class="count">(100)</text>
+    </view>
+  </view>
+  <view class="upload">
+   <view>+</view>
+   <text>新建书房</text>
+  </view>
+</view>

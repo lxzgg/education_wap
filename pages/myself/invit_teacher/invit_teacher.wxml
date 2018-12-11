@@ -39,8 +39,8 @@
 
         </view>
       </view>
-      <view class="section">
-        <view class="section__title">所任课程</view>
+      <view class="section" style=" align-items: flex-start;">
+        <view class="section__title">所任职务</view>
         <view class="section-input btn">
           <view class="class_item {{item.subject_type == selSubIndex ?'item_active' :''}}" 
           wx:for="{{workItem}}" 

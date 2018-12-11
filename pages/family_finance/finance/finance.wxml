@@ -1,0 +1,32 @@
+<view class="containor">
+   <view class="section">
+       <view class="row">
+        <view>每日支出</view>
+        <view class="btn">登记</view>
+       </view>
+       <view class="row">
+        <view class="title">查看详情</view>
+        <view>></view>
+       </view>
+   </view>
+   <view class="section">
+    <view class="row">
+     <view>每月支出统计</view>
+     <view class="btn">统计</view>
+    </view>
+    <view class="row">
+     <view class="title">查看详情</view>
+     <view>></view>
+    </view>
+</view>
+<view class="section">
+    <view class="row">
+     <view>流动资产、固定资产</view>
+     <view class="btn">登记</view>
+    </view>
+    <view class="row">
+     <view class="title">查看详情</view>
+     <view>></view>
+    </view>
+</view>
+</view>

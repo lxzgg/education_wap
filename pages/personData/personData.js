@@ -11,12 +11,14 @@ Page({
     relationshipIndex: 1,
     hobbyIndex: 1,
     workIndex: 1,
+    is_teacher: false,
     date: '',
     radioCheckVal: 'woman',
     content: {},
     showObjInput: false,
     showshipInput: false,
     showhobbyInput: false,
+    other_subject: '',
     sex_list: [{
         name: 'man',
         value: '男'
@@ -96,25 +98,31 @@ Page({
     workItem: [{
         subject_type: 1,
         subject_name: '语文'
-      }, {
-        subject_type: 2,
-        subject_name: '英语'
       },
       {
         subject_type: 3,
         subject_name: '数学'
       },
       {
+        subject_type: 2,
+        subject_name: '英语'
+      },
+      {
         subject_type: 4,
-        subject_name: '化学'
+        subject_name: '生活'
       },
       {
         subject_type: 5,
-        subject_name: '物理'
+        subject_name: '艺术'
+      },
+      {
+        subject_type: 7,
+        subject_name: '家委'
       }, {
         subject_type: 6,
         subject_name: '其他'
-      }
+      },
+
     ]
   },
   bindDateChange: function (e) {
@@ -166,55 +174,129 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    //家长 //老师 //游客
+    let is_teacher = false
+    if (app.user.is_admin == '1') {
+      is_teacher = app.user.admin_type == '1' ? true : false
+    } else {
+      is_teacher = (app.user.user_role == '0' || app.user.user_role == '1') ? true : false
+    }
     this.setData({
-      role: app.user.user_role
+      role: app.user.user_role,
+      is_teacher
     })
-    let url = (this.data.role === 1)  ? 'user/userInfoTea' : 'user/userInfo'
+    let url = is_teacher ? 'user/userInfoTea' : 'user/userInfo' //（1-班主任，2-家长会）
     utils.wxpromisify({
       url: url,
       data: {
         user_id: app.user.user_id,
-        token: app.user.token
+        token: app.user.token,
+        class_id: app.user.class_id
       },
       method: 'post'
     }).then((res) => {
       if (res && res.response === 'data') {
         //sex
         let sex_list = this.data.sex_list
-        if (res.data.gender === 2 || res.data.child_sex === 2) {
+        let sex = this.data.is_teacher ? res.data.gender : res.data.child_sex
+        if (sex == '2') {
           sex_list[0].checked = false
           sex_list[1].checked = true
         } else {
           sex_list[0].checked = true
           sex_list[1].checked = false
         }
+
         //hobby 
-        let hobbyIndex = (res.data.like_id && res.data.like_id.length > 0) ? res.data.like_id[0] : 1
+        let hobbyIndex = (res.data.like_id && res.data.like_id.length > 0) ? res.data.like_id[0] : ''
         //family_ship
-        let family_ship = res.data.family_role ? res.data.family_role : 1
+        let family_ship = res.data.family_role ? res.data.family_role : '0'
         //subject_type
-        let subject_type = res.data.subject_type ? res.data.subject_type : 1
+        let subject_type = res.data.subject_type ? res.data.subject_type : '8'
+
+        //显示其他的科目名称
+        if (res.data.subject_type == '6') {
+          this.setData({
+            showObjInput: true,
+            other_subject: res.data.subject_name
+          })
+        }
+        //显示其他的爱好名称
+        if (hobbyIndex == '9') {
+          this.setData({
+            showhobbyInput: true,
+            other_hobby: res.data.other_like
+          })
+        }
+        //显示其他的亲属关系名称
+        if (family_ship == '7') {
+          this.setData({
+            showshipInput: true,
+            other_family: res.data.family_role_name
+          })
+        }
+
+
+        //科目身份
+        let new_subject_arr = []
+        if (app.user.is_admin == '1') { //管理员
+          if (app.user.admin_type == '1') { //班主任
+            new_subject_arr = [{
+                subject_type: 8,
+                subject_name: '班主任'
+              }],
+              this.setData({
+                workItem: new_subject_arr,
+                workIndex:8
+              })
+          // } else {
+          //   new_family_arr = [{
+          //     family_role: 8,
+          //     family_role_name: '家委会'
+
+          //   }]
+          //   this.setData({
+          //     Relationship: new_family_arr,
+          //     showshipInput: false,
+          //     relationshipIndex:8
+          //   })
+          }
+        } else {
+          this.setData({
+            workIndex: subject_type
+          })
+        }
+
         this.setData({
           content: res.data,
           sex_list: sex_list,
-          date: res.data.birthday || res.data.child_birth,
           relationshipIndex: family_ship,
+          date: res.data.birthday || res.data.child_birth,
           hobbyIndex: hobbyIndex,
-          workIndex: subject_type
         })
       }
     }).catch((err) => {})
-
   },
   // 获取用户手机号码
   getPhoneNumber(e) {
-    const {encryptedData, iv} = e.detail
+    const {
+      encryptedData,
+      iv
+    } = e.detail
     wx.login({
       success: res => {
-        const code = res.code,content = this.data.content
-        app.api.getUserMobile({code, encryptedData, iv}).then(res => {
+        const code = res.code,
+          content = this.data.content
+        app.api.getUserMobile({
+          code,
+          encryptedData,
+          iv
+        }).then(res => {
           content.mobile = res.data.mobile
-          this.setData({content})
+          this.setData({
+            content
+          })
         })
       }
     })
@@ -248,8 +330,7 @@ Page({
       })
       return
     }
-    let gender = '',
-      selObject = {}
+    let gender = ''
     this.data.sex_list.forEach((val, key) => {
       if (val.checked) {
         gender = key + 1
@@ -258,7 +339,7 @@ Page({
     let selHobby = {},
       selShip = {},
       selSubject = {}
-    if (this.data.role == '2') {
+    if (!this.data.is_teacher) {
       //爱好
       let other_hobby = e.detail.value.other_like
       let showhobbyInput = this.data.showhobbyInput
@@ -275,7 +356,7 @@ Page({
       selShip.child_sex = gender
       selShip.child_birth = birthday
 
-    } else if (this.data.role == '1' || this.data.role == '0') {
+    } else if (this.data.is_teacher) {
 
       //课程
       let other_class = e.detail.value.subject_name
@@ -291,12 +372,13 @@ Page({
     let selVal = {
       user_id: app.user.user_id,
       token: app.user.token,
+      class_id: app.user.class_id,
       mobile: mobile,
       ...selSubject,
       ...selShip,
       ...selHobby
     }
-    let url = (this.data.role === 1 || this.data.role === 0) ? 'user/submitTeacherInfo' : 'user/submitUserInfo'
+    let url = this.data.is_teacher ? 'user/submitTeacherInfo' : 'user/submitUserInfo'
     utils.wxpromisify({
       url: url,
       data: selVal,
@@ -313,10 +395,10 @@ Page({
             url: '/pages/my/my'
           })
         }, 2000)
-      }else{
+      } else {
         wx.showToast({
           title: res.error.message,
-          icon:'none'
+          icon: 'none'
         })
       }
     })
@@ -346,5 +428,20 @@ Page({
       obj = selItem[index]
     }
     return obj
+  },
+  radioChange(e) {
+    let value = e.detail.value
+    let sex_list = this.data.sex_list
+    if (value == 'man') {
+      sex_list[0].checked = true
+      sex_list[1].checked = false
+    } else {
+      sex_list[1].checked = true
+      sex_list[0].checked = false
+    }
+    this.setData({
+      sex_list
+    })
   }
+
 })

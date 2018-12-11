@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    selShipIndex: 1,
+    selShipIndex: '',
     showShipInput: false,
     mobile: '',
     Relationship: [{
@@ -104,7 +104,7 @@ Page({
         icon: 'none',
         duration: 5000
       })
-
+    return
     }
     const bool = this.isPoneAvailable(mobile)
     if (!bool) {
@@ -116,6 +116,14 @@ Page({
       return
     }
     let keys = this.data.selShipIndex
+    if(!keys){
+      wx.showToast({
+        title: '请选择亲属关系',
+        icon: 'none',
+        duration: 5000
+      })
+      return 
+    }
     let familyObj = {}
     familyObj.family_role = this.data.selShipIndex
     if (keys == '7') {
@@ -130,9 +138,6 @@ Page({
       token: app.user.token,
       class_id: app.user.class_id
     }
-    // wx.showModal({
-    //   content: JSON.stringify(params)
-    // })
     utils.wxpromisify({
       url: 'user/addFamily',
       data: params,
@@ -155,9 +160,6 @@ Page({
           content: res.error.message,
           showCancel: false,
           success: function () {
-            wx.reLaunch({
-              url: '/pages/index/index'
-            })
           }
         })
       }
@@ -167,9 +169,6 @@ Page({
         content: '请求超时',
         showCancel: false,
         success: function () {
-          wx.navigateTo({
-            url: '/pages/index/index'
-          })
         }
       })
     })

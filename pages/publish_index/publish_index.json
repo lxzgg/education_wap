@@ -4,5 +4,8 @@
   "navigationBarTitleText": "家长圈",
   "backgroundColor": "#FFFFFF",
   "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "auth-modal":"/components/modal/modal"
+  }
 }

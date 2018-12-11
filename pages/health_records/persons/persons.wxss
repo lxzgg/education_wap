@@ -1,0 +1,1 @@
+.section{padding:30rpx;font-size:28rpx}.section .section__title{color:#333333;padding-bottom:10rpx}.section .content{line-height:36rpx;display:flex;flex-wrap:wrap}.section .content .name{margin:6rpx 10rpx}.section .content .name{color:#7897f4}

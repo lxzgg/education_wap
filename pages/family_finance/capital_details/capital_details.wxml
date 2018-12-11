@@ -1,0 +1,30 @@
+<view class="containor">
+  <view class="section">
+      <image src="/image/1.png" />
+    <view class="left">
+      <view>清朝时期的邮票</view>
+      <view>卧室衣柜第三个抽屉第三本</view>
+    </view>
+  </view>
+  <view class="section">
+      <image src="/image/1.png" />
+    <view class="left">
+      <view>清朝时期的邮票</view>
+      <view>卧室衣柜第三个抽屉第三本</view>
+    </view>
+  </view>
+  <view class="section">
+      <image src="/image/1.png" />
+    <view class="left">
+      <view>清朝时期的邮票</view>
+      <view>卧室衣柜第三个抽屉第三本</view>
+    </view>
+  </view>
+  <view class="section">
+      <image src="/image/1.png" />
+    <view class="left">
+      <view>清朝时期的邮票</view>
+      <view>卧室衣柜第三个抽屉第三本</view>
+    </view>
+  </view>
+</view>

@@ -160,15 +160,15 @@ Page({
   //跳转到编辑页面
   gotToEdit(e) {
     const articleid = e.currentTarget.dataset.articleid
-    app.publish_data = {
-      articleid: articleid,
-      handle: 'edit'
-    }
+    // app.publish_data = {
+    //   articleid: articleid,
+    //   handle: 'edit'
+    // }
     if (this.data.curIndex === 1) { //我的发布
-      wx.switchTab({
-        url: '/pages/publish/publish'
+      wx.navigateTo({
+        url: '/pages/public_edit/public_edit?articleid='+articleid
       })
-      app.publish_data.page = 'my_publish'
+      // app.publish_data.page = 'my_publish'
     } else {
       wx.navigateTo({
         url: '/pages/public_circle/public_circle?articleid='+articleid

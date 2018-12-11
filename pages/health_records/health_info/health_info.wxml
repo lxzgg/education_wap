@@ -1,0 +1,98 @@
+<view class="containor">
+  <view class="section">
+    <view class="section_title">
+      个人资料
+    </view>
+    <view class="row">
+      <input type="text" name="name" value="" placeholder="输入姓名" placeholder-class="placeholder" />
+      <input type="text" name="age" value="" placeholder="输入年龄" placeholder-class="placeholder" />
+    </view>
+    <view class="row">
+      <input type="text" name="name" value="" placeholder="输入血型" placeholder-class="placeholder" />
+      <input type="text" name="age" value="" placeholder="输入电话" placeholder-class="placeholder" />
+    </view>
+    <view class="row">
+      <input type="text" name="name" value="" placeholder="输入身高" placeholder-class="placeholder" />
+      <input type="text" name="age" value="" placeholder="输入体重" placeholder-class="placeholder" />
+    </view>
+    <view class="row">
+      <input type="text" name="birth" class="long_input" value="" placeholder="输入生日" placeholder-class="placeholder" />
+    </view>
+    <view class="row">
+      <view class=" btn weight" bindtap="goToWeight">体重变化值</view>
+      <view class=" btn high" bindtap="goToHeight">身高变化值</view>
+    </view>
+  </view>
+  <view class="section">
+    <view class="section_title">
+      历次检查表管理
+    </view>
+    <view class="content">
+      <textarea name="history" maxlength="-1">
+            这次检查很全面这次检查很全面这次检查很全面这次检查
+            很全面这次检查很全面这次检查很全面这次检查很全面这
+            次检查很全面这次检查很全面这次检查很全面这次检查很
+            全面这次检查很全面这次检查很全面。
+        </textarea>
+      <view class="photo_area">
+        <view class="photo">
+          <image src="/image/history.png"></image>
+          <text class="date">2018-11-19</text>
+          <icon type="clear" size="15"></icon>
+        </view>
+        <view class="photo">
+          <image src="/image/history.png"></image>
+          <text class="date">2018-11-19</text>
+          <icon type="clear" size="15"></icon>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="section">
+    <view class="section_title">
+      过往病历管理
+    </view>
+    <view class="content history_case">
+      <view class="photo_area">
+        <view class="photo">
+          <image src="/image/history.png"></image>
+          <text class="date">2018-11-19</text>
+          <icon type="clear" size="15"></icon>
+        </view>
+        <view class="photo">
+          <image src="/image/history.png"></image>
+          <text class="date">2018-11-19</text>
+          <icon type="clear" size="15"></icon>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="section">
+    <view class="section_title">
+      常用药
+    </view>
+    <view class="content">
+      <view class="row">
+        <input type="text" class="long_input" name="exprie" value="" placeholder="输入有效期" placeholder-class="placeholder" />
+      </view>
+      <view class="row">
+        <input type="text" class="long_input" name="use_method" value="" placeholder="输入使用方式" placeholder-class="placeholder" />
+      </view>
+      <view class="row">
+        <input type="text" class="long_input" name="amount" value="" placeholder="输入使用剂量" placeholder-class="placeholder" />
+      </view>
+      <view class="photo_area">
+        <view class="photo">
+          <image src="/image/history.png"></image>
+          <text class="date">2018-11-19</text>
+          <icon type="clear" size="15"></icon>
+        </view>
+        <view class="photo">
+          <image src="/image/history.png"></image>
+          <text class="date">2018-11-19</text>
+          <icon type="clear" size="15"></icon>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

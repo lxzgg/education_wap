@@ -37,7 +37,7 @@
 .publish-content {
   padding: 0 20rpx;
   background-color: #faf9f9;
-  margin-top: 42rpx;
+  margin-top: 22rpx;
 }
 
 .publish-content textarea {
@@ -166,7 +166,7 @@
   top: 0;
   left: 0;
   background: #000000;
-  opacity: 0.2;
+  opacity: 0.5;
   overflow: hidden;
   z-index: 100;
   color: #fff;
@@ -177,7 +177,7 @@
   background-color: #ffffff;
   overflow: hidden;
   position: fixed;
-  top: 40%;
+  top: 45%;
   left: 18%;
   width: 64%;
   z-index: 2009;

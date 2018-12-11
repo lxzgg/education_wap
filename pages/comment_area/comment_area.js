@@ -71,9 +71,17 @@ Page({
           duration: 3000
         })
         setTimeout(() => {
-          wx.redirectTo({ //返回评论详情页面
-            url: '/pages/comment/comment?articleid='+this.data.options.articleid+'&type='+this.data.options.type
-          })
+          if(this.data.options.is_platform && this.data.options.is_platform == '1'){ //平台发布，平安学园
+            wx.redirectTo({ //返回评论详情页面
+              url: '/pages/article_details/article_details?articleid='+this.data.options.articleid+'&type='+this.data.options.type
+            })
+          
+          }else{
+            wx.redirectTo({ //返回评论详情页面
+              url: '/pages/comment/comment?articleid='+this.data.options.articleid+'&type='+this.data.options.type
+            })
+          }
+         
           this.setData({clear:''})
         },2000)
 
@@ -112,9 +120,16 @@ Page({
           duration: 3000
         })
         setTimeout(() => {
-          wx.redirectTo({ //返回评论详情页面
-            url: '/pages/comment/comment?articleid='+this.data.options.articleid+'&type='+this.data.options.type
-          })
+          if(this.data.options.is_platform && this.data.options.is_platform == '1'){ //平台发布，平安学园
+            wx.redirectTo({ //返回评论详情页面
+              url: '/pages/article_details/article_details?articleid='+this.data.options.articleid+'&type='+this.data.options.type
+            })
+          
+          }else{
+            wx.redirectTo({ //返回评论详情页面
+              url: '/pages/comment/comment?articleid='+this.data.options.articleid+'&type='+this.data.options.type
+            })
+          }
         this.setData({clear:''})
         }, 2000)
       } else {

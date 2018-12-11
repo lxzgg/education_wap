@@ -1,0 +1,102 @@
+page {
+  background-color: #f2f2f2;
+}
+
+.form {
+  .section {
+    padding: 20rpx 28rpx;
+    font-size: 28rpx;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    background-color: #fff;
+  }
+
+  .area {
+    padding: 30rpx 0;
+    display: flex;
+    align-items: flex-start;
+    padding-left: 30rpx;
+    background-color: #fff;
+
+    label {
+      font-size: 28rpx;
+      color: #333333;
+    }
+
+    textarea {
+      width: 544rpx;
+      min-height: 180rpx;
+      border-radius: 6rpx;
+      border: solid 1px #cecccc;
+      margin-left: 71rpx;
+      padding: 10rpx;
+      font-size: 28rpx;
+    }
+
+   
+  }
+  .type {
+    margin-top: 15rpx;
+    display: flex;
+    flex-direction: column;
+
+    .row {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 30rpx;
+      .radio-group{
+        margin-left: 100rpx;
+        display: flex;
+          label{
+            margin-right: 50rpx;
+            display: flex;
+            align-items: center;
+            radio{
+                margin-right: 20rpx;
+            }
+          }
+        
+      }
+    }
+    .row:last-child{
+        margin: 0;
+    }
+  }
+
+  .place_style {
+    color: #989898;
+  }
+  radio .wx-radio-input.wx-radio-input-checked::before{
+    border-radius: 50%;
+    width: 15rpx; 
+    height: 15rpx; 
+    text-align: center;
+    font-size:0rpx; /* 对勾大小 去掉 */
+    background-color: #fff; 
+    transform:translate(-60%, -60%) scale(1);
+    -webkit-transform:translate(-60%, -60%) scale(1);
+ }
+ radio{
+    border-radius: 50%;
+    width: 30rpx;/* 最好是4的倍数，不然会不在中间 */
+    height: 30rpx;
+    border: 2rpx solid #7897f4;/* 设置边框（外圆） */
+    font-size: 0;/* 让边框重合 */
+  }
+  radio .wx-radio-input{
+     border-radius: 50%;
+     width: 30rpx;
+     height: 30rpx; 
+     border: none;/* 替换边框（隐藏原有边框） */
+  }
+  .submit_btn{
+    width: 566rpx;
+	height: 82rpx;
+	background: rgba(#7897f4,0.9);
+    border-radius: 41rpx;
+    font-size: 28rpx;
+    color: #fefefe;
+    line-height: 82rpx;
+    margin-top: 200rpx;
+  }
+}

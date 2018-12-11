@@ -6,7 +6,7 @@
       </view>
       <view class="header-c">
         <view class="user-name">{{content_details.nickname}}</view>
-        <!--<view class="nike-name">学生-小豆豆</view>-->
+        <view class="nike-name">{{content_details.create_time}}</view>
       </view>
     </view>
   </view>
@@ -16,9 +16,9 @@
   </view>
 </view>
 <view class="content">
-  <view><text>{{content_details.article_content}}</text></view>
+ {{content_details.article_content}}
   <view wx:for="{{content_details.article_accessory}}" wx:key="key">
-      <image src="{{item.image}}" wx:if="{{item.image}}" mode="widthFix"></image>
+      <image src="{{item.image}}" wx:if="{{item.image}}" mode="widthFix" data-src="{{item.image}}" bindtap="previewImage"></image>
       <video src="{{item.video}}" wx:if="{{item.video}}"></video>
   </view>
 </view>
@@ -35,7 +35,12 @@
             <view class="nike-name">{{item.eval_time}}</view>
           </view>
         </view>
-        <view class="header-d" bindtap="goToCommentArea" data-id="{{item.eval_id}}" data-ret="repy" wx:if="{{item.eval_reply == ''}}">回复</view>
+        <view 
+          class="header-d" 
+          bindtap="goToCommentArea" 
+          data-id="{{item.eval_id}}" 
+          data-ret="repy" 
+          wx:if="{{item.eval_reply == ''}}">回复</view>
       </view>
     </view>
     <view class="user-comment2">

@@ -1,0 +1,28 @@
+<view class="containor">
+    <view class="section">
+        <view class="section__title">家庭成员</view>
+        <view class="content">
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+            <view class="name">爸爸</view>
+        </view>
+    </view>
+</view>

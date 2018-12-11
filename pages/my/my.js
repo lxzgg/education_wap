@@ -6,12 +6,14 @@ Page({
     imageUrl: '',
     nickname: '',
     showModalStatus: false,
+    showModal: true,
     roleName: '',
     loginAuth: 0,
     isAdmin: false,
     windowWidth: 240,
     windowHeight: 300,
     qrcode: '',
+    shareImg:'',
     evalList: [{
       tempFilePaths: [],
       imgList: []
@@ -42,93 +44,125 @@ Page({
     })
   },
   //页面
-  getUserInfo() {
-    wx.login({
-      success: (res) => {
-        if (res.code) {
-          wx.getUserInfo({
-            withCredentials: true,
-            success: (data) => {
-              new Promise((resolve, reject) => {
-                utils.wxpromisify({
-                  url: "user/login",
-                  data: {
-                    code: res.code,
-                    encryptedData: data.encryptedData,
-                    iv: data.iv
-                  },
-                  method: 'post'
-                }).then((ret) => {
-                  Object.assign(app.user, ret.data)
-                  wx.setStorageSync('user', ret.data)
-                  let unionid = ret.data.unionid
-                  const userInfo_string = data.rawData
-                  const userInfo = JSON.parse(userInfo_string)
-                  utils.wxpromisify({
-                    url: "user/updateUserInfo",
-                    data: {
-                      unionid: unionid,
-                      user_id: app.user.user_id,
-                      token: app.user.token,
-                      city: userInfo.province,
-                      nickname: userInfo.nickName,
-                      gender: userInfo.gender,
-                      language: userInfo.language,
-                      avatarUrl: userInfo.avatarUrl
-                    },
-                    method: 'post'
-                  }).then((res) => {
-                    if (res && res.response === 'data') {
-                      // Object.assign(app.user, {islogin:1})
-                      // wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'), {islogin:1}))
-                      this.getUserSelfInfo()
-                    }
-                  })
-                })
-              })
-            },
-            fail: (err) => {}
-          })
-        }
-      }
-    })
-  },
+  // getUserInfo() {
+  //   wx.login({
+  //     success: (res) => {
+  //       if (res.code) {
+  //         wx.getUserInfo({
+  //           withCredentials: true,
+  //           success: (data) => {
+  //             new Promise((resolve, reject) => {
+  //               utils.wxpromisify({
+  //                 url: "user/login",
+  //                 data: {
+  //                   code: res.code,
+  //                   encryptedData: data.encryptedData,
+  //                   iv: data.iv
+  //                 },
+  //                 method: 'post'
+  //               }).then((ret) => {
+  //                 Object.assign(app.user, ret.data)
+  //                 wx.setStorageSync('user', ret.data)
+  //                 let unionid = ret.data.unionid
+  //                 const userInfo_string = data.rawData
+  //                 const userInfo = JSON.parse(userInfo_string)
+  //                 utils.wxpromisify({
+  //                   url: "user/updateUserInfo",
+  //                   data: {
+  //                     unionid: unionid,
+  //                     user_id: app.user.user_id,
+  //                     token: app.user.token,
+  //                     city: userInfo.province,
+  //                     nickname: userInfo.nickName,
+  //                     gender: userInfo.gender,
+  //                     language: userInfo.language,
+  //                     avatarUrl: userInfo.avatarUrl
+  //                   },
+  //                   method: 'post'
+  //                 }).then((res) => {
+  //                   if (res && res.response === 'data') {
+  //                     // Object.assign(app.user, {islogin:1})
+  //                     // wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'), {islogin:1}))
+                    
+  //                   }
+  //                 })
+  //               })
+  //             })
+  //           },
+  //           fail: (err) => {}
+  //         })
+  //       }
+  //     }
+  //   })
+  // },
+
+
   getUserSelfInfo() {
-    let is_admin = ''
-    if (app.user.is_admin != '1') {
-      is_admin = app.admin_auth[app.user.is_admin] + '/' + app.user_role[app.user.user_role]
+   
+    //家长 //老师 //游客
+    let is_teacher = false
+    if (app.user.is_admin == '1') {
+      is_teacher = app.user.admin_type == '1' ? true : false
     } else {
-      is_admin = app.admin_auth[app.user.is_admin]
+      is_teacher = (app.user.user_role == '0' || app.user.user_role == '1') ? true : false
     }
-    this.setData({
-      roleName: is_admin
-    })
+    let url = is_teacher ? 'user/userInfoTea' : 'user/userInfo' //（1-班主任，2-家长会）
     utils.wxpromisify({
-      url: 'user/userInfo',
+      url: url,
       data: {
         user_id: app.user.user_id,
-        token: app.user.token
+        token: app.user.token,
+        class_id: app.user.class_id
       },
       method: 'post'
     }).then((ret) => {
       if (ret.response == 'data') {
         app.username = ret.data.username
         // Object.assign(app.user, app.user.username)
+
+        let nickname = is_teacher ? (ret.data.username ? ret.data.username : ret.data.nickname) : ret.data.child_name +    ret.data.family_role_name
         this.setData({
-          nickname: ret.data.nickname,
+          nickname,
           imageUrl: ret.data.avatarUrl
           // loginAuth: app.user.islogin
         })
+        this.adminStatus(is_teacher,ret.data.subject_name)
       }
     }).catch((err) => {})
+
+   
   },
+
+  adminStatus(bool,subject){
+    console.log()
+    let is_admin = ''
+    if (app.user.is_admin != '1') { //非管理员
+      if (bool && subject){
+        is_admin = app.admin_auth[app.user.is_admin] + '/' + subject +app.user_role[app.user.user_role]
+      }else{
+        is_admin = app.admin_auth[app.user.is_admin] + '/' + app.user_role[app.user.user_role]
+      }
+     
+    } else {
+      is_admin = app.admin_auth[app.user.admin_type]
+    }
+    this.setData({
+      roleName: is_admin
+    })
+  },
+
+
+
+
   getCurrentClasss() {
     utils.wxpromisify({
       url: 'class_info/info',
       data: app.user,
       method: 'post'
     }).then((res) => {
-      app.class_name = res.data.class_name
+      if (res && res.response == 'data') {
+        app.class_name = res.data.class_name
+      }
     })
   },
   //显示对话框
@@ -148,7 +182,6 @@ Page({
     setTimeout(() => {
       const username = app.username ? app.username : ''
       const class_name = app.class_name
-      // console.log(this.data.qrcode)
       wx.getImageInfo({
         src: this.data.qrcode,
         success: (res) => {
@@ -163,7 +196,7 @@ Page({
   },
 
   //隐藏对话框
-  hideModal: function () {
+  hideModal() {
     // 隐藏遮罩层
     var animation = wx.createAnimation({
       duration: 200,
@@ -181,6 +214,8 @@ Page({
         animationData: animation.export(),
         showModalStatus: false
       })
+
+      
     }.bind(this), 200)
   },
   createqrCode() {
@@ -210,7 +245,7 @@ Page({
       content: '保存该图片，可以分享给其他老师或者家长',
       success: (res) => {
         if (res.confirm) {
-          let qrcode = this.data.qrcode
+          let qrcode = this.data.shareImg
           wx.saveImageToPhotosAlbum({
             filePath: qrcode,
             success: (res) => {
@@ -364,9 +399,14 @@ Page({
     ctx.fillRect(0, 0, this.data.windowWidth, this.data.windowHeight) //填充一个矩形
 
     ctx.setFillStyle('black')
+    ctx.setFontSize(15)
+    ctx.fillText(name, 20, 20)
+
+
+    ctx.setFillStyle('black')
     ctx.setFontSize(14)
-    const title = name + '邀请您使用平安学园创建班级'
-    ctx.fillText(title, (this.data.windowWidth - ctx.measureText(title).width) / 2, 30)
+    const title = '邀请您使用平安学园创建班级'
+    ctx.fillText(title, 30, 40)
 
     // ctx.setFillStyle('#fff')
     ctx.drawImage(tempPath, 45, 50, 150, 145); //显示图片 (img,sx,sy,swidth,sheight,x,y,width,height)
@@ -386,15 +426,15 @@ Page({
       wx.canvasToTempFilePath({
         x: 0,
         y: 0,
-        width: 0,
-        height: 0,
-        destWidth: this.data.windowWidth,
-        destHeight: this.data.windowHeight,
+        width: 400,
+        height: 480,
+        destWidth: 900, //this.data.windowWidth*2
+        destHeight: 1000, //this.data.windowHeight*2
         canvasId: 'qrcodeImg',
         success: (res) => {
           this.setData({
-            // shareImg: res.tempFilePath,
-            qrcode: res.tempFilePath
+            shareImg: res.tempFilePath,
+            //qrcode: res.tempFilePath
           })
         },
         fail: (res) => {
@@ -405,5 +445,14 @@ Page({
         }
       })
     }, 200));
-  }
+  },
+    //接收从model传回来的值
+    getResultFromComp(e){
+      let result = e.detail.ret
+     if(result === 'ok'){
+       this.setData({
+         showModal: false
+       })
+     }
+    }
 })

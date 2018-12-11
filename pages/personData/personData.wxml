@@ -10,13 +10,13 @@
   </view>
   <view class="item">
     <view class="item-name">
-      <view class="item-name-name">姓名</view>
-      <view class="item-name-content"><input name="username" placeholder="输入姓名" value="{{content.username || content.child_name}}"/></view>
+      <view class="item-name-name">{{!is_teacher ? '小孩姓名': '姓名'}}</view>
+      <view class="item-name-content"><input name="username" placeholder="输入姓名" value="{{is_teacher ? content.username: content.child_name}}"/></view>
     </view>
   </view>
   <view class="item no-item">
     <view class="item-name">
-      <view class="item-name-name">性别</view>
+      <view class="item-name-name">{{!is_teacher ? '小孩性别': '性别'}}</view>
     </view>
     <radio-group class="radio-group" bindchange="radioChange">
       <label wx:for="{{sex_list}}" wx:key="sex_list" class="{{radioCheckVal==item.name?'active':''}}">
@@ -36,7 +36,7 @@
     </view>
     <view class="icon icon-you"></view>
   </view>
-  <view class="item" wx:if="{{role == '2'}}">
+  <view class="item"  wx:if="{{!is_teacher}}">
     <view class="item-name">
       <view class="item-name-name sp">亲属关系</view>
     </view>
@@ -46,10 +46,10 @@
         wx:item="item" 
         wx:key="{{item.family_role}}" 
         data-num="{{item.family_role}}" bindtap="switchShip">{{item.family_role_name}}</view>
-        <view class="list-item input-box" wx:if="{{showshipInput}}"><input type="text" name="family_role_name"/></view>
+        <view class="list-item input-box" wx:if="{{showshipInput}}"><input type="text" name="family_role_name" value="{{other_family}}"/></view>
     </view>
   </view>
-  <view class="item" wx:if="{{role == '2'}}">
+  <view class="item" wx:if="{{!is_teacher}}">
     <view class="item-name">
       <view class="item-name-name sp">兴趣爱好</view>
     </view>
@@ -59,12 +59,12 @@
         wx:item="item" 
         wx:key="{{item.like_id}}" 
         data-num="{{item.like_id}}" bindtap="switchHobby">{{item.other_like}}</view>
-        <view class="list-item input-box" wx:if="{{showhobbyInput}}"><input type="text" name="other_like"/></view>
+        <view class="list-item input-box" wx:if="{{showhobbyInput}}"><input type="text" name="other_like" value="{{other_hobby}}"/></view>
     </view>
   </view>
-  <view class="item" wx:if="{{role == '1' || role == '0' }}">
+  <view class="item" wx:if="{{is_teacher}}" style="padding-right: 10px;">
     <view class="item-name">
-      <view class="item-name-name sp">所任课程</view>
+      <view class="item-name-name sp">所任职务</view>
     </view>
     <view class="list">
       <view class="list-item {{item.subject_type == workIndex ? 'ship_active' : ''}}" 
@@ -72,7 +72,7 @@
         wx:item="item" 
         wx:key="{{item.subject_type}}" 
         data-num="{{item.subject_type}}" bindtap="switchWork">{{item.subject_name}}</view>
-      <view class="list-item input-box" wx:if="{{showObjInput}}"><input type="text" name="subject_name" placeholder="如：语文"/></view>
+      <view class="list-item input-box" wx:if="{{showObjInput}}"><input type="text" name="subject_name" placeholder="如：语文" value="{{other_subject}}"/></view>
     </view>
   </view>
   <button class="subBtn" formType="submit">保 存</button>

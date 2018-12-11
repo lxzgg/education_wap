@@ -195,10 +195,8 @@
   height: 360rpx; 
   position: relative;
 }
-.img_plus .icon-jia{
+.img_plus .add_btn{
   border: 1rpx solid #ffaa00;
-  width: 60rpx;
-  height: 60rpx;
   background: #ffaa00;
   color:#fff;
   position: absolute;
@@ -206,8 +204,15 @@
   right: 20rpx;
   z-index: 99;
   text-align: center;
-  border-radius: 50%;
-  line-height: 60rpx;
+  line-height: 50rpx;
+  padding: 3rpx 12rpx;
+  font-size: 26rpx;
+  border-radius: 10rpx;
+ 
+}
+.icon-jia{
+  font-size: 26rpx;
+  margin-right: 5rpx;
 }
 .img_plus{
   display: flex;

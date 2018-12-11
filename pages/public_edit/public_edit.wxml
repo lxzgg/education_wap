@@ -1,0 +1,55 @@
+<form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="type">
+      <view class="text">请选择您要发布的分类</view>
+      <view class="list">
+        <view class="list-item {{item.cate_id === cate_id ? 'active':''}}" 
+          wx:for="{{list}}" 
+          wx:item="item" 
+          wx:key="{{item.cate_id}}" 
+          data-catename="{{item.cate_name}}" 
+          data-id="{{item.cate_id}}"
+          bindtap="changeActive">{{item.cate_name}}</view>
+      </view>
+       <!--<view class="text" wx:if="{{homeworkAuth}}">请选择发布作业的科目：</view>
+       <view class="list hwt" wx:if="{{homeworkAuth}}">
+        <view class="home-item {{arr.id === hwt_id ? 'active':''}}" 
+          wx:for="{{homeworkType}}" 
+          wx:for-item="arr" 
+          wx:key="{{arr.id}}" 
+          data-id="{{arr.id}}"
+          bindtap="changeActiveHWT">{{arr.subject}}</view>
+      </view>-->
+    </view>
+    <view class="publish-content">
+      <textarea placeholder="输入您想要输入的文字" name="descript" placeholder-style="color:#999;" value="{{info}}"></textarea>
+      <view class="img-list">
+        <view class="item" wx:for="{{evalList[0].tempFilePaths}}" wx:for-item="arr" wx:key="index">
+          <image wx:if="{{arr.type == 'image'}}" src="{{arr.path}}"></image>
+          <video wx:if="{{arr.type == 'video'}}" src="{{arr.path}}"></video>
+          <view class="icon icon-shanchu" data-index="{{index}}" bindtap="clearImg"></view>
+        </view>
+        <view class="add-item item" bindtap="openModal" wx:if="{{showPlusIcon}}">
+          <view class="icon icon-jia"></view>
+        </view>
+      </view>
+      <view class="button-list">
+        <view class="item" wx:for="{{handle}}" wx:for-item="arr" wx:key="{{arr.index}}">
+          <view class="text">{{arr.type}}<text wx:if="{{arr.type == '公开'}}" class="tips">公开即班级外的成员也可查看</text></view>
+          <view>
+            <switch bindchange="switchChange" data-num="{{arr.index}}" checked="{{arr.on}}" color="#ffaa00" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <button class="post" formType="submit">保存编辑</button>
+    <view class="del_view"><text class="del_btn" bindtap="delArticle">删除</text></view>
+     
+  </form>
+  <!--屏幕背景变暗的背景 -->
+  <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+  <!--弹出框 -->
+  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+    <view bindtap="chooseType" data-type="camera">相册</view>
+    <view bindtap="chooseType" data-type="video">视频</view>
+  </view>
+  

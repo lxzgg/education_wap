@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    selSubIndex: 1,
+    selSubIndex: '',
     showObjInput: false,
     classInfo: {},
     invit_class_id: '',
@@ -15,21 +15,25 @@ Page({
     workItem: [{
         subject_type: 1,
         subject_name: '语文'
-      }, {
-        subject_type: 2,
-        subject_name: '英语'
       },
       {
         subject_type: 3,
         subject_name: '数学'
       },
       {
+        subject_type: 2,
+        subject_name: '英语'
+      },
+      {
         subject_type: 4,
-        subject_name: '化学'
+        subject_name: '生活'
       },
       {
         subject_type: 5,
-        subject_name: '物理'
+        subject_name: '艺术'
+      }, {
+        subject_type: 7,
+        subject_name: '家委'
       }, {
         subject_type: 6,
         subject_name: '其他'
@@ -78,22 +82,22 @@ Page({
             invit_class_id
           })
           let data = res.data
-           data.class_id = invit_class_id
+          data.class_id = invit_class_id
           Object.assign(app.user, data)
           wx.setStorageSync('user', Object.assign(wx.getStorageSync('user'), data))
         }
-       // resolve()
+        // resolve()
       }).then(() => {
         //获取当前班级信息
         return utils.wxpromisify({
-                  url: 'class_info/info',
-                  data: {
-                    token: app.user.token,
-                    user_id: app.user.user_id,
-                    class_id: invit_class_id
-                  },
-                  method: 'post'
-              })
+          url: 'class_info/info',
+          data: {
+            token: app.user.token,
+            user_id: app.user.user_id,
+            class_id: invit_class_id
+          },
+          method: 'post'
+        })
       }).then((res) => {
         if (res && res.response === 'data') {
           const classInfo = res.data
@@ -122,7 +126,7 @@ Page({
         icon: 'none',
         duration: 5000
       })
-
+      return 
     }
     const bool = this.isPoneAvailable(mobile)
     if (!bool) {
@@ -134,11 +138,21 @@ Page({
       return
     }
     let keys = this.data.selSubIndex
+    if(!keys){
+      wx.showToast({
+        title: '请选择所任职务',
+        icon: 'none',
+        duration: 5000
+      })
+      return 
+    }
     let subObj = {}
     subObj.subject_type = this.data.selSubIndex
     if (keys == '6') {
       const other_subject_name = e.detail.value.subject_name
-      subObj.subject_name = other_subject_name
+      subObj.other_subject = other_subject_name
+    }else{
+      subObj.other_subject = this.data.workItem[keys].subject_name
     }
     const params = {
       mobile,
@@ -148,10 +162,7 @@ Page({
       token: app.user.token,
       class_id: this.data.invit_class_id
     }
-     wx.showModal({
-          title:'提示',
-          content: JSON.stringify(params)
-        })
+   // console.log(JSON.stringify(params))
     utils.wxpromisify({
       url: 'user/addTeacher',
       data: params,
@@ -174,9 +185,6 @@ Page({
           content: res.error.message,
           showCancel: false,
           success: function () {
-            wx.reLaunch({
-              url: '/pages/index/index'
-            })
           }
         })
       }
@@ -186,9 +194,6 @@ Page({
         content: '请求超时',
         showCancel: false,
         success: function () {
-          wx.reLaunch({
-            url: '/pages/myself/class_contact'
-          })
         }
       })
     })

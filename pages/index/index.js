@@ -1,22 +1,22 @@
 const app = getApp()
 const util = require('../../utils/util')
-
 Page({
   data: {
     isEmpty: true,
+    showModal:true, //显示授权modal
     totalPage: 1,
     pageSize: 10,
     currentPage: 1,
     adList: [{
       ad_image: '../../image/banner1.jpg'
     }],
-    cateList:[],
+    cateList: [],
     article: []
   },
   onLoad(options) {
     let class_id = app.user.class_id
-    if(class_id == '0'){
-       new Promise((resolve) => {
+    if (!class_id || class_id == '0' || (options && options.type == "index") || (options && options.type == "firend")) {
+      new Promise((resolve) => {
         wx.login({
           success: res => {
             resolve(res)
@@ -35,19 +35,38 @@ Page({
           data: res.data
         })
         wx.hideLoading()
-         this.init()
+        this.init()
+        if (options && options.type == "index") {
+          if (options.is_platform && options.is_platform == '1') {
+            wx.navigateTo({
+              url: '/pages/article_details/article_details?articleid=' + options.articleid + '&type=index',
+            })
+          } else {
+            wx.navigateTo({
+              url: '/pages/comment/comment?articleid=' + options.articleid + '&type=index',
+            })
+          }
+
+        }
+        if (options && options.type == "firend") {
+          wx.navigateTo({
+            url: '/pages/comment/comment?articleid=' + options.articleid + '&type=firend',
+          })
+        }
       }).catch(() => {
-       
+
       })
     }
     this.init()
+  },
+  onShow(){
+    this.isAuthStatus()
   },
   init() {
     this.getBanner()
     this.getArticle()
     this.cateList()
   },
-
   /********************api********************/
 
   // 获取轮播
@@ -64,6 +83,12 @@ Page({
       }
     })
   },
+  isAuthStatus(){
+    if(app.user.auth_status){
+      this.setData({showModal: false})
+    }
+  },
+
 
   // 获取文章列表
   getArticle() {
@@ -76,17 +101,17 @@ Page({
       },
       method: 'post'
     }).then(res => {
-        if (res.response === 'data') {
+      if (res.response === 'data') {
         let article = this.data.article
         // article.push(...res.list)
         this.setData({
-          article:res.list,
+          article: res.list,
           isEmpty: false,
           totalPage: res.total_page
         })
       }
     })
-  
+
     // app.api.home.article({
     //   page: this.data.currentPage,
     //   token: app.user.token,
@@ -95,7 +120,7 @@ Page({
     //   class_id: app.user.class_id,
     //   article_type: ''
     // }).then(res => {
-    
+
     // })
   },
   // 首页分类列表
@@ -115,10 +140,17 @@ Page({
 
   //跳转到评论页面
   goToComment(e) {
+    let platform = e.currentTarget.dataset.platform
     let article_id = e.currentTarget.dataset.articleid
-    wx.navigateTo({
-      url: '/pages/comment/comment?articleid=' + article_id + '&type=index'
-    })
+    if (platform == '1') {
+      wx.navigateTo({
+        url: '/pages/article_details/article_details?articleid=' + article_id + '&type=index'
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/comment/comment?articleid=' + article_id + '&type=index'
+      })
+    }
   },
 
   //跳转到浏览统计页面
@@ -153,36 +185,18 @@ Page({
       })
     })
   },
-  onShareAppMessage() {
+  onShareAppMessage(e) {
+    let articleid = e.target.dataset.articleid
+    let type = e.target.dataset.type
+    let platform = e.target.dataset.platform
+
     return {
-      title: '分享首页内容',
+      title: '给你分享一个' + type + '内容',
       imageUrl: '/image/xiaohaoge.png',
-      path: 'pages/index/index' // 路径，传递参数到指定页面。
+      path: '/pages/index/index?articleid=' + articleid + '&type=index' + '&is_platform=' + platform // 路径，传递参数到指定页面。
     }
   },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  // onReachBottom: function (e) {
-  //   wx.showLoading({
-  //     title: '加载中...'
-  //   })
-  //   let page = this.data.currentPage
-  //   let totalPage = this.data.totalPage
-  //   wx.hideLoading()
-  //   if (page >= totalPage) {
-  //     wx.showToast({
-  //       title: '没有更多数据了',
-  //       duration: 3000,
-  //       icon: 'none'
-  //     })
-  //   } else {
-  //     this.setData({
-  //       currentPage: page + 1
-  //     })
-  //     this.getArticle()
-  //   }
-  // },
+
   //下拉刷新数据
   onPullDownRefresh(e) {
     wx.showToast({
@@ -190,7 +204,9 @@ Page({
       icon: 'loading',
       duration: 2000
     })
-    this.setData({article:[]})
+    this.setData({
+      article: []
+    })
     this.init();
     setTimeout(() => {
       wx.stopPullDownRefresh();
@@ -213,5 +229,14 @@ Page({
       }
     }
     return params
+  },
+  //接收从model传回来的值
+  getResultFromComp(e){
+    let result = e.detail.ret
+   if(result === 'ok'){
+     this.setData({
+       showModal: false
+     })
+   }
   }
 })

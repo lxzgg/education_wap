@@ -1,0 +1,37 @@
+<view class="containor">
+  <form class="form">
+    <view class="section">
+      <input placeholder="输入费用金额" placeholder-class="place_style" />
+    </view>
+    <view class="area">
+      <label>备注</label>
+      <textarea placeholder="请输入内容..." placeholder-class="place_style">
+            </textarea>
+    </view>
+    <view class="area type">
+      <view class="row">
+        <label>支出类型</label>
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label class="radio">
+            <radio value="1" checked="true" color="#7897f4" />公共支出
+          </label>
+          <label class="radio">
+            <radio value="2" checked="false" color="#7897f4" />家庭成员
+          </label>
+        </radio-group>
+      </view>
+      <view class="row">
+        <label>是否必要</label>
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label class="radio">
+            <radio value="1" checked="true" color="#7897f4" />必要支出
+          </label>
+          <label class="radio">
+            <radio value="2" checked="false" color="#7897f4" />非必要支出
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <button class="submit_btn">完成</button>
+  </form>
+</view>

@@ -1,0 +1,61 @@
+.zixiupu {
+  padding: 34rpx
+}
+
+.zixiupu .title {
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 29rpx
+}
+
+.zixiupu .content {
+  font-size: 28rpx;
+  line-height: 36rpx;
+  color: #656565
+}
+
+.persons {
+  padding: 30rpx;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc
+}
+
+.persons .title {
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 29rpx
+}
+
+.persons .content {
+  font-size: 28rpx;
+  line-height: 36rpx;
+  color: #656565;
+  display: flex;
+  flex-wrap: wrap
+}
+
+.persons .content .name {
+  margin: 6rpx 10rpx
+}
+
+.history {
+  padding: 30rpx
+}
+
+.history .title {
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 29rpx
+}
+
+.history .content {
+  font-size: 28rpx;
+  line-height: 36rpx;
+  color: #656565;
+  display: flex;
+  flex-wrap: wrap
+}
+
+.history .content .item {
+  margin-bottom: 20rpx
+}

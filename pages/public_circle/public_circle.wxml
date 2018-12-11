@@ -2,12 +2,17 @@
   <view class="type">
     <view class="text">请选择您要发布动态的标签</view>
     <view class="list">
-      <view class="list-item {{item.id === current_id ?'active':''}}" wx:for="{{navData}}" wx:item="item" wx:key="{{item.id}}" data-index="{{item.id}}"
+      <view 
+        class="list-item {{item.id === current_id ?'active':''}}" 
+        wx:for="{{navData}}" 
+        wx:item="item" 
+        wx:key="{{item.id}}" 
+        data-index="{{item.id}}"
         bindtap="changeActive">{{item.cate_name}}</view>
     </view>
   </view>
   <view class="publish-content">
-    <textarea placeholder="输入您想要输入的文字" name="descript" placeholder-style="color:#999;" value="{{info}}"></textarea>
+    <textarea placeholder="输入您想要输入的文字" name="descript" placeholder-style="color:#999;" maxlength='-1' value="{{info}}"></textarea>
     <view class="img-list">
        <view class="item" wx:for="{{evalList[0].tempFilePaths}}" wx:for-item="arr" wx:key="index">
         <image wx:if="{{arr.type == 'image'}}" src="{{arr.path}}"></image>
@@ -21,7 +26,7 @@
     <div style="height: 10rpx;width:100%;background: #fff;" ></div>
     <view class="button-list">
       <view class="item">
-        <view class="text">公开<text class="tips">公开即班级外的成员也可查看</text></view>
+        <view class="text">公开<text class="tips">公开即班级以外的所有阅读者都可查看</text></view>
         <view>
           <switch bindchange="switchChange" checked="{{switch}}" color="#ffaa00" />
         </view>

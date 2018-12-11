@@ -1,0 +1,35 @@
+page {
+  background-color: #f2f2f2;
+}
+
+.section {
+    margin: 20rpx 30rpx 0 30rpx;
+  background-color: #ffffff;
+  .row {
+    font-size: 28rpx;
+    color: #333333;
+    display: flex;
+    padding: 26rpx 20rpx;
+    justify-content: space-between;
+    text-align: center;
+    line-height: 40rpx;
+    border-bottom: 1px solid #ccc;
+    .btn {
+      width: 80rpx;
+      height: 40rpx;
+      background-color: #7897f4;
+      border-radius: 20rpx;
+      font-size: 26rpx;
+      color: #ffffff;
+    }
+    .title{
+        font-size: 24rpx;
+	line-height: 36rpx;
+	color: #656565;
+    }
+
+  }
+  .row:last-child{
+      border-bottom: none;
+  }
+}

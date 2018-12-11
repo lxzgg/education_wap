@@ -4,7 +4,6 @@
   background-color: #f9f9f9;
   font-size: 30rpx;
   display: flex;
-  justify-content: space-between;
   padding: 15rpx 38rpx;
   margin-top: 20rpx;
 }

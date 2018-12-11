@@ -4,5 +4,8 @@
   "navigationBarTitleText": "首页",
   "backgroundColor": "#FFFFFF",
   "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "auth-modal":"/components/modal/modal"
+  }
 }

@@ -12,7 +12,8 @@ Page({
     tearchTotal: 0,
     parentTotal: 0,
     showModalStatus: false,
-    qrcode: '',
+    qrcode: '',//生成的二维码图片
+    shareImg:'',//canvas生成的图片
     windowWidth: 240,
     windowHeight: 300,
     current_user_id: '',
@@ -218,7 +219,7 @@ Page({
       content: '保存该图片，可以分享给其他老师或者家长',
       success: (res) => {
         if (res.confirm) {
-          let qrcode = this.data.qrcode
+          let qrcode = this.data.shareImg
           wx.saveImageToPhotosAlbum({
             filePath: qrcode,
             success: (res) => {
@@ -295,15 +296,15 @@ Page({
       wx.canvasToTempFilePath({
         x: 0,
         y: 0,
-        width: 0,
-        height: 0,
-        destWidth: this.data.windowWidth,
-        destHeight: this.data.windowHeight,
+        width: 300,
+        height: 300,
+        destWidth: 600,//this.data.windowWidth,
+        destHeight: 600,//this.data.windowHeight,
         canvasId: 'qrcodeImg',
         success: (res) => {
           this.setData({
-            // shareImg: res.tempFilePath,
-            qrcode: res.tempFilePath
+             shareImg: res.tempFilePath,
+        //qrcode: res.tempFilePath
           })
         },
         fail: (res) => {

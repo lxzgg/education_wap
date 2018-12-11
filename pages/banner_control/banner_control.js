@@ -125,6 +125,7 @@ Page({
       url: 'class_info/userAd',
       data: {
         token: app.user.token,
+        class_id: app.user.class_id,
         user_id: app.user.user_id,
         page: 1,
         num: 25
@@ -132,6 +133,7 @@ Page({
       method: 'post'
     }).then((res) => {
       if (res && res.response === 'data') {
+        console.log(res)
         this.setData({
           list: res.list
         })

@@ -18,7 +18,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // console.log(options)
     this.setData({
       options
     })
@@ -26,11 +25,12 @@ Page({
   },
   //获取发布内容详情
   getContent() {
+    app.user = wx.getStorageSync('user')
     let articleid = this.data.options.articleid
     let type = this.data.options.type
     const params = {
       token: app.user.token,
-      user_id: app.user.user_id,
+      user_id: app.user.user_id
     }
     //index 类型为第二个导航发布的内容， firend类型为家长圈发布的内容
     let url = type === 'index' ? 'article/article_detail' : 'friend/contentDetail'
@@ -44,31 +44,38 @@ Page({
       data: params,
       method: 'post'
     }).then(res => {
-      let content_details = {},
-        eval_list = []
-      if (type === 'firend') {
-        const data = res.data
-        content_details.article_id = data.id
-        content_details.article_content = data.content
-        content_details.article_accessory = data.accessory
-        content_details.avatarUrl = data.head_img
-        content_details.nickname = data.add_user
-        content_details.like_num = data.like_num
-        content_details.is_remard = data.is_remard
-        content_details.create_time = data.create_time
-        // content_details.add_user = data.add_user
-        eval_list = res.list
+      if (res && res.response == 'data') {
+        let content_details = {},
+          eval_list = []
+        if (type === 'firend') {
+          const data = res.data
+          content_details.article_id = data.id
+          content_details.article_content = data.content
+          content_details.article_accessory = data.accessory
+          content_details.avatarUrl = data.head_img
+          content_details.nickname = data.add_user
+          content_details.like_num = data.like_num
+          content_details.is_remard = data.is_remard
+          content_details.create_time = data.create_time
+          // content_details.add_user = data.add_user
+          eval_list = res.list
+        } else {
+          content_details = res.data
+          eval_list = res.list
+        }
+        
+        this.setData({
+          eval_list: eval_list || '',
+          content_details: content_details || '',
+          info: '', //清空评论的内容
+          curInput: '' //清空刚刚回复的id项
+        })
       } else {
-        content_details = res.data
-        eval_list = res.list
+        wx.showToast({
+          icon: 'none',
+          title: res.error.message
+        })
       }
-
-      this.setData({
-        eval_list,
-        content_details,
-        info: '', //清空评论的内容
-        curInput: '' //清空刚刚回复的id项
-      })
     })
   },
   goToCommentArea(e) {
@@ -104,11 +111,30 @@ Page({
       })
     })
   },
-  onShareAppMessage() {
+  onShareAppMessage(e) {
+    let articleid = this.data.options.articleid
+    let type = this.data.options.type
+    let username = this.data.content_details.user_name ? this.data.content_details.user_name : this.data.content_details.nickname
+  //  let src = e.target.dataset.src
+    //let share_src = src == '' ? '/image/xiaohaoge.png' : src
     return {
-      title: '分享内容',
+      title: username+'给你分享一个内容',
       imageUrl: '/image/xiaohaoge.png',
-      path: 'pages/public_index/public_index' // 路径，传递参数到指定页面。
+      path: '/pages/index/index?articleid='+articleid+'&type='+type // 路径，传递参数到指定页面。
     }
+  },
+  previewImage(e){
+    let accessory = this.data.content_details.article_accessory
+    let imgs = []
+    if(accessory.length>0){
+      accessory.forEach((val,key)=>{
+       imgs.push(val.image)
+      })
+    }
+    var current = e.target.dataset.src;
+    wx.previewImage({
+      current: current, // 当前显示图片的http链接 
+      urls: imgs // 需要预览的图片http链接列表 
+    })
   }
 })

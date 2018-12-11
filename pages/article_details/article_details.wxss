@@ -1,0 +1,219 @@
+/**app.wxss**/
+@import "/wxParse/wxParse.wxss";
+.user-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 40rpx 20rpx 10rpx 20rpx;
+  }
+  
+  .user-header .header-l {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .user-header .header-l .header {
+    width: 92rpx;
+    height: 92rpx;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .user-header .header-l .header image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .user-header .header-l .header-c {
+    margin-top: 14rpx;
+    margin-left: 20rpx;
+  }
+  
+  .user-header .header-l .header-c .user-name {
+    font-size: 30rpx;
+    color: #666;
+  }
+  
+  .user-header .header-l .header-c .nike-name {
+    font-size: 26rpx;
+    color: #999;
+  }
+  
+  .user-header .header-r {
+    color: #999999;
+    font-size: 30rpx;
+    display: flex;
+    line-height: 90rpx;
+    min-width: 150rpx;
+  }
+  
+  .user-header .header-r .icon {
+    margin-right: 10rpx;
+  }
+  
+  .content {
+      padding: 0 20rpx 50rpx 20rpx;
+  }
+  
+   .content image, .content video{
+     width:100%;
+   /* max-width: 710rpx;
+      max-height: 564rpx; */
+  }
+  
+  .content text,
+  .content view,
+  .content p,
+  .content div,
+  .content span,
+  .content h1,
+  .content h2,
+  .content h3,
+  .content h5 {
+    font-size: 28rpx;
+  }
+  
+  .comment-list {
+    padding-bottom: 100rpx;
+  }
+  
+  .comment-list .user-comment {
+    padding: 20rpx;
+    /* border-bottom: 1rpx solid #eeeeee; */
+  }
+  
+  .comment-list .user-comment .user-header2 .header-l {
+    display: flex;
+  }
+  
+  .comment-list .user-comment .user-header2 .header-l .header {
+    width: 92rpx;
+    height: 92rpx;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .comment-list .user-comment .user-header2 .header-l .header image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .comment-list .user-comment .user-header2 .header-l .header-c {
+    margin-top: 14rpx;
+    margin-left: 20rpx;
+  }
+  
+  .comment-list .user-comment .user-header2 .header-l .header-c .user-name {
+    font-size: 30rpx;
+    color: #666;
+  }
+  
+  .comment-list .user-comment .user-header2 .header-l .header-c .nike-name {
+    font-size: 28rpx;
+    color: #999;
+  }
+  
+  .comment-list .user-comment .user-comment2 {
+    /* width: 100%; */
+    padding-left: 100rpx;
+    padding-right: 20rpx;
+    font-size: 30rpx;
+    word-wrap: break-word;
+  }
+  
+  .comment-list .user-comment:first-child {
+    border: none;
+  }
+  
+  .footer {
+    height: 120rpx;
+    background-color: #eeeeee;
+    line-height: 100rpx;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    z-index: 99;
+    padding: 20rpx 20rpx;
+    box-sizing: border-box;
+  }
+  
+  .footer .footer-l {
+    background-color: #ffffff;
+    height: 60rpx;
+    line-height: 60rpx;
+    font-size: 28rpx;
+    border-radius: 5rpx;
+    width: 383rpx;
+  }
+  
+  .footer .footer-l input {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0 20rpx;
+  }
+  
+  .footer .footer-c {
+    text-align: center;
+    line-height: 38rpx;
+    margin-left: 70rpx;
+  }
+  
+  .footer .footer-c .text{
+    font-size: 30rpx;
+    color: #999999;
+  }
+  
+  
+  .footer .footer-r {
+    text-align: center;
+    margin-left: 40rpx;
+    line-height: 38rpx;
+  }
+  
+  .footer .footer-r .text {
+    font-size: 28rpx;
+    color: #999999;
+  }
+  
+  .footer .footer-r .icon,.footer .footer-c .icon{
+    font-size: 40rpx;
+     color: #999999;
+  }
+  .footer .footer-c .active {
+    font-size: 45rpx;
+    color: #ffaa00;
+  }
+  
+  /**/
+  .header-item {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    color: #666;
+  font-size: 28rpx;
+  }
+  
+  .header-d {
+    color: #ffaa00;
+    font-size: 28rpx;
+    min-width: 100rpx;
+  }
+  .user-comment2 .repy {
+    display: flex;
+    line-height: 50rpx;
+    text-align: left;
+  }
+  
+  .user-comment2 .repy input {
+    padding-left: 10rpx;
+  }
+  .icon>button{
+    padding:0;
+    border-color:#fff;
+    line-height: normal;
+    background: #fff;
+    margin-top: 22rpx;
+  }
+  

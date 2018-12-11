@@ -4,6 +4,7 @@
   border-bottom: 1rpx solid #eee;
   padding:  20rpx 43rpx;
   text-align: center;
+  align-items: center;
 }
 
 .section-btn button {
@@ -82,7 +83,7 @@
     width: 100%;
     line-height: 50rpx;
 	background-color: #eeeeee;
-    font-size: 30rpx;
+    font-size: 28rpx;
     color: #999;
-    padding-left: 43rpx;
+    padding-left: 20rpx;
 }

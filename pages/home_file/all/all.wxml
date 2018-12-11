@@ -1,0 +1,63 @@
+<view class="containor">
+  <view class="zixiupu">
+    <view class="title">自修普</view>
+    <view class="content">
+      自修普自修普自修普自修普自修普自修普自修普自修普
+      自修普自修普自修普自修普自修普自修普自修普自修普
+      自修普自修普自修普自修普自修普自修普自修普自修普
+    </view>
+  </view>
+  <view class="persons">
+    <view class="title">祖上历史人物</view>
+    <view class="content">
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+      <view class="name">张三</view>
+    </view>
+  </view>
+  <view class="history">
+    <view class="title">祖上历史事迹</view>
+    <view class="content">
+      <view class="item">
+        历史英雄事迹历史英雄事迹历史英雄事迹历史英雄事迹
+        历史英雄事迹历史英雄事迹历史英雄事迹历史英雄事迹
+        历史英雄事迹历史英雄事迹历史英雄事迹历史英雄事迹
+        历史英雄事迹历史英雄事迹历史英雄事迹历史英雄事迹
+        历史英雄事迹历史英雄事迹历史英雄事迹历史英雄事迹
+        历史英雄事迹历史英雄事迹历史英雄事迹历史英雄事迹
+        历史英雄事迹历史英雄事迹历史英雄事迹
+      </view>
+      <view class="item">
+        历史英雄事迹历史英雄事迹历史英雄事迹历史英雄事迹
+        历史英雄事迹历史英雄事迹历史英雄事迹历史英雄事迹
+        历史英雄事迹历史英雄事迹历史英雄事迹历史英雄事迹
+        历史英雄事迹历史英雄事迹历史英雄事迹历史英雄事迹
+        历史英雄事迹历史英雄事迹历史英雄事迹历史英雄事迹
+        历史英雄事迹历史英雄事迹历史英雄事迹历史英雄事迹
+        历史英雄事迹历史英雄事迹历史英雄事迹
+      </view>
+    </view>
+  </view>
+</view>

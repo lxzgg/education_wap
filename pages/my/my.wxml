@@ -1,19 +1,19 @@
 <view class="banner">
   <view class="header-img">
     <image wx:if="{{imageUrl}}" src="{{imageUrl}}" bindtap="switchHeadImg"></image>
-    <image wx:else src="/image/xiaohaoge.png" bindtap="switchHeadImg"></image>
+    <image wx:else src="/image/header2.png" bindtap="switchHeadImg"></image>
   </view>
-  <view class="user-name" bindtap='goToPersonInfo'>{{nickname || '无'}}
+  <view class="user-name" bindtap='goToPersonInfo'>{{username || nickname || '无'}}
     <text class="icon icon-you"></text>
   </view>
   <view class="user-position">{{roleName || '无'}}</view>
-  <button class="login_auth" open-type="getUserInfo" bindgetuserinfo="getUserInfo" wx:if="{{loginAuth == '0'}}">授权登录</button>
+  <!-- <button class="login_auth" open-type="getUserInfo" bindgetuserinfo="getUserInfo" wx:if="{{loginAuth == '0'}}">授权登录</button> -->
 </view>
 <view class="list">
   <navigator class="item" open-type="navigate" url="/pages/myself/publish_control/publish_control">
     <view class="name">
       <view class="btn-icon"></view>
-      <view class="name-text">发布管理</view>
+      <view class="name-text">发布记录</view>
     </view>
     <view class="icon icon-you"></view>
   </navigator>
@@ -70,4 +70,4 @@
   <button bindtap="savePhotos">保存图片到相册</button>
   <text>可以将小程序推荐给其他班主任和学生</text>
 </view>
-
+<auth-modal bind:myevent="getResultFromComp" ></auth-modal>

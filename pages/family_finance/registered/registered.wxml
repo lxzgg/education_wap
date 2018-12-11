@@ -1,0 +1,39 @@
+<view class="containor">
+  <view class="section">
+    <textarea placeholder="请输入存放地方..." placeholder-class="placeholder">
+
+        </textarea>
+  </view>
+  <view class="section photos">
+    <view class="image">
+      <image src="/image/user.png"></image>
+      <icon type="clear" size="15"></icon>
+    </view>
+    <view class="image">
+      <image src="/image/user.png"></image>
+      <icon type="clear" size="15"></icon>
+    </view>
+    <view class="image">
+      <image src="/image/user.png"></image>
+      <icon type="clear" size="15"></icon>
+    </view>
+     <view class="image">
+      <image src="/image/user.png"></image>
+      <icon type="clear" size="15"></icon>
+    </view>
+    <view class="image">
+      <image src="/image/user.png"></image>
+      <icon type="clear" size="15"></icon>
+    </view>
+    <view class="image">
+      <image src="/image/user.png"></image>
+      <icon type="clear" size="15"></icon>
+    </view>
+    <view class="upload_icon">
+            <text class="icon icon-pinglun"></text>
+            <!-- <text class="familyIcon icon-camera2"></text> -->
+            <text class="text">上传图片</text>
+          </view>
+  </view>
+  <button class="submit_btn">完成</button>
+</view>

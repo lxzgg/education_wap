@@ -1,0 +1,9 @@
+<view class="full" wx:if="{{status}}"></view>
+<view class="modal" wx:if="{{status}}">
+  <image src="/image/xiaohaoge.png"></image>
+  <view style="width: 100%; text-align: center;">
+      <view>我们需要获取您的授权,以继续操作</view>
+      <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
+          <text class="icon1 icon-weixin1"></text>微信授权登录</button>
+  </view>
+</view>

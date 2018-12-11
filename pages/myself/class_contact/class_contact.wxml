@@ -10,7 +10,7 @@
 <view class="box" wx:for="{{teacherList}}" wx:key="{{index}}">
     <view class="box-l">
         <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}"></image>
-        <image wx:else src="/image/xiaohaoge.png"></image>
+        <image wx:else src="/image/header2.png"></image>
         <view class="name">{{item.username  || item.nickname || '暂未授权'}}</view>
         <view class="position">{{item.subject}}</view>
     </view>
@@ -32,7 +32,7 @@
         <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}"></image>
         <image wx:else src="/image/xiaohaoge.png"></image>
         <view class="name">{{item.username  || item.nickname || '暂未授权'}}</view>
-        <view class="position">{{item.subject}}</view>
+        <view class="position">{{item.jiazhang}}</view>
     </view>
     <view class="box-r"  wx:if="{{item.user_id != current_user_id}}">
         <view class="icon icon-phone" wx:if="{{parent_phone}}" data-num="{{item.mobile}}" bindtap="callPhone">  </view>

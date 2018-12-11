@@ -1,0 +1,22 @@
+<view class="containor">
+  <view class="row">
+    <image class="row_image" src="/image/home_all.png"></image>
+    <view class="row_text">
+      <view>族谱</view>
+      <view class="row_tips">三代</view>
+    </view>
+  </view>
+  <navigator class="family_bg" open-type="navigate" url="/pages/home_file/all/all">
+      <image src="/image/home_all_1.png"></image>
+  </navigator>
+  <view class="row">
+    <image class="row_image" src="/image/home_family.png"></image>
+    <view class="row_text">
+      <view>家谱</view>
+      <view class="row_tips">3人</view>
+    </view>
+  </view>
+  <navigator class="home" open-type="navigate" url="/pages/home_file/family/family">
+    <image src="/image/home_family_1.png"></image>
+  </navigator>
+</view>

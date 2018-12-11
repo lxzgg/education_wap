@@ -1,0 +1,19 @@
+.section{
+    padding: 30rpx;
+    font-size: 28rpx;
+    .section__title{
+        color: #333333;
+        padding-bottom: 10rpx;
+    }
+    .content{
+        line-height: 36rpx;
+        display: flex;
+        flex-wrap: wrap;
+        .name{
+          margin: 6rpx 10rpx;
+        }
+        .name{
+        	color: #7897f4;
+        }
+    }
+}

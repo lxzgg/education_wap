@@ -1,0 +1,31 @@
+<view class="containor">
+  <view class="section">
+    <view class="left">
+      <view>公共支出（必要）</view>
+      <view>2018-10-01 </view>
+    </view>
+    <view class="right"> ￥150.00</view>
+  </view>
+  <view class="section">
+    <view class="left">
+      <view>家庭成员支出（非必要）</view>
+      <view>2018-10-01 </view>
+    </view>
+    <view class="right"> ￥150.00</view>
+  </view>
+  <view class="section">
+    <view class="left">
+      <view>公共支出（必要）</view>
+      <view>2018-10-01 </view>
+    </view>
+    <view class="right"> ￥150.00</view>
+  </view>
+  <view class="section">
+    <view class="left">
+      <view>公共支出（必要）</view>
+      <view>2018-10-01 </view>
+    </view>
+    <view class="right"> ￥150.00</view>
+  </view>
+
+</view>

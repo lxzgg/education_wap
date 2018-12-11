@@ -1,0 +1,37 @@
+<view class="containor">
+  <view class="title">叶叶身高变化值</view>
+  <view class="table">
+    <view class="row">
+      <view class="date">日期</view>
+      <view class="height"><view>身高（m）</view><view></view></view>
+    </view>
+    <view class="row">
+      <view class="date">2018.10.01</view>
+      <view class="height"><view>1.41</view><view></view></view>
+    </view>
+    <view class="row">
+      <view class="date">2018.10.01</view>
+      <view class="height"><view>1.41</view><view></view></view>
+    </view>
+    <view class="row">
+      <view class="date">2018.10.01</view>
+      <view class="height"><view>1.41</view><view></view></view>
+    </view>
+    <view class="row">
+      <view class="date">2018.10.01</view>
+      <view class="height"><view>1.41</view><view></view></view>
+    </view>
+    <view class="row">
+      <view class="date">2018.10.01</view>
+      <view class="height"><view>1.41</view><view></view></view>
+    </view>
+    <view class="row">
+      <view class="date">2018.10.01</view>
+      <view class="height"><view>1.41</view><view></view></view>
+    </view>
+    <view class="row">
+      <view class="date">2018.10.01</view>
+      <view class="height"><view>1.41</view><view> </view></view>
+    </view>
+  </view>
+</view>

@@ -5,6 +5,7 @@ const util = require('../../utils/util')
 Page({
   data: {
     windowWidth: '',
+    showModal:false, //显示授权modal
     navData: [],
     currentTab: 'all',
     content_list: [],
@@ -165,11 +166,11 @@ Page({
       this.getFirendContent()
     }
   },
-  onShareAppMessage() {
+  onShareAppMessage(e) {
     return {
-      title: '分享家长圈内容',
+      title:'分享家长圈内容',
       imageUrl: '/image/xiaohaoge.png',
-      path: 'pages/public_index/public_index' // 路径，传递参数到指定页面。
+      path: '/pages/index/index?articleid=11&type=firend' // 路径，传递参数到指定页面
     }
   },
   getFirendBanner() {
@@ -211,4 +212,13 @@ Page({
       wx.stopPullDownRefresh();
     }, 2000)
   },
+    //接收从model传回来的值
+    getResultFromComp(e){
+      let result = e.detail.ret
+     if(result === 'ok'){
+       this.setData({
+         showModal: false
+       })
+     }
+    }
 })

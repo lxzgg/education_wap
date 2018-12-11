@@ -6,7 +6,8 @@ Page({
     homeworkAuth: false, //发布
     is_parent: true, //是否为家长
     info: '', //编辑内容
-    hwt_id:'', //作业类型
+    // hwt_id:'', //作业类型
+    showModal:false, //显示授权modal
     cate_id: 1,
     list: [],
     handleStatus: true,
@@ -46,123 +47,10 @@ Page({
       article_accessory: []
     },
     showPlusIcon: true,
-    showDeleteBtn: false
+    // showDeleteBtn: false
   },
   onLoad: function (options) {
-
     this.cateList()
-  },
-  onShow() {
-    this.setData({
-      handleStatus: true
-    })
-    let publish_data = app.publish_data
-    if (publish_data && publish_data.articleid) {
-      wx.setNavigationBarTitle({
-        title: '编辑发布'
-      })
-      util.wxpromisify({
-        url: 'article/article_detail',
-        data: {
-          article_id: publish_data.articleid,
-          user_id: app.user.user_id,
-          token: app.user.token
-        },
-        method: 'post'
-      }).then((res) => {
-        if (res && res.response === 'data') {
-          const responseData = res.data
-          let handle = this.data.handle
-          let params = this.data.params
-          //置顶
-          handle[0].on = responseData.is_top == '1' ? true : false
-          params.is_top = responseData.is_top
-          //评论
-          handle[1].on = responseData.can_comment == '1' ? true : false
-          params.can_comment = responseData.can_comment
-          //公开
-          handle[2].on = responseData.is_open == '1' ? true : false
-          params.is_open = responseData.is_open
-
-          //类型
-          let cate_id = parseInt(responseData.article_type)
-          params.article_type = cate_id
-          let info = responseData.article_content
-          app.publish_data.article_accessory = responseData.article_accessory
-
-          //页面展示图片
-          let evalList = this.data.evalList,
-            img = []
-          if (responseData.article_accessory && responseData.article_accessory.length > 0) {
-            img = responseData.article_accessory.map((val, key) => {
-              let type = Object.keys(val)[0]
-              return {
-                type: type,
-                path: val[type]
-              }
-            })
-          }
-          Object.assign(evalList[0].tempFilePaths, img)
-          let len = evalList[0].tempFilePaths.length
-          let showPlusIcon = len > 2 ? false : true
-          this.setData({
-            params,
-            info,
-            handle,
-            evalList,
-            cate_id,
-            showDeleteBtn: true,
-            showPlusIcon
-          })
-        }
-      })
-    }
-  },
-  onHide() { //进入后台 跳转到其他页面
-    if (this.data.showDeleteBtn && this.data.handleStatus) {
-      wx.setNavigationBarTitle({
-        title: '发布'
-      })
-      app.publish_data = {}
-      this.setData({
-        showDeleteBtn: false,
-        info: '',
-        evalList: [{
-          tempFilePaths: [],
-          imgList: []
-        }]
-      })
-    }
-  },
-  delArticle() {
-    util.wxpromisify({
-      url: 'article/del_article',
-      data: {
-        id: app.publish_data.articleid,
-        user_id: app.user.user_id,
-        token: app.user.token
-      },
-      method: 'post'
-    }).then((res) => {
-      if (res && res.response === 'data') {
-        wx.showToast({
-          title: '删除成功',
-          icon: "success",
-          duration: 3000
-        })
-        setTimeout(() => {
-          wx.reLaunch({
-            url: '/pages/index/index'
-          })
-        }, 2000)
-      } else {
-        wx.showToast({
-          title: '删除失败',
-          icon: "none",
-          duration: 2000
-        })
-      }
-    })
   },
   switchChange(e) {
     let num = e.currentTarget.dataset.num
@@ -317,28 +205,33 @@ Page({
     let index = e.currentTarget.dataset.index
     let evalList = this.data.evalList
     let img = evalList[0].tempFilePaths
+    let imgList = evalList[0].imgList
     //编辑
-    if (app.publish_data) {
-      let keys_arr = Object.keys(app.publish_data)
-      if (keys_arr.length > 0) {
-        if (app.publish_data.article_accessory.length > 0) {
-          let del_path = img[index].path
-          let keys = ''
-          app.publish_data.article_accessory.forEach((val, key) => {
-            if (val.path === del_path) {
-              keys = key
-            }
-          })
-          app.publish_data.article_accessory.splice(keys, 1)
-        }
-      }
+    // if (app.publish_data) {
+    //   let keys_arr = Object.keys(app.publish_data)
+    //   if (keys_arr.length > 0) {
+    //     if (app.publish_data.article_accessory.length > 0) {
+    //       let del_path = img[index].path
+    //       let keys = ''
+    //       app.publish_data.article_accessory.forEach((val, key) => {
+    //         if (val.path === del_path) {
+    //           keys = key
+    //         }
+    //       })
+    //       app.publish_data.article_accessory.splice(keys, 1)
+    //     }
+    //   }
 
-    }
+    // }
+
     let showPlusIcon = this.data.showPlusIcon
     img.splice(index, 1)
+    imgList.splice(index,1)
     if (img.length < 3) {
       showPlusIcon = true
     }
+    evalList[0].tempFilePaths = img
+    evalList[0].imgList = imgList
     this.setData({
       evalList,
       showPlusIcon
@@ -430,16 +323,16 @@ Page({
       imgArray.push(obj)
     })
     //编辑
-    if (app.publish_data) {
-      let keys_arr = Object.keys(app.publish_data)
-      if (keys_arr.length > 0) {
-        if (app.publish_data.article_accessory.length > 0) {
-          app.publish_data.article_accessory.forEach((val, key) => {
-            imgArray.push(val)
-          })
-        }
-      }
-    }
+    // if (app.publish_data) {
+    //   let keys_arr = Object.keys(app.publish_data)
+    //   if (keys_arr.length > 0) {
+    //     if (app.publish_data.article_accessory.length > 0) {
+    //       app.publish_data.article_accessory.forEach((val, key) => {
+    //         imgArray.push(val)
+    //       })
+    //     }
+    //   }
+    // }
     params.article_accessory = imgArray
     params.article_type = this.data.cate_id
     Object.assign(data_params, params)
@@ -591,5 +484,14 @@ Page({
       },
       fail: (res) => {}
     })
-  }
+  },
+    //接收从model传回来的值
+    getResultFromComp(e){
+      let result = e.detail.ret
+     if(result === 'ok'){
+       this.setData({
+         showModal: false
+       })
+     }
+    }
 })

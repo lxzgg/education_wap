@@ -1,0 +1,50 @@
+.containor .row {
+  display: flex;
+  padding: 22rpx
+}
+
+.containor .row image {
+  width: 37rpx;
+  height: 40rpx;
+  margin-right: 20rpx
+}
+
+.containor .row .row_text {
+  font-size: 28rpx;
+  color: #333333;
+  position: relative
+}
+
+.containor .row .row_text .row_tips {
+  background-color: #7897f4;
+  border-radius: 13rpx 13rpx 13rpx 0px;
+  color: #fff;
+  font-size: 20rpx;
+  padding: 0rpx 10rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -10rpx;
+  right: -65rpx;
+  letter-spacing: 2rpx
+}
+
+.containor .family_bg image {
+  width: 100%;
+  max-height: 360rpx
+}
+
+.containor .home {
+  width: 100%;
+  height: 360rpx;
+  background-color: #c2b23e;
+  display: flex;
+  justify-content: center
+}
+
+.containor .home image {
+  width: 406rpx;
+  height: 351rpx
+}
